@@ -9,47 +9,56 @@ body {
   padding: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+
+.masthead {
+  position: relative;
+  background-color: #343a40;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("../images/masthead.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+
 }
+
+
+div.masthead h1 {
+  font-size: 48px;
+  color: #FFFFFF;
+}
+
+div.masthead h3 {
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  div.masthead {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+  div.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
 
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
+  position: relative;
 }
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
+
 
 /* Custom page footer */
 .footer {
   padding-top: 19px;
-  color: #777;
   border-top: 1px solid #e5e5e5;
+  background: #131D24;
+  height: 150px;
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
-}
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
-}
 
 /* Supporting marketing content */
 .marketing {
@@ -64,20 +73,48 @@ body {
   .container {
     max-width: 730px;
   }
-
+  .right-footer-col{
+    text-align: right;
+  }
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
   .footer {
     padding-left: 0;
     padding-right: 0;
   }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
+
+}
+
+@media screen and (min-width: 1454px) {
+  .container {
+    max-width: 1440px;
   }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+}
+
+.footer-left{
+  opacity: 0.4;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+}
+
+
+.footer-right{
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.no-border {
+  border: 0;
+  box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
 }

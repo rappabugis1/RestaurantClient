@@ -1,23 +1,28 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
+<div class="masthead text-white text-center">
+  <div class="container">
+        <h1 >Make a free reservation</h1>
+        <h3 >Choose your table from n restaurants near you</h3>
+        <form >
+          <div class="row no-gutters">
+            <div class="col-sm-12 col-md-6">
+              <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
+            </div>
+            <div class="col-sm-3 col-md-1" >
+              <select ng-model="people" class="form-control" ng-options="x for(x,y) in tables" ></select>
+            </div>
+            <div class="col-sm-3 col-md-1">
+              <input type="date" class="form-control" >
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+            </div>
+            <div class="col-sm-3 col-md-1">
+              <input type="time" class="form-control" >
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <button type="submit" class="btn btn-block btn-md btn-primary  " style="background-color: coral">Find a table</button>
+            </div>
+          </div>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+        </form>
+  </div>
 </div>
