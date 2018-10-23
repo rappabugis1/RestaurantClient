@@ -69,6 +69,7 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+
       proxies: [
         {
           context: '/app', // the context of the data service
@@ -442,6 +443,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-connect-proxy');
+
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
