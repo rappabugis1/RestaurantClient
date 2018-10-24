@@ -31,7 +31,7 @@ div.masthead h3 {
   color: #FFFFFF;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 0px) {
   div.masthead {
     padding-top: 12rem;
     padding-bottom: 12rem;
@@ -69,9 +69,9 @@ div.masthead h3 {
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 990px) {
   .container {
-    max-width: 730px;
+    max-width: 930px;
   }
   .right-footer-col{
     text-align: right;
@@ -117,4 +117,10 @@ div.masthead h3 {
 .no-border {
   border: 0;
   box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+.restaurant-popular{
+  max-width: 270px;
+  padding-bottom: 50px;
+
 }

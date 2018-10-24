@@ -4,25 +4,63 @@
         <h3 >Choose your table from n restaurants near you</h3>
         <form >
           <div class="row no-gutters">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-4">
               <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
             </div>
-            <div class="col-sm-3 col-md-1" >
-              <select ng-model="people" class="form-control" ng-options="x for(x,y) in tables" ></select>
-            </div>
-            <div class="col-sm-3 col-md-1">
-              <input type="date" class="form-control" >
+            <div class=" col-sm-3 col-md-2" >
+                <select class="custom-select form-control" required>
+                  <option value="">Two</option>
+                  <option value="1">One</option>
+                  <option value="2">Four</option>
+                  <option value="3">Three</option>
+                </select>
 
             </div>
-            <div class="col-sm-3 col-md-1">
+            <div class=" col-sm-3 col-md-2">
+              <input type="date" class="form-control " >
+
+            </div>
+            <div class=" col-sm-3 col-md-2">
               <input type="time" class="form-control" >
 
             </div>
-            <div class="col-sm-3 col-md-3">
-              <button type="submit" class="btn btn-block btn-md btn-primary  " style="background-color: coral">Find a table</button>
+            <div class="col-sm-3 col-md-2">
+              <button type="submit" class="btn btn-block btn-primary" style="background-color: coral">Find a table</button>
             </div>
           </div>
 
         </form>
+  </div>
+</div>
+
+<div class="container text-center" style="padding-bottom: 20px; padding-top: 20px;" >
+  <h3 style="padding-bottom: 30px">Popular for Lunch Today</h3>
+  <div ng-repeat="x in restaurants">
+    <div class="row " ng-if="$index%3==0">
+      <div class=" col-sm-4 " ng-repeat="y in [restaurants[$index],restaurants[$index + 1], restaurants[$index+2]]" ng-if="y">
+
+        <div class="container restaurant-popular text-left">
+          <img src="images/sampleprofile.jpg" style="height: 230px; width: 270px;">
+
+          <h3 style="margin-top: 15px; margin-bottom: 8px">{{y.restaurantName}}</h3>
+
+          <ul class="list list-inline ">
+            <li>
+              <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-y.mark)"></span>
+            </li>
+            <li>
+              <div>({{y.votes}})</div>
+            </li>
+            <li>
+              <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
+            </li>
+          </ul>
+          <hr style="padding-bottom: 3px;margin: 0px; min-width: 270px; color: gray;">
+          <p1 style="color: gray">{{y.foodType}}</p1>
+          <button type="button" class="btn btn-block btn-default" style="min-width: 270px; margin-top: 20px">Reserve Now</button>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>
