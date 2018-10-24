@@ -2,7 +2,6 @@ body {
   padding: 0;
 }
 
-
 .masthead {
   position: relative;
   background-color: #343a40;
@@ -21,8 +20,6 @@ body {
   padding-top: 8rem;
   padding-bottom: 8rem;
 }
-
-
 
 div.masthead h1 {
   font-size: 48px;
@@ -45,7 +42,6 @@ div.masthead h3 {
   }
 }
 
-
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -63,14 +59,6 @@ div.masthead h3 {
 }
 
 
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
 
 @media screen and (min-width: 650px){
   .popular-rests{
@@ -130,7 +118,7 @@ div.masthead h3 {
 
 .no-border {
   border: 0;
-  box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+  box-shadow: none;
 }
 
 .restaurant-popular{
@@ -138,3 +126,16 @@ div.masthead h3 {
   padding-bottom: 50px;
 
 }
+
+
+/*forms css*/
+
+.formg {
+  padding-top: 10px;
+  margin-bottom: 0px;
+}
+
+.input-h {
+  min-height: 55px;
+}
+

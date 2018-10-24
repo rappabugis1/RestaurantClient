@@ -24,6 +24,19 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+
+      .when('/login',{
+        templateUrl:   'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      })
+
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl',
+        controllerAs: 'register'
+      })
+
       .otherwise({
         redirectTo: '/'
       });
