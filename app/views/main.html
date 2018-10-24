@@ -1,4 +1,4 @@
-<div class="masthead text-white text-center">
+<div class="masthead text-center">
   <div class="container">
         <h1 >Make a free reservation</h1>
         <h3 >Choose your table from n restaurants near you</h3>
@@ -33,16 +33,17 @@
   </div>
 </div>
 
-<div class="container text-center" style="padding-bottom: 20px; padding-top: 20px;" >
+<div class="container text-center popular-rests" style="padding-bottom: 20px; padding-top: 20px;" >
   <h3 style="padding-bottom: 30px">Popular for Lunch Today</h3>
-  <div ng-repeat="x in restaurants">
-    <div class="row " ng-if="$index%3==0">
-      <div class=" col-sm-4 " ng-repeat="y in [restaurants[$index],restaurants[$index + 1], restaurants[$index+2]]" ng-if="y">
-
+    <div class="row " >
+      <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
         <div class="container restaurant-popular text-left">
           <img src="images/sampleprofile.jpg" style="height: 230px; width: 270px;">
 
-          <h3 style="margin-top: 15px; margin-bottom: 8px">{{y.restaurantName}}</h3>
+          <h3 style="margin-top: 15px;
+                     margin-bottom: 8px">
+            {{y.restaurantName}}
+          </h3>
 
           <ul class="list list-inline ">
             <li>
@@ -55,12 +56,68 @@
               <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
             </li>
           </ul>
-          <hr style="padding-bottom: 3px;margin: 0px; min-width: 270px; color: gray;">
-          <p1 style="color: gray">{{y.foodType}}</p1>
+          <hr style="padding-bottom: 3px;
+                     margin: 0px;
+                     min-width: 270px;
+                     color: gray;">
+
+          <p1 style="color: gray">
+            {{y.foodType}}
+          </p1>
           <button type="button" class="btn btn-block btn-default" style="min-width: 270px; margin-top: 20px">Reserve Now</button>
 
         </div>
       </div>
     </div>
+</div>
+
+<div class="mastdish text-center">
+  <div class="container">
+    <h3 style="padding-bottom: 30px; color: white">Specials</h3>
+    <div class="carousel">
+
+      <div class="carousel-inner ">
+
+        <div class="item " ng-class="{active:!$index}" ng-repeat="dish in dishes">
+          <div class="row text-center" style="color: white">
+            <img src="images/sampleprofile.jpg" style="height: 180px; width: 300px;">
+            <h5> {{dish.heading}}</h5>
+            <ul class="list list-inline " >
+              <li>
+                <p5>{{dish.location}}</p5>
+              </li>
+              <li>
+                <p5>|</p5>
+              </li>
+              <li>
+                <p5>{{dish.numRestaurants}} restaurants</p5>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="left carousel-control" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </span>
+
+      <span class="right carousel-control" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </span>
+
+    </div>
   </div>
 </div>
+
+<div class="container text-left popular-rests" style="padding-bottom: 20px; padding-top: 20px;" >
+  <h3 style="padding-bottom: 30px; text-align: center">Popular locations</h3>
+  <div class="row " style="padding-bottom: 30px" >
+    <div class="col-md-3 " ng-repeat="location in poplocs">
+      <h4 style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 25px">{{location.name}}</h4>
+      <p4 style="color: darkgray">{{location.num_restaurants}} restaurants</p4>
+    </div>
+  </div>
+</div>
+
