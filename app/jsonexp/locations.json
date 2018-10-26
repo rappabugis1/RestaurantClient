@@ -1,0 +1,12 @@
+[
+  {
+    "country_name": "Bosnia and Herzegovina",
+    "city_names": ["Sarajevo", "Maglaj", "Zenica", "Zepce", "Banja Luka", "Kljuc", "Travnik", "Mostar"]
+  },
+
+  {
+    "country_name": "United Kingdom",
+    "city_names": ["London", "Brandenburry"]
+  }
+
+]

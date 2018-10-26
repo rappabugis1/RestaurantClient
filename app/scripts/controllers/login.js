@@ -13,8 +13,8 @@ angular.module('clientApp')
 
       if(isValid){
         var payload = {
-          email : $scope.email,
-          password : $scope.password
+          //email : $scope.email,
+          //password : $scope.password
         };
 
         $http.post('app/login', payload)
