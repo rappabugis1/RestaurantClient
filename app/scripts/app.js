@@ -16,6 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngStorage'
   ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -43,6 +44,25 @@ angular
 
     $locationProvider.hashPrefix('');
 
-  });
+  }) .run(function ($rootScope, $http, $location, $localStorage) {
+    // keep user logged in after page refresh
+    if ($localStorage.currentUser) {
+      $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+    }
+
+    // redirect to login page if not logged in and trying to access a restricted page
+    $rootScope.$on('$locationChangeStart', function () {
+      var publicPages = ['/login', '/', '', '/register', '/myCarousel'];
+      var restrictedPage = publicPages.indexOf($location.path()) === -1;
+      if (restrictedPage && !$localStorage.currentUser  ) {
+        $location.path('/login');
+      }
+    });
+  }
+
+)
+
+  ;
+
 
 

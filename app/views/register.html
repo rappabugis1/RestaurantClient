@@ -65,7 +65,7 @@
     <div class="col-sm-6  formg" >
       <select class="custom-select form-control input-h"
               ng-model="country"
-              ng-options="c.country_name for c in locations"
+              ng-options="c.country for c in locations"
               required="true">
         <option value="" disabled selected>Country</option>
       </select>
@@ -109,6 +109,7 @@
   </div>
 
 
+  <div ng-if="error" class="alert alert-danger">{{error}}</div>
 
   <button type="submit"
           class="btn btn-primary btn-block no-border btn-lg input-h"

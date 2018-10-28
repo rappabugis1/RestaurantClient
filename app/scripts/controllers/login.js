@@ -8,24 +8,36 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LoginCtrl', function ($scope, $http, $log) {
+  .controller('LoginCtrl', function ($log,$scope,$location, AuthenticationService) {
+
+
+
+    function initController(){
+      AuthenticationService.Logout();
+    }
+
+    initController();
     $scope.loginSubmit = function(isValid) {
 
       if(isValid){
         var payload = {
-          //email : $scope.email,
-          //password : $scope.password
+          email : $scope.email,
+          password : $scope.password
         };
 
-        $http.post('app/login', payload)
-          .then(function onSuccess(response) {
-            $log.debug(response.data);
-          })
-          .catch(function onError(response){
 
-          });
+        AuthenticationService.Login(payload.email, payload.password, function (result){
+          if(result===true) {
+            $location.path('/');
+          }
+          else {
+
+            $scope.error = 'Error registering';
+          }
+        }
+
+        );
+
       }
-
-
     };
   });

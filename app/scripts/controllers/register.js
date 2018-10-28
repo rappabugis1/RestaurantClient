@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RegisterCtrl', function ($scope, $http, $log) {
+  .controller('RegisterCtrl', function ($scope, $http,$location, AuthenticationService) {
 
 
     $http.get("jsonexp/locations.json").then(
@@ -23,7 +23,6 @@ angular.module('clientApp')
 
       if(isValid){
         var payload = {
-
           email : $scope.email,
           firstName : $scope.firstName,
           lastName: $scope.lastName,
@@ -35,13 +34,17 @@ angular.module('clientApp')
 
         $scope.confirmPassword=null;
 
-        $http.post('/app/register', payload)
-          .then(function onSuccess(response) {
-            $log.debug(response.data);
-          })
-          .catch(function onError(response){
+        AuthenticationService.Register(payload, function (result){
+            if(result===true) {
+              $location.path('/');
+            }
+            else {
 
-          });
+              $scope.error = 'Username or password is incorrect';
+            }
+          }
+
+        );
       }
     };
 

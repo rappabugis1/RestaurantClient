@@ -27,7 +27,7 @@
 
 
 
-    <div ng-view="">
+    <div ng-view>
 
     </div>
 
@@ -62,6 +62,8 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <!-- endbower -->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -70,6 +72,7 @@
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/services/authentication.js"></script>
     <!-- endbuild -->
   </body>
 </html>

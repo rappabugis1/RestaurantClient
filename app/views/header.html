@@ -16,7 +16,8 @@
       <ul class="nav navbar-nav " >
         <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
         <li ng-class="{ active: isActive('/restaurants')}"><a href="#/">Restaurants</a></li>
-        <li ng-class="{ active: isActive('/login')}"><a href="#/login">Login</a></li>
+        <li ng-if="isLoged" ng-class="{ active: isActive('/login')}"><a href="#/login">Login</a></li>
+        <li ng-if="!isLoged" ng-click="Logout"><a href="#/">Logout</a></li>
       </ul>
     </div>
   </div>

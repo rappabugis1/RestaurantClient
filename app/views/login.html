@@ -37,10 +37,14 @@
 
     </div>
 
+    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+
     <button type="submit"
             class="btn btn-primary btn-block no-border btn-lg input-h"
             ng-disabled="loginForm.$invalid"
             style="background-color: #FD6F60;" >Login</button>
+
+
 
   </form>
 </div>
