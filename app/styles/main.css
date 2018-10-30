@@ -2,6 +2,9 @@ body {
   padding: 0;
 }
 
+ .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
 .masthead {
   position: relative;
   background-color: #343a40;
@@ -9,20 +12,11 @@ body {
   background-size: cover;
   padding-top: 8rem;
   padding-bottom: 8rem;
-
 }
 
-.mastdish{
-  position: relative;
-  background-color: #343a40;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../images/mastpop.jpg") no-repeat center center;
-  background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-}
 
 div.masthead h1 {
-  font-size: 48px;
+  font-size: 3rem;
   color: #FFFFFF;
 }
 
@@ -31,16 +25,7 @@ div.masthead h3 {
   color: #FFFFFF;
 }
 
-@media (min-width: 0px) {
-  div.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
-  }
 
-  div.masthead h1 {
-    font-size: 3rem;
-  }
-}
 
 /* Custom page header */
 .header {
@@ -124,8 +109,20 @@ div.masthead h3 {
 .restaurant-popular{
   max-width: 270px;
   padding-bottom: 50px;
+  padding-left: 0px;
+  padding-right: 0px;
 
 }
+
+.mastdish{
+  position: relative;
+  background-color: #343a40;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../images/mastpop.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
 
 
 /*forms css*/
@@ -138,4 +135,33 @@ div.masthead h3 {
 .input-h {
   min-height: 55px;
 }
+
+
+/*carousel*/
+
+.carousel-control {
+  color: black;
+}
+
+.carousel-indicators li {
+  display: none;
+}
+.right.carousel-control, .left.carousel-control {
+  background-image: none;
+}
+
+
+/*cards*/
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding-bottom: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
 

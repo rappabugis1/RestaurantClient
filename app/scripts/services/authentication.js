@@ -13,15 +13,15 @@ angular.module('clientApp')
     var service= {};
 
     function Login(username, password, callback) {
-      $http.post('/login', { username: username, password: password })
+      $http.post('/login', { email: username, password: password })
         .then(function onSucces(response) {
           // login successful if there's a token in the response
-          if (response.token) {
+          if (response.headers('Authorization')) {
             // store username and token in local storage to keep user logged in between page refreshes
-            $localStorage.currentUser = { username: username, token: response.token };
+            $localStorage.currentUser = { email: username, token: response.headers('Authorization') };
 
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+            $http.defaults.headers.common.Authorization = 'Authorization ' + response.headers('Authorization');
 
             // execute callback with true to indicate successful login
             callback(true);
@@ -42,13 +42,13 @@ angular.module('clientApp')
       $http.post('app/register', payload)
         .then(function onSucces(response) {
           // login successful if there's a token in the response
-          if (response.token) {
+          if (response.headers('Authorization')) {
 
             // store username and token in local storage to keep user logged in between page refreshes
-            $localStorage.currentUser = { username: payload.username, token: response.token };
+            $localStorage.currentUser = { email: payload.username, token: response.headers('Authorization') };
 
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+            $http.defaults.headers.common.Authorization = 'Authorization ' + response.headers('Authorization');
 
             // execute callback with true to indicate successful login
             callback(true);
