@@ -1,0 +1,98 @@
+<head>
+  <link rel="stylesheet" href="../styles/restaurant.css">
+</head>
+
+<body style="color: black">
+
+  <div class="masthead" style="height: 340px">
+  </div>
+
+  <div class="container" style=" transform: translateY(-120px)" >
+    <div class="row" >
+
+      <div class=" col-md-3" >
+        <div >
+          <div class="profile"></div>
+
+          <div class="list-group">
+            <a href="#" class="list-group-item">Reservation</a>
+            <a href="#" class="list-group-item">About</a>
+            <a href="#" class="list-group-item">Menu</a>
+            <a href="#" class="list-group-item">Photos</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class=" col-md-9">
+
+        <div class="container-info" >
+          <h3 style="color: white;  " >Restaurant Name</h3>
+          <ul class="list list-inline">
+            <li >
+              <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-y.mark)"></span>
+            </li>
+            <li >
+              <div>({{y.votes}})</div>
+            </li>
+            <li>
+              <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
+            </li>
+            <li class="pull-right ">
+              <button type="button" class="btn btn-block btn-default" style="width: 160px">Rate this place</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="container-card">
+          <ul class="list list-inline">
+            <li >
+              <h5 style="margin: 0px" >Make a free reservation</h5>
+            </li>
+            <li class="pull-right ">
+              <p5>Booked n times today</p5>
+            </li>
+          </ul>
+
+          <form>
+            <div class="row no-gutters">
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <select class="custom-select form-control" required>
+                  <option value="">Two</option>
+                  <option value="1">One</option>
+                  <option value="2">Four</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <input type="date" class="form-control " >
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <input type="time" class="form-control" >
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <button type="submit" class="btn btn-block btn-primary" style="background-color: coral">Find a table</button>
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+
+        <div class="container-card">
+          <h5 style="margin: 0px" >About Restauran Name</h5>
+          <div class="map"></div>
+          <h6 style="margin: 0px" >Description</h6>
+          <p6>
+            You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.
+          </p6>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</body>

@@ -124,18 +124,14 @@ div.masthead h3 {
 }
 
 
-
-/*forms css*/
-
-.formg {
-  padding-top: 10px;
-  margin-bottom: 0px;
+.form-control{
+  border-radius: 0px;
 }
 
-.input-h {
-  min-height: 55px;
+.form-control:focus {
+  border-color: coral;
+  box-shadow:  0 0 4px coral;
 }
-
 
 /*carousel*/
 

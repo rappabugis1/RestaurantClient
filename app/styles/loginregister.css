@@ -1,0 +1,14 @@
+
+.form-control:focus {
+  border-color: coral;
+  box-shadow:  0 0 4px coral;
+}
+
+.formg {
+  padding-top: 10px;
+  margin-bottom: 0px;
+}
+
+.input-h {
+  min-height: 55px;
+}
