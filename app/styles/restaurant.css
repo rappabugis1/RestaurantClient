@@ -4,7 +4,6 @@
   border: 5px;
   border-style: solid;
   border-radius: 5px;
-  background: url("../images/sampleprofile.jpg");
   border-color: white;
 }
 
@@ -52,9 +51,15 @@
 }
 
 .map {
-  background: url("../images/map.png");
-  width: 100%;
   height: 250px;
-  margin-bottom: 30px;
+  margin: 0 -30px 30px -30px;
   margin-top: 24px;
+  width: calc(100% + 60px);
+
+}
+
+
+.list-group-item{
+  border: none;
+  padding-bottom: 7px;
 }
