@@ -1,0 +1,100 @@
+.restaurant-popular{
+  max-width: 270px;
+  padding-bottom: 50px;
+  padding-left: 0px;
+  padding-right: 0px;
+
+}
+
+.container-restaurants{
+  padding-bottom: 100px;
+}
+
+.masthead{
+  height: 680px;
+
+}
+
+.masthead > .container {
+  height: 100%;
+}
+
+.masthead > .container > .row {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+div.masthead h1 {
+  font-size: 48px;
+  color: #FFFFFF;
+}
+
+div.masthead h3 {
+  font-size: 20px;
+  color: #FFFFFF;
+  margin-top: 10px;
+  padding-bottom: 30px;
+}
+
+.form-control{
+  border: none;
+  height: 56px;
+}
+
+.btn{
+  border: none;
+  border-radius: 0;
+  height: 56px;
+  background-color: coral;
+  color: white;
+}
+.btn:hover, .btn:focus {
+  color:white;
+  background-color: coral;
+  border-color: coral;
+  box-shadow:  0 0 4px coral;
+}
+.container h3{
+  margin-top: 73px;
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+
+.container + .masthead{
+  background-color: #343a40;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../images/mastpop.jpg") no-repeat center center;
+  background-size: cover;
+  height: 584px;
+}
+
+.container + .masthead >div >div>div>div>.card{
+  height: 260px;
+  box-shadow: none;
+}
+
+.container + .masthead >div >div>div>div>.card>div{
+  padding: 0px;
+  margin: 0px;
+
+}
+
+.container + .masthead >div >div>div>div>.card>img{
+  height: 180px;
+  max-width: 300px;
+
+}
+
+.container + .masthead >div >div>div>div>.card>div h3 {
+  font-size: 25px;
+  padding-bottom: 5px;
+}
+
+.container + .masthead h3 {
+  font-size: 30px;
+}
+
+.p5-reserv{
+  margin-top:15px;
+}

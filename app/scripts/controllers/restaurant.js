@@ -8,7 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantCtrl', function ($http, $scope) {
+  .controller('RestaurantCtrl', function ($http, $scope, share) {
+
 
     $scope.initialize = function(a,b) {
       $scope.mapOptions = {
@@ -16,21 +17,25 @@ angular.module('clientApp')
         center: new google.maps.LatLng(a, b)
       };
       $scope.map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions);
-    }
+    };
 
     $scope.loadScript = function(a,b) {
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAy1-kceVQSwDE2b8zTxJhkQSJ2UAXKFek&callback=initialize';
-      document.body.appendChild(script);
-      setTimeout(function() {
-        $scope.initialize(a,b);
-      }, 500);
-    }
 
-    $http.get('jsonexp/onerestaurant.json').then(function(response) {
-      $scope.restaurant = response.data;
-    });
+      if(window.google){
+        setTimeout(function() {
+          $scope.initialize(a,b);
+        }, 500);
+      } else{
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAy1-kceVQSwDE2b8zTxJhkQSJ2UAXKFek';
+        document.body.appendChild(script);
+        setTimeout(function() {
+          $scope.initialize(a,b);
+        }, 500);
+      }
+
+    };
 
 
     $scope.range = function(count){
@@ -44,7 +49,80 @@ angular.module('clientApp')
       return ratings;
     };
 
+    $http.post('/app/getRestaurantDetails',{Id : 1}).then(function(response) {
+      $scope.restaurant = response.data;
+    });
+
+    $scope.wow = function () {
+      $scope.restaurant = share.get();
+    };
 
 
 
+  })
+
+  .controller('ReviewCtrl', function ($scope, $uibModal, $document) {
+
+    var $ctrl=this;
+
+    $ctrl.items = ['item1', 'item2', 'item3'];
+
+    $ctrl.animationsEnabled = true;
+
+    $scope.rate = 3;
+    $scope.isReadonly = false;
+
+    $scope.hoveringOver = function(value) {
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $ctrl.open = function (size, parentSelector) {
+      var parentElem = parentSelector ?
+        angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+      var modalInstance = $uibModal.open({
+        animation: $ctrl.animationsEnabled,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'myModalContent.html',
+        controller: 'ModalInstanceCtrl',
+        controllerAs: '$ctrl',
+        size: size,
+        appendTo: parentElem,
+        resolve: {
+          items: function () {
+            return $ctrl.items;
+          }
+        }
+      });
+
+    }
+
+    $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      ariaLabelledBy: 'modal-title-top',
+      ariaDescribedBy: 'modal-body-top',
+      templateUrl: 'stackedModal.html',
+      size: 'sm',
+      controller: function($scope) {
+        $scope.name = 'top';
+      }
+    });
+  })
+
+  .controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+    var $ctrl = this;
+    $ctrl.items = items;
+    $ctrl.selected = {
+      item: $ctrl.items[0]
+    };
+
+    $ctrl.ok = function () {
+      $uibModalInstance.close($ctrl.selected.item);
+    };
+
+    $ctrl.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   });
+

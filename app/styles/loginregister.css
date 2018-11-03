@@ -2,6 +2,7 @@
 .form-control:focus {
   border-color: coral;
   box-shadow:  0 0 4px coral;
+
 }
 
 .formg {
@@ -11,4 +12,5 @@
 
 .input-h {
   min-height: 55px;
+
 }

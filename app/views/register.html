@@ -23,7 +23,7 @@
              id="firstName"
              placeholder="First Name"
              ng-model="firstName"
-             required="true"
+             required="required"
       >
     </div>
 
@@ -34,7 +34,7 @@
              id="lastName"
              placeholder="Last Name"
              ng-model="lastName"
-             required="true"
+             required="required"
       >
     </div>
 
@@ -47,7 +47,7 @@
              id="email"
              placeholder="Email"
              ng-model="email"
-             required="true"
+             required="required"
       >
       <p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Enter a valid email.</p>
     </div>
@@ -61,7 +61,7 @@
              placeholder="Phone Number"
              ng-model="phone"
              ng-minlength="9"
-             required="true"
+             required="required"
       >
 
       <p ng-show="registerForm.phone.$touched && !registerForm.phone.$valid" class="help-block">Phone number must be at least 9 cases long.</p>
@@ -69,19 +69,20 @@
 
     <div class="row no-gutters">
       <div class="col-sm-6  formg" >
-        <select class="custom-select form-control input-h"
+
+        <select class="custom-select form-control input-lg input-h"
                 ng-model="country"
                 ng-options="c.country_name for c in locations"
-                required="true">
+                required="required">
           <option value="" disabled selected>Country</option>
         </select>
       </div>
 
-      <div class="col-sm-6 formg" >
-        <select class="custom-select form-control input-h"
+      <div class="col-sm-6 formg ">
+        <select class=" form-control input-lg input-h"
                 ng-model="city"
                 ng-options="d.valueOf() for d in country.city_names"
-                required="true">
+                required="required">
           <option value="" disabled selected>City</option>
         </select>
       </div>
@@ -94,7 +95,7 @@
              id="password"
              placeholder="Password"
              ng-model="password"
-             required="true"
+             required="required"
       >
     </div>
 
@@ -108,7 +109,7 @@
              id="confirmPassword"
              placeholder="Confirm Password"
              ng-model="confirmPassword"
-             required="true"
+             required="required"
       >
 
       <p ng-show=" registerForm.confirmPassword.$touched  && confirmPassword!=password" class="help-block">Passwords do not match.</p>

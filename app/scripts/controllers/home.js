@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('MainCtrl', function ($scope, $http){
+  .controller('MainCtrl', function ($scope, $http, share, $location,$log){
 
     $scope.dishes=[
       {
@@ -45,12 +45,16 @@ angular.module('clientApp')
       return ratings;
     };
 
+    $scope.save= function(rest){
+      share.add(rest);
+      $location.path('/restaurant');
+    };
 
     $http.get('jsonexp/restaurants.json').then(function(response) {
       $scope.restaurants = response.data;
     });
 
-    $http.get('jsonexp/poplocations.json').then(function(response) {
+    $http.get('/app/getRestaurantLocations').then(function(response) {
       $scope.poplocs = response.data;
     });
 
@@ -59,14 +63,14 @@ angular.module('clientApp')
 
 
   .directive('resize', function ($window) {
-    return function (scope, element) {
+    return function (scope) {
       var w = angular.element($window);
       scope.getWindowDimensions = function () {
         return {
           'w': w.width()
         };
       };
-      scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+      scope.$watch(scope.getWindowDimensions, function (newValue) {
         scope.windowWidth = newValue.w;
 
         scope.style = function () {
@@ -80,7 +84,7 @@ angular.module('clientApp')
       w.bind('resize', function () {
         scope.$apply();
       });
-    }
+    };
   });
 
 

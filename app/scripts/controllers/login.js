@@ -11,7 +11,6 @@ angular.module('clientApp')
   .controller('LoginCtrl', function ($log,$scope,$location, AuthenticationService) {
 
 
-
     function initController(){
       AuthenticationService.Logout();
     }
@@ -32,7 +31,7 @@ angular.module('clientApp')
           }
           else {
 
-            $scope.error = 'Error registering';
+            $scope.error = 'Username or password is incorrect';
           }
         }
 

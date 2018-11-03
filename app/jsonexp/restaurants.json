@@ -1,5 +1,12 @@
 [
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Riva",
     "mark": 5,
     "votes": 19,
@@ -7,6 +14,13 @@
     "foodType": "International | Fast Food"
   },
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Panera",
     "mark": 4,
     "votes": 42,
@@ -14,6 +28,13 @@
     "foodType": "Red Meat | American"
   },
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Nanina Kuhinja",
     "mark": 3,
     "votes": 53,
@@ -21,6 +42,13 @@
     "foodType": "Traditional | Bosnian"
   },
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Tasty Burger",
     "mark": 5,
     "votes": 95,
@@ -28,6 +56,13 @@
     "foodType": "Fast Food | American"
   },
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Piccolo Mondo",
     "mark": 3,
     "votes": 67,
@@ -35,6 +70,13 @@
     "foodType": "Jewish | Mexican"
   },
   {
+    "id" : 1,
+    "description" : "You may be a person who loves to cook. You absolutely love to spend time in your kitchen. As a result, you like to outfit your kitchen with the latest and with the best cookware that is available on the market. However, and with that said, if you are like most people in the 21st century, you also live your life on a budget. You simply do not have a great deal of extra money to blow and spend at will. Therefore, with the goal of outfitting your kitchen with the latest, with the best in cookware, you also want to keep your eyes on ways in which you can save money on your cookware purchases. To this end, you might want to focus your attention on the Internet and the World Wide Web, specifically on overstock merchandise sites that are springing up all over the Net.",
+    "latitude" : 43.831406,
+    "longitude" : 18.300211,
+    "imageFileName" : "../images/sampleprofile.jpg",
+    "coverFileName" : "../images/masthead.jpg",
+    "location" : "Sarajevo",
     "restaurantName": "Baja Fresh",
     "mark": 4,
     "votes": 50,

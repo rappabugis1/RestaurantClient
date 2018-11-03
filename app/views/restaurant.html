@@ -4,15 +4,46 @@
 
 <body style="color: black">
 
+  <script  ng-controller="ReviewCtrl as $ctrl" type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <div class="glyphicon glyphicon-remove back-icon-review" ng-click="$ctrl.cancel()"></div>
+      <h3 class="modal-title" id="modal-title">Rate this place</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="row center-block row-review">
+        <div class="col-12 ">
+          <form class="reviewForm" name="reviewForm" ng-submit="loginSubmit(reviewForm.$valid)" novalidate>
+            <span uib-rating ng-model="rate" class="rate"  on-hover="hoveringOver(value)" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+            <div class="form-group">
+
+          <textarea name="review" rows="5"
+                    class="form-control "
+                    type="text"
+                    id="review"
+                    placeholder="Write a review"
+                    ng-model="review"
+                    required="required"
+          ></textarea>
+            </div>
+            <button type="submit" class="btn btn-block " ng-click="$ctrl.ok()">Save</button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </script>
+
   <div class="masthead" style="height: 340px">
   </div>
+
 
   <div class="container" style=" transform: translateY(-120px)" >
     <div class="row" >
 
       <div class=" col-md-3" >
         <div >
-          <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}"></div>
+          <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}">{{wow()}}</div>
 
           <div class="list-group">
             <a href="#" class="list-group-item">Reservation</a>
@@ -42,25 +73,20 @@
               {{restaurant.foodType}}
             </li>
             <li class="pull-right ">
-              <button type="button" class="btn btn-block btn-default" style="width: 160px">Rate this place</button>
+              <button ng-controller="ReviewCtrl as $ctrl" type="button" class="btn btn-block btn-default" style="width: 160px" ng-click="$ctrl.open()">Rate this place</button>
             </li>
           </ul>
         </div>
 
         <div class="container-card">
-          <ul class="list list-inline">
-            <li >
-              <h5 >Make a free reservation</h5>
-            </li>
-            <li class="pull-right ">
-              <p5>Booked n times today</p5>
-            </li>
-          </ul>
+            <h5 class="h5-heading-reservation" >Make a free reservation</h5>
+
+            <p class="pull-right" >Booked n times today</p>
 
           <form>
             <div class="row no-gutters">
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <select class="custom-select form-control" required>
+                <select class="custom-select form-control " required>
                   <option value="">Two people</option>
                   <option value="1">One people</option>
                   <option value="2">Four people</option>
@@ -74,7 +100,7 @@
                 <input type="time" class="form-control" >
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <button type="submit" class="btn btn-block btn-primary" style="background-color: coral">Find a table</button>
+                <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>
               </div>
             </div>
           </form>
@@ -84,7 +110,7 @@
 
         <div class="container-card">
           <h5 style="margin: 0px" >About {{restaurant.restaurantName}}</h5>
-          <div id="map" class="map" >{{loadScript(restaurant.latitude, restaurant.longitude)}}</div>
+          <div id="map" class="map"  >{{loadScript(restaurant.latitude, restaurant.longitude)}}</div>
           <h6 style="margin: 0px" >Description</h6>
           <p6>
             {{restaurant.description}}

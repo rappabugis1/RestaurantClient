@@ -21,7 +21,15 @@
   background: white;
   width: 100%;
   margin-bottom: 20px;
-  padding: 24px 30px 23px 30px;
+  padding: 24px 30px 45px 30px;
+}
+
+
+
+h5{
+  font-size: 20px;
+  color: rgba(19,29,36,0.40);
+  margin-bottom: 25px;
 }
 
 .row.no-gutters {
@@ -36,18 +44,27 @@
 }
 
 .form-control{
-  border-radius: 0px;
+  height: 56px;
+  border-right: 0px;
 }
 
-.form-control:focus {
-  border-color: coral;
-  box-shadow:  0 0 4px coral;
-}
 
+
+.form-btn{
+  height: 56px;
+}
 
 .btn{
   border-radius: 0px;
   border-color: coral;
+  background-color: coral;
+  color: white;
+}
+.btn:hover, .btn:focus {
+  color:white;
+  background-color: coral;
+  border-color: coral;
+  box-shadow:  0 0 4px coral;
 }
 
 .map {
@@ -62,4 +79,54 @@
 .list-group-item{
   border: none;
   padding-bottom: 7px;
+}
+
+/*modal body
+ */
+
+.modal-body{
+
+  padding: 30px;
+  padding-bottom: 50px;
+}
+
+.modal-header{
+  border-bottom: 0px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.rate{
+  font-size: 30px;
+  color: goldenrod;
+}
+
+.rate> span:focus{
+  outline: none;
+}
+
+.row-review{
+  text-align: center;
+  max-width: 450px;
+}
+
+textarea.form-control{
+  height: 233px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.back-icon-review{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.h5-heading-reservation{
+  display: inline-grid;
+}
+
+
+p{
+  margin-top: 15px;
 }

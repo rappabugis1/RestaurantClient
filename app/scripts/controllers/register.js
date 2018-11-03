@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RegisterCtrl', function ($scope, $http,$location, AuthenticationService) {
+  .controller('RegisterCtrl', function ($scope, $http,$location, AuthenticationService, $log) {
 
 
     $http.get("jsonexp/locations.json").then(
@@ -16,6 +16,7 @@ angular.module('clientApp')
         $scope.locations= response.data;
       }
     );
+
 
 
 
@@ -27,20 +28,22 @@ angular.module('clientApp')
           firstName : $scope.firstName,
           lastName: $scope.lastName,
           phone : $scope.phone,
-          country : $scope.country,
+          country : $scope.country.country_name,
           city : $scope.city,
           password : $scope.password
         };
 
         $scope.confirmPassword=null;
+        $scope.password=null;
+
 
         AuthenticationService.Register(payload, function (result){
             if(result===true) {
-              $location.path('/');
+              $location.path('/login');
             }
             else {
 
-              $scope.error = 'Username or password is incorrect';
+              $scope.error = 'There was an error registering';
             }
           }
 

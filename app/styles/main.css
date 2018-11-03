@@ -15,23 +15,22 @@ body {
 }
 
 
-div.masthead h1 {
-  font-size: 3rem;
-  color: #FFFFFF;
-}
-
-div.masthead h3 {
-  font-size: 20px;
-  color: #FFFFFF;
-}
 
 
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
   position: relative;
+}
+
+.navbar{
+  background: none;
+
+  border: none;
+  margin:0;
+}
+.navbar-fixed-top{
+  position: absolute;
 }
 
 
@@ -54,7 +53,7 @@ div.masthead h3 {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 990px) {
   .container {
-    max-width: 930px;
+    max-width: 980px;
   }
   .right-footer-col{
     text-align: right;
@@ -106,32 +105,32 @@ div.masthead h3 {
   box-shadow: none;
 }
 
-.restaurant-popular{
-  max-width: 270px;
-  padding-bottom: 50px;
-  padding-left: 0px;
-  padding-right: 0px;
-
-}
-
-.mastdish{
-  position: relative;
-  background-color: #343a40;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../images/mastpop.jpg") no-repeat center center;
-  background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-}
 
 
 .form-control{
   border-radius: 0px;
 }
 
+
+select{
+-webkit-appearance: listbox;
+}
+
+select.input-lg {
+  height: 55px;
+  line-height: normal;
+
+}
+
 .form-control:focus {
   border-color: coral;
   box-shadow:  0 0 4px coral;
 }
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+  outline: 0 none;
+}
+
 
 /*carousel*/
 
@@ -152,7 +151,49 @@ div.masthead h3 {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  padding-bottom: 10px;
+  height: 423px;
+  max-width: 300px;
+  display: inline-block;
+  margin: 20px 0px 20px 0px;
+}
+
+.card  img {
+  max-width: inherit;
+  height: 240px;
+}
+
+.card div{
+  text-align: left;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  width: inherit;
+}
+
+.card div h3 {
+  font-size: 24px;
+  margin: 0;
+  padding: 0 0 8px 0;
+}
+
+.card div ul{
+  height: fit-content;
+  margin: 0;
+  padding: 0 0 8px 0;
+}
+
+.card div hr {
+  padding-top: 5px;
+  width: inherit;
+  margin: 0px;
+}
+
+.card div ul li {
+  padding: 0px;
+}
+
+.card button{
+  max-width: inherit;
+  background-color: lightgray;
 }
 
 .card:hover {
