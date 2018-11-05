@@ -35,7 +35,7 @@ angular.module('clientApp')
 
           }
         })
-        .catch(function onError(response){
+        .catch(function onError(){
 
           callback(false);
 
@@ -44,12 +44,12 @@ angular.module('clientApp')
 
     function Register(payload, callback){
       $http.post('app/register', payload)
-        .then(function onSucces(response) {
+        .then(function onSucces() {
 
             callback(true);
 
         })
-        .catch(function onError(response){
+        .catch(function onError(){
 
           callback(false);
 

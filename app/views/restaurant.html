@@ -1,8 +1,8 @@
-<head>
+<head xmlns="http://www.w3.org/1999/html">
   <link rel="stylesheet" href="../styles/restaurant.css">
 </head>
 
-<body style="color: black">
+<body >
 
   <script  ng-controller="ReviewCtrl as $ctrl" type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
@@ -38,10 +38,10 @@
   </div>
 
 
-  <div class="container" style=" transform: translateY(-120px)" >
+  <div class="container main"  >
     <div class="row" >
 
-      <div class=" col-md-3" >
+      <div class="hidden-sm hidden-xs  col-md-3 "  >
         <div >
           <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}">{{wow()}}</div>
 
@@ -55,21 +55,21 @@
 
       </div>
 
-      <div class=" col-md-9">
+      <div class="col-md-9">
 
         <div class="container-info" >
-          <h3 style="color: white;  " >{{restaurant.restaurantName}}</h3>
+          <h3  >{{restaurant.restaurantName}}</h3>
           <ul class="list list-inline">
             <li >
-              <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(restaurant.mark)"></span><span class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-restaurant.mark)"></span>
+              <span class="glyphicon glyphicon-star " ng-repeat="n in range(restaurant.mark)"></span><span class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-restaurant.mark)"></span>
             </li>
-            <li style="color: white">
+            <li >
               <div>({{restaurant.votes}})</div>
             </li>
             <li>
-              <span class="glyphicon glyphicon-usd " style="color: white" ng-repeat="n in range(restaurant.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-restaurant.priceRange)"></span>
+              <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(restaurant.priceRange)"></span><span class="glyphicon  glyphicon-usd dolar-empty"  ng-repeat="n in range(5-restaurant.priceRange)"></span>
             </li>
-            <li style="color: white">
+            <li >
               {{restaurant.foodType}}
             </li>
             <li class="pull-right ">
@@ -81,7 +81,7 @@
         <div class="container-card">
             <h5 class="h5-heading-reservation" >Make a free reservation</h5>
 
-            <p class="pull-right" >Booked n times today</p>
+            <p class="pull-right hidden-xs" >Booked n times today</p>
 
           <form>
             <div class="row no-gutters">
@@ -109,13 +109,59 @@
         </div>
 
         <div class="container-card">
-          <h5 style="margin: 0px" >About {{restaurant.restaurantName}}</h5>
+          <h5  >About {{restaurant.restaurantName}}</h5>
           <div id="map" class="map"  >{{loadScript(restaurant.latitude, restaurant.longitude)}}</div>
-          <h6 style="margin: 0px" >Description</h6>
-          <p6>
+          <h6 class="desc" >Description</h6>
+          <p6 class="desc-p">
             {{restaurant.description}}
           </p6>
         </div>
+
+        <div class="container-card">
+
+          <h5 class="menu-heading">Menu: </h5>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary btn-menu active">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
+            </label>
+            <label class="btn btn-secondary btn-menu">
+              <input type="radio" name="options" id="option2" autocomplete="off"> Lunch
+            </label>
+            <label class="btn btn-secondary btn-menu">
+              <input type="radio" name="options" id="option3" autocomplete="off"> Dinner
+            </label>
+          </div>
+
+          <hr>
+
+          <div class="menu-items">
+            <div ng-controller="MenuCtr">
+              <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
+                <h6 class="type-title"> {{dishType[0].dishType}}</h6>
+                <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
+                  <div class="col-xs-3">
+                    {{dish.name}}
+                  </div>
+                  <div class="col-xs-6">
+                  </div>
+                  <div class="col-xs-3 price">
+                    ${{dish.price}}
+                  </div>
+                  <p4 class="menu-dish-description">{{dish.description}}</p4>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="fadeout"></div>
+
+
+
+          <button class="btn btn-block see-full-menu center-block" ng-click="">See full menu</button>
+
+        </div>
+
       </div>
 
 

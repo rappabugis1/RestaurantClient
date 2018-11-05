@@ -98,3 +98,14 @@ div.masthead h3 {
 .p5-reserv{
   margin-top:15px;
 }
+
+.glyphicon-star, .glyphicon-star-empty{
+  color: goldenrod;
+}
+
+.dolar-full{
+  color: black;
+}
+.dolar-empty{
+  color: gray;
+}

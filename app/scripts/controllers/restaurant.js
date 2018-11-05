@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantCtrl', function ($http, $scope, share) {
+  .controller('RestaurantCtrl', function ($http, $scope, share,$log ,Menu) {
 
 
     $scope.initialize = function(a,b) {
@@ -96,18 +96,9 @@ angular.module('clientApp')
         }
       });
 
-    }
+    };
 
-    $uibModal.open({
-      animation: $ctrl.animationsEnabled,
-      ariaLabelledBy: 'modal-title-top',
-      ariaDescribedBy: 'modal-body-top',
-      templateUrl: 'stackedModal.html',
-      size: 'sm',
-      controller: function($scope) {
-        $scope.name = 'top';
-      }
-    });
+
   })
 
   .controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
@@ -124,5 +115,37 @@ angular.module('clientApp')
     $ctrl.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-  });
+  })
+
+  .controller('MenuCtr', function($scope, $http,Menu,$log){
+
+
+    $scope.arrayDishes = [];
+
+    Menu.getDinner().then(function(response) {
+      var  menuData= response.data;
+      var dishTypes= new Array;
+      var arrayDishesLoc= new Array(0);
+
+      menuData.forEach(function(element){
+        if(!dishTypes.includes(element.dishType)){
+          dishTypes.push(element.dishType);
+          arrayDishesLoc.push(new Array(0));
+          arrayDishesLoc[arrayDishesLoc.length-1].push(element);
+        }else {
+          arrayDishesLoc.forEach(function (value) {
+            if(value[0].dishType===element.dishType){
+              value.push(element);
+            }
+          });
+        }
+
+      });
+      $scope.arrayDishes = arrayDishesLoc;
+    });
+
+
+
+  })
+;
 

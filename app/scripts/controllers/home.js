@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('MainCtrl', function ($scope, $http, share, $location,$log){
+  .controller('MainCtrl', function ($scope, $http, share, $location){
 
     $scope.dishes=[
       {

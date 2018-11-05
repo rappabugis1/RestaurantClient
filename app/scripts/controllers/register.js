@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RegisterCtrl', function ($scope, $http,$location, AuthenticationService, $log) {
+  .controller('RegisterCtrl', function ($scope, $http,$location, AuthenticationService) {
 
 
     $http.get("jsonexp/locations.json").then(

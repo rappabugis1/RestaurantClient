@@ -7,6 +7,10 @@
   border-color: white;
 }
 
+.main{
+  transform: translateY(-120px);
+}
+
 .container-info {
   background: none;
   width: 100%;
@@ -24,7 +28,9 @@
   padding: 24px 30px 45px 30px;
 }
 
-
+h3,li {
+  color:white;
+}
 
 h5{
   font-size: 20px;
@@ -75,6 +81,12 @@ h5{
 
 }
 
+hr {
+  margin: 0 -30px 30px -30px;
+  width: calc(100% + 60px);
+
+}
+
 
 .list-group-item{
   border: none;
@@ -96,9 +108,23 @@ h5{
   padding-top: 50px;
 }
 
+.modal-title{
+  color: black;
+}
+
 .rate{
   font-size: 30px;
+}
+
+.glyphicon-star, .glyphicon-star-empty{
   color: goldenrod;
+}
+
+.dolar-full{
+  color: white;
+}
+.dolar-empty{
+  color: gray;
 }
 
 .rate> span:focus{
@@ -129,4 +155,105 @@ textarea.form-control{
 
 p{
   margin-top: 15px;
+}
+
+
+.menu-heading{
+  float: left;
+  display: inline-grid;
+  margin-right: 20px;
+}
+
+.btn-menu{
+  background-color: white;
+  color: coral;
+  margin: 5px 10px 0 10px;
+  border: none;
+  float: none;
+}
+
+.active{
+  background-color: coral;
+  color: white;
+
+}
+
+.see-full-menu{
+  color: coral;
+  text-align: center;
+  font-size: 16px;
+  width: fit-content;
+  align-self: center;
+  background-color: white;
+  border: none;
+
+}
+
+.price {
+  text-align: right;
+}
+
+h6{
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.dish-type-row{
+  margin-bottom: 35px;
+}
+
+
+
+
+.fadeout {
+  position: relative;
+  bottom: 4em;
+  height: 4em;
+  background: -webkit-linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -moz-linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -o-linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-image: -ms-linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+.menu-dish-description{
+  font-size: 13px;
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  letter-spacing: 0;
+  line-height: 21px;
+  margin-bottom: 15px;
+}
+
+.menu-items{
+ max-height: 500px;
+ overflow: hidden;
+
+}
+
+.desc, .desc-p{
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.desc {
+  color: rgba(19,29,36,0.40);
+}
+
+.dish-row{
+  margin:0px;
+  margin-bottom: 8px;
 }

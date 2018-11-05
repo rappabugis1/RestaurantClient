@@ -1,0 +1,73 @@
+[ {
+  "id": 3007,
+  "idRestaurant": 2,
+  "type": "Dinner",
+  "dishType": "Meal",
+  "name": "Rainbow Naruto Roll",
+  "price": 12,
+  "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Meal",
+    "name": "Sarma",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Meal",
+    "name": "Grah",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Meal",
+    "name": "Cevapi",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Bevarages",
+    "name": "Cola",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Bevarages",
+    "name": "Voda",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Bevarages",
+    "name": "Kisela",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  },
+  {
+    "id": 3007,
+    "idRestaurant": 2,
+    "type": "Dinner",
+    "dishType": "Bevarages",
+    "name": "Kafa",
+    "price": 12,
+    "description": "Tuna, salmon, white fish, kani, avocado andtobiko"
+  }
+]

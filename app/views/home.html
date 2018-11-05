@@ -59,13 +59,13 @@
 
               <ul class="list list-inline ">
                 <li>
-                  <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-y.mark)"></span>
+                  <span class="glyphicon glyphicon-star "  ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty "  ng-repeat="n in range(5-y.mark)"></span>
                 </li>
                 <li>
                   <span>({{y.votes}})</span>
                 </li>
                 <li>
-                  <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
+                  <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd dolar-empty"  ng-repeat="n in range(5-y.priceRange)"></span>
                 </li>
               </ul>
               <hr >
