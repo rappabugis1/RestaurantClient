@@ -186,12 +186,12 @@ p{
   align-self: center;
   background-color: white;
   border: none;
-
 }
 .see-full-menu:hover, .see-full-menu :active, .see-full-menu:focus{
   background-color: white;
   color: coral;
   box-shadow: none;
+
 }
 
 .price {
@@ -266,3 +266,5 @@ h6{
 .list-group-item{
   cursor: pointer;
 }
+
+

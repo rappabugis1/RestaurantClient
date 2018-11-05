@@ -14,7 +14,7 @@ angular.module('clientApp')
     // Public API here
     return {
       getMenu: function (menu, id) {
-        return $http.get('jsonexp/samplemenu.json');
+        return $http.post('/app/getRestaurantMenu',{idRestaurant : id, type:menu});
       },
 
       getRandomRestaurants : function () {

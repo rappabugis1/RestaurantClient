@@ -100,7 +100,7 @@ angular.module('clientApp')
 
   })
 
-  .controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, $log) {
+  .controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
     var $ctrl = this;
 
     $scope.rate= 3;
@@ -121,15 +121,13 @@ angular.module('clientApp')
     };
   })
 
-  .controller('MenuCtr', function($scope, RestaurantService){
+  .controller('MenuCtr', function($scope, RestaurantService, ShareDataService, $log){
     var $menu = this;
 
     $scope.arrayDishes = [];
 
-
-
-    $menu.funkcija = function (type, id) {
-      RestaurantService.getMenu(type, id).then(function(response) {
+    $menu.getMenu = function (type) {
+      RestaurantService.getMenu(type.toString(), ShareDataService.get().id).then(function(response) {
         var  menuData= response.data;
         var dishTypes= new Array;
         var arrayDishesLoc= new Array(0);
@@ -150,7 +148,26 @@ angular.module('clientApp')
         });
         $scope.arrayDishes = arrayDishesLoc;
       });
-    }("Dinner", 1);
+    };
+
+    $menu.text="Show full menu";
+    $menu.tick= false;
+
+    $menu.showMenu = function(){
+      if($menu.tick){
+        $menu.text="Show full menu";
+        $menu.tick=false;
+        $menu.myHeight='350px';
+      }
+      else{
+        $menu.text="See less";
+        $menu.tick=true;
+        $menu.myHeight='none';
+
+      }
+    };
+
+    $menu.getMenu('Dinner');
 
   })
 ;

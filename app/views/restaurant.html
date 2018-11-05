@@ -123,20 +123,20 @@
 
           <h5 class="menu-heading">Menu: </h5>
           <div class="btn-group btn-group-toggle" data-toggle="buttons" >
-            <label class="btn btn-secondary btn-menu active" ng-click="$menu.funkcija(Breakfast, 1)">
+            <label class="btn btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
               <input type="radio" name="options" id="option1" autocomplete="off" checked > Breakfast
             </label>
-            <label class="btn btn-secondary btn-menu" ng-click="$menu.funkcija(Breakfast, 1)">
+            <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
               <input type="radio" name="options" id="option2" autocomplete="off" ng-click=""> Lunch
             </label>
-            <label class="btn btn-secondary btn-menu" ng-click="$menu.funkcija(Breakfast, 1)">
+            <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
               <input type="radio" name="options" id="option3" autocomplete="off" ng-click=""> Dinner
             </label>
           </div>
 
           <hr>
 
-          <div class="menu-items">
+          <div class="menu-items" ng-style="{'max-height': $menu.myHeight}">
             <a id="menu"></a>
             <div >
               <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
@@ -161,7 +161,7 @@
 
 
 
-          <button  class="btn btn-block see-full-menu center-block" >See full menu</button>
+          <button  class="btn btn-block see-full-menu center-block " ng-click="$menu.showMenu()" >{{$menu.text}}</button>
 
         </div>
 
