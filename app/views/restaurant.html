@@ -12,20 +12,22 @@
     <div class="modal-body" id="modal-body">
       <div class="row center-block row-review">
         <div class="col-12 ">
-          <form class="reviewForm" name="reviewForm" ng-submit="loginSubmit(reviewForm.$valid)" novalidate>
-            <span uib-rating ng-model="rate" class="rate"  on-hover="hoveringOver(value)" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+          <form class="reviewForm" name="reviewForm" ng-submit="$ctrl.ok()" novalidate>
+
+            <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+
             <div class="form-group">
 
-          <textarea name="review" rows="5"
-                    class="form-control "
-                    type="text"
-                    id="review"
-                    placeholder="Write a review"
-                    ng-model="review"
-                    required="required"
-          ></textarea>
+              <textarea name="review" rows="5"
+                        class="form-control "
+                        type="text"
+                        id="review"
+                        placeholder="Write a review"
+                        ng-model="review"
+                        required="required"
+              ></textarea>
             </div>
-            <button type="submit" class="btn btn-block " ng-click="$ctrl.ok()">Save</button>
+            <button type="submit" class="btn btn-block "  ng-disabled="reviewForm.$invalid" >Save</button>
 
           </form>
         </div>
@@ -43,12 +45,12 @@
 
       <div class="hidden-sm hidden-xs  col-md-3 "  >
         <div >
-          <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}">{{wow()}}</div>
+          <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}"></div>
 
           <div class="list-group">
-            <a href="#" class="list-group-item">Reservation</a>
-            <a href="#" class="list-group-item">About</a>
-            <a href="#" class="list-group-item">Menu</a>
+            <a href="#reservation" class="list-group-item">Reservation</a>
+            <a href="#about" class="list-group-item">About</a>
+            <a href="#menu" class="list-group-item">Menu</a>
             <a href="#" class="list-group-item">Photos</a>
           </div>
         </div>
@@ -79,7 +81,7 @@
         </div>
 
         <div class="container-card">
-            <h5 class="h5-heading-reservation" >Make a free reservation</h5>
+            <h5 class="h5-heading-reservation" ><a id="reservation"></a>Make a free reservation</h5>
 
             <p class="pull-right hidden-xs" >Booked n times today</p>
 
@@ -109,33 +111,34 @@
         </div>
 
         <div class="container-card">
-          <h5  >About {{restaurant.restaurantName}}</h5>
-          <div id="map" class="map"  >{{loadScript(restaurant.latitude, restaurant.longitude)}}</div>
+          <h5  ><a id="about"></a>About {{restaurant.restaurantName}}</h5>
+          <div id="map" class="map"  ></div>
           <h6 class="desc" >Description</h6>
           <p6 class="desc-p">
             {{restaurant.description}}
           </p6>
         </div>
 
-        <div class="container-card">
+        <div class="container-card" ng-controller="MenuCtr as $menu">
 
           <h5 class="menu-heading">Menu: </h5>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary btn-menu active">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+            <label class="btn btn-secondary btn-menu active" ng-click="$menu.funkcija(Breakfast, 1)">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked > Breakfast
             </label>
-            <label class="btn btn-secondary btn-menu">
-              <input type="radio" name="options" id="option2" autocomplete="off"> Lunch
+            <label class="btn btn-secondary btn-menu" ng-click="$menu.funkcija(Breakfast, 1)">
+              <input type="radio" name="options" id="option2" autocomplete="off" ng-click=""> Lunch
             </label>
-            <label class="btn btn-secondary btn-menu">
-              <input type="radio" name="options" id="option3" autocomplete="off"> Dinner
+            <label class="btn btn-secondary btn-menu" ng-click="$menu.funkcija(Breakfast, 1)">
+              <input type="radio" name="options" id="option3" autocomplete="off" ng-click=""> Dinner
             </label>
           </div>
 
           <hr>
 
           <div class="menu-items">
-            <div ng-controller="MenuCtr">
+            <a id="menu"></a>
+            <div >
               <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
                 <h6 class="type-title"> {{dishType[0].dishType}}</h6>
                 <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
@@ -158,7 +161,7 @@
 
 
 
-          <button class="btn btn-block see-full-menu center-block" ng-click="">See full menu</button>
+          <button  class="btn btn-block see-full-menu center-block" >See full menu</button>
 
         </div>
 

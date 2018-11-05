@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('share', function () {
+  .service('ShareDataService', function () {
     var data;
     this.add = function(dataSend){
       data = dataSend;

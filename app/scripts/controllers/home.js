@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('MainCtrl', function ($scope, $http, share, $location){
+  .controller('MainCtrl', function ($scope, $http, ShareDataService, $location, RestaurantService){
 
     $scope.dishes=[
       {
@@ -46,15 +46,15 @@ angular.module('clientApp')
     };
 
     $scope.save= function(rest){
-      share.add(rest);
+      ShareDataService.add(rest);
       $location.path('/restaurant');
     };
 
-    $http.get('jsonexp/restaurants.json').then(function(response) {
+    RestaurantService.getRandomRestaurants().then(function(response) {
       $scope.restaurants = response.data;
     });
 
-    $http.get('/app/getRestaurantLocations').then(function(response) {
+    RestaurantService.getRestaurantLocations().then(function(response) {
       $scope.poplocs = response.data;
     });
 

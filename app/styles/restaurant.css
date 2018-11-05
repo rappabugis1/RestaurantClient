@@ -188,6 +188,11 @@ p{
   border: none;
 
 }
+.see-full-menu:hover, .see-full-menu :active, .see-full-menu:focus{
+  background-color: white;
+  color: coral;
+  box-shadow: none;
+}
 
 .price {
   text-align: right;
@@ -256,4 +261,8 @@ h6{
 .dish-row{
   margin:0px;
   margin-bottom: 8px;
+}
+
+.list-group-item{
+  cursor: pointer;
 }
