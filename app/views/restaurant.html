@@ -88,20 +88,25 @@
       <div class="container-card">
         <h5 class="h5-heading-reservation"><a id="reservation"></a>Make a free reservation</h5>
 
-        <p class="pull-right hidden-xs">Booked n times today</p>
-
-        <form>
-          <div class="row no-gutters">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <select class="custom-select form-control " required>
-                <option value="">Two people</option>
-                <option value="1">One people</option>
-                <option value="2">Four people</option>
-                <option value="3">Three people</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <input type="date" class="form-control ">
+          <form ng-controller="SearchCtrl as $ctrl">
+            <div class="row no-gutters">
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <select class="custom-select form-control " required>
+                  <option value="">Two people</option>
+                  <option value="1">One people</option>
+                  <option value="2">Four people</option>
+                  <option value="3">Three people</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <input type="date" class="form-control " ng-model="selectedDate"  min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{dateMax | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}"  >
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="09:00" max="22:00" value="09:00" >
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>
+              </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
               <input type="time" class="form-control">

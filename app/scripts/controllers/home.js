@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('HomeController', function ($scope, $http, ShareDataService, $location, RestaurantService) {
+  .controller('MainCtrl', function ($scope, $http, SessionStorageService, $location, RestaurantService, $log){
 
     $scope.dishes = [
       {
@@ -45,8 +45,8 @@ angular.module('clientApp')
       return ratings;
     };
 
-    $scope.save = function (rest) {
-      ShareDataService.add(rest);
+    $scope.save= function(rest){
+      SessionStorageService.save("restaurantId", JSON.stringify({id:rest.id}));
       $location.path('/restaurant');
     };
 

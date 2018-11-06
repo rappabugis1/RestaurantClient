@@ -9,8 +9,6 @@
  */
 angular.module('clientApp')
   .controller('RestaurantController', function ($http, $scope, ShareDataService, RestaurantService) {
-
-
     $scope.initialize = function (a, b) {
       $scope.mapOptions = {
         zoom: 15,
@@ -49,14 +47,19 @@ angular.module('clientApp')
       return ratings;
     };
 
-    RestaurantService.getRestaurantDetails(ShareDataService.get().id).then(function (response) {
+    RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
       $scope.restaurant = response.data;
       $scope.loadScript($scope.restaurant.latitude, $scope.restaurant.longitude);
     });
 
   })
 
-  .controller('ReviewCtrl', function ($scope, $uibModal, $document, $log, $location, $localStorage, RestaurantService, ShareDataService) {
+  .controller('SearchCtrl', function ($scope) {
+    $scope.dateToday= new Date();
+    $scope.dateMax = new Date().setMonth($scope.dateToday.getMonth()+4);
+  })
+
+  .controller('ReviewCtrl', function ( $scope,$uibModal, $document, $log,  $location, $localStorage, RestaurantService, SessionStorageService) {
 
     var $ctrl = this;
 
@@ -79,11 +82,11 @@ angular.module('clientApp')
         });
 
         modalInstance.result.then(function (payload) {
-          payload = {
-            comment: payload.comment,
-            mark: payload.mark,
-            idUser: $localStorage.currentUser.currentUser.data.id,
-            idRestaurant: ShareDataService.get().id
+          payload={
+            comment:payload.comment,
+            mark:payload.mark,
+            idUser : $localStorage.currentUser.currentUser.data.id,
+            idRestaurant : JSON.parse(SessionStorageService.get("restaurantId")).id
           };
           $log.info(payload);
           RestaurantService.insertComment(payload);
@@ -121,16 +124,16 @@ angular.module('clientApp')
     };
   })
 
-  .controller('MenuCtr', function ($scope, RestaurantService, ShareDataService, $log) {
+  .controller('MenuCtr', function($scope, RestaurantService, SessionStorageService){
     var $menu = this;
 
     $scope.arrayDishes = [];
 
     $menu.getMenu = function (type) {
-      RestaurantService.getMenu(type.toString(), ShareDataService.get().id).then(function (response) {
-        var menuData = response.data;
-        var dishTypes = new Array;
-        var arrayDishesLoc = new Array(0);
+      RestaurantService.getMenu(type.toString(), JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
+        var  menuData= response.data;
+        var dishTypes= new Array;
+        var arrayDishesLoc= new Array(0);
 
         menuData.forEach(function (element) {
           if (!dishTypes.includes(element.dishType)) {
