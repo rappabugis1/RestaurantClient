@@ -1,7 +1,7 @@
 
 .form-control:focus {
   border-color: coral;
-  box-shadow:  0 0 4px coral;
+  box-shadow: 0 0 4px coral;
 
 }
 
@@ -12,5 +12,31 @@
 
 .input-h {
   min-height: 55px;
+}
 
+.container-form {
+  padding-top: 175px;
+  padding-bottom: 620px;
+  max-width: 465px
+}
+
+h3 {
+  margin: 0px
+}
+
+a {
+  color: #FD6F60
+}
+
+.login-form-group {
+  padding-top: 10px;
+  margin-bottom: 10px
+}
+
+.bottom {
+  padding-bottom: 40px;
+}
+
+.btn-submit {
+  background-color: #FD6F60 !important;
 }

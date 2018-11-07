@@ -14,10 +14,10 @@ angular.module('clientApp')
     // Public API here
     return {
       getMenu: function (menu, id) {
-        return $http.post('/app/getRestaurantMenu',{idRestaurant : id, type:menu});
+        return $http.post('/app/getRestaurantMenu', {idRestaurant: id, type: menu});
       },
 
-      getRandomRestaurants : function () {
+      getRandomRestaurants: function () {
         return $http.get('/app/getRandomRestaurants');
       },
 
@@ -26,11 +26,16 @@ angular.module('clientApp')
       },
 
       getRestaurantDetails: function (id) {
-        return $http.post('/app/getRestaurantDetails',{Id : id });
+        return $http.post('/app/getRestaurantDetails', {Id: id});
       },
 
       insertComment: function (payload) {
-        return $http.post('/app/insertComment',{mark: payload.mark, comment: payload.comment, idUser: payload.idUser, idRestaurant: payload.idRestaurant});
+        return $http.post('/app/insertComment', {
+          mark: payload.mark,
+          comment: payload.comment,
+          idUser: payload.idUser,
+          idRestaurant: payload.idRestaurant
+        });
       }
 
     };

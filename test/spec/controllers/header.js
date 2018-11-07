@@ -11,7 +11,7 @@ describe('Controller: HeaderCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    HeaderCtrl = $controller('HeaderCtrl', {
+    HeaderCtrl = $controller('NavigationController', {
       $scope: scope
       // place here mocked dependencies
     });

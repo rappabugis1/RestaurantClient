@@ -10,10 +10,10 @@
 angular.module('clientApp')
   .service('ShareDataService', function () {
     var data;
-    this.add = function(dataSend){
+    this.add = function (dataSend) {
       data = dataSend;
     };
-    this.get = function(){
+    this.get = function () {
       return data;
     };
   });

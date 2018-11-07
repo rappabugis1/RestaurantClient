@@ -1,58 +1,52 @@
-
 <head>
   <link rel="stylesheet" href="../styles/loginregister.css">
 </head>
 
 <body>
 
-  <div class="container" style="padding-top: 175px; padding-bottom: 620px; max-width: 465px">
-    <form name="loginForm" ng-submit="loginSubmit(loginForm.$valid)" novalidate>
+<div class="container container-form">
+  <form name="loginForm" ng-submit="loginSubmit(loginForm.$valid)" novalidate>
 
-      <ul class="list list-inline">
-        <li >
-          <h3 style="margin: 0px" >Login</h3>
-        </li>
-        <li class="pull-right ">
-          <p3><a href="#/register" style="color: #FD6F60">Create Account</a></p3>
-        </li>
-      </ul>
+    <ul class="list list-inline">
+      <li>
+        <h3>Login</h3>
+      </li>
+      <li class="pull-right ">
+        <p3><a href="#/register">Create Account</a></p3>
+      </li>
+    </ul>
 
-      <div class="form-group"
-           style="padding-top: 10px; margin-bottom: 10px"
-           ng-class="{'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }"
-      >
-        <input  name="email"
-                class="form-control input-lg input-h"
-                type="email"
-                id="email"
-                placeholder="Email"
-                ng-model="email"
-                required="required"
-        >
+    <div class="form-group login-form-group"
+         ng-class="{'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+      <input name="email"
+             class="form-control input-lg input-h"
+             type="email"
+             id="email"
+             placeholder="Email"
+             ng-model="email"
+             required="required">
+      <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Enter a valid email.</p>
 
-        <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Enter a valid email.</p>
+    </div>
+    <div class="bottom">
+      <input name="password"
+             class="form-control input-lg input-h"
+             type="password"
+             id="password"
+             placeholder="Password"
+             ng-model="password"
+             required="required">
+    </div>
 
-      </div>
-      <div style=" padding-bottom: 40px">
-        <input  name="password"
-                class="form-control input-lg input-h"
-                type="password"
-                id="password"
-                placeholder="Password"
-                ng-model="password"
-                required="required">
+    <div ng-if="error" class="alert alert-danger">{{error}}</div>
 
-      </div>
-
-      <div ng-if="error" class="alert alert-danger">{{error}}</div>
-
-      <button type="submit"
-              class="btn btn-primary btn-block no-border btn-lg input-h"
-              ng-disabled="loginForm.$invalid"
-              style="background-color: #FD6F60;" >Login</button>
+    <button type="submit"
+            class="btn btn-primary btn-block no-border btn-lg input-h btn-submit"
+            ng-disabled="loginForm.$invalid">
+      Login
+    </button>
 
 
-
-    </form>
-  </div>
+  </form>
+</div>
 </body>

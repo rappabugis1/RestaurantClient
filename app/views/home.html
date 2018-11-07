@@ -3,157 +3,143 @@
 </head>
 
 <body>
-  <div class="masthead text-center">
-    <div class="container">
-      <div class="row">
-        <div class=" col-xs-12">
-          <h1 >Make a free reservation </h1>
-          <h3 >Choose your table from n restaurants near you</h3>
-          <form >
-            <div class="row no-gutters form-row">
-              <div class="col-sm-12 col-md-4">
-                <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
-              </div>
-              <div class=" col-sm-3 col-md-2" >
-                <select class="custom-select form-control" required>
-                  <option value="">Two</option>
-                  <option value="1">One</option>
-                  <option value="2">Four</option>
-                  <option value="3">Three</option>
-                </select>
-
-              </div>
-              <div class=" col-sm-3 col-md-2">
-                <input type="date" class="form-control " >
-
-              </div>
-              <div class=" col-sm-3 col-md-2">
-                <input type="time" class="form-control" >
-
-              </div>
-              <div class="col-sm-3 col-md-2">
-                <button type="submit" class="btn btn-block " >Find a table</button>
-              </div>
+<div class="masthead text-center">
+  <div class="container">
+    <div class="row">
+      <div class=" col-xs-12">
+        <h1>Make a free reservation </h1>
+        <h3>Choose your table from n restaurants near you</h3>
+        <form>
+          <div class="row no-gutters form-row">
+            <div class="col-sm-12 col-md-4">
+              <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
             </div>
-
-          </form>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="container text-center container-restaurants"  >
-    <h3 resize>Popular for Lunch Today </h3>
-
-    <div uib-carousel ng-if="windowWidth <755" active="1" >
-      <div uib-slide ng-repeat="y in restaurants"  index=$index>
-
-          <div class="card">
-            <img ng-src="{{y.imageFileName}}" >
-            <div class="container">
-              <h3>
-                {{y.restaurantName}}
-              </h3>
-
-              <ul class="list list-inline ">
-                <li>
-                  <span class="glyphicon glyphicon-star "  ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty "  ng-repeat="n in range(5-y.mark)"></span>
-                </li>
-                <li>
-                  <span>({{y.votes}})</span>
-                </li>
-                <li>
-                  <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd dolar-empty"  ng-repeat="n in range(5-y.priceRange)"></span>
-                </li>
-              </ul>
-              <hr >
-
-              <p1 style="color: gray">
-                {{y.foodType}}
-              </p1>
+            <div class=" col-sm-3 col-md-2">
+              <select class="custom-select form-control" required>
+                <option value="">Two</option>
+                <option value="1">One</option>
+                <option value="2">Four</option>
+                <option value="3">Three</option>
+              </select>
             </div>
-            <button type="button" class="btn btn-block " ng-click="save(y)">Reserve Now</button>
+            <div class=" col-sm-3 col-md-2">
+              <input type="date" class="form-control ">
+            </div>
+            <div class=" col-sm-3 col-md-2">
+              <input type="time" class="form-control">
+            </div>
+            <div class="col-sm-3 col-md-2">
+              <button type="submit" class="btn btn-block ">Find a table</button>
+            </div>
           </div>
-
+        </form>
       </div>
     </div>
+  </div>
+</div>
 
-    <div  class="row " ng-if="windowWidth >755" >
-      <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
+<div class="container text-center container-restaurants">
+  <h3 resize>Popular for Lunch Today </h3>
 
-        <div class="card">
-          <img ng-src="{{y.imageFileName}}" >
-          <div class="container">
-            <h3>
-              {{y.restaurantName}}
-            </h3>
-
-            <ul class="list list-inline ">
-              <li>
-                <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(y.mark)"></span><span class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-y.mark)"></span>
-              </li>
-              <li>
-                <span>({{y.votes}})</span>
-              </li>
-              <li>
-                <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
-              </li>
-            </ul>
-            <hr >
-
-            <p1 style="color: gray">
-              {{y.foodType}}
-            </p1>
-          </div>
-          <button type="button" class="btn btn-block " ng-click="save(y)">Reserve Now</button>
+  <div uib-carousel ng-if="windowWidth <755" active="1">
+    <div uib-slide ng-repeat="y in restaurants" index=$index>
+      <div class="card">
+        <img ng-src="{{y.imageFileName}}">
+        <div class="container">
+          <h3>
+            {{y.restaurantName}}
+          </h3>
+          <ul class="list list-inline ">
+            <li>
+              <span class="glyphicon glyphicon-star " ng-repeat="n in range(y.mark)"></span><span
+              class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-y.mark)"></span>
+            </li>
+            <li>
+              <span>({{y.votes}})</span>
+            </li>
+            <li>
+              <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(y.priceRange)"></span><span
+              class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-y.priceRange)"></span>
+            </li>
+          </ul>
+          <hr>
+          <p1 style="color: gray">
+            {{y.foodType}}
+          </p1>
         </div>
-
+        <button type="button" class="btn btn-block " ng-click="save(y)">Reserve Now</button>
       </div>
     </div>
   </div>
 
-  <div class="masthead text-center">
-      <h3 >Specials</h3>
+  <div class="row " ng-if="windowWidth >755">
+    <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
 
-      <div uib-carousel active="1">
-        <div uib-slide ng-repeat="dish in dishes"  index=$index>
+      <div class="card">
+        <img ng-src="{{y.imageFileName}}">
+        <div class="container">
+          <h3>
+            {{y.restaurantName}}
+          </h3>
+          <ul class="list list-inline ">
+            <li>
+              <span class="glyphicon glyphicon-star " style="color: orange" ng-repeat="n in range(y.mark)"></span><span
+              class="glyphicon glyphicon-star-empty " style="color: orange" ng-repeat="n in range(5-y.mark)"></span>
+            </li>
+            <li>
+              <span>({{y.votes}})</span>
+            </li>
+            <li>
+              <span class="glyphicon glyphicon-usd " ng-repeat="n in range(y.priceRange)"></span><span
+              class="glyphicon  glyphicon-usd" style="color: gray" ng-repeat="n in range(5-y.priceRange)"></span>
+            </li>
+          </ul>
+          <hr>
+          <p1 style="color: gray">
+            {{y.foodType}}
+          </p1>
+        </div>
+        <button type="button" class="btn btn-block " ng-click="save(y)">Reserve Now</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <div class="card" >
-              <img src="images/sampleprofile.jpg" >
-              <div class="container " style="color: whitesmoke;">
+<div class="masthead text-center">
+  <h3>Specials</h3>
 
-                <h3> {{dish.heading}}</h3>
-                <ul class="list list-inline " >
-                  <li>
-                    <p3>{{dish.location}}</p3>
-                  </li>
-                  <li>
-                    <p3>|</p3>
-                  </li>
-                  <li>
-                    <p3>{{dish.numRestaurants}} restaurants</p3>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
+  <div uib-carousel active="1">
+    <div uib-slide ng-repeat="dish in dishes" index=$index>
+      <div class="card">
+        <img src="images/sampleprofile.jpg">
+        <div class="container " style="color: whitesmoke;">
+          <h3> {{dish.heading}}</h3>
+          <ul class="list list-inline ">
+            <li>
+              <p3>{{dish.location}}</p3>
+            </li>
+            <li>
+              <p3>|</p3>
+            </li>
+            <li>
+              <p3>{{dish.numRestaurants}} restaurants</p3>
+            </li>
+          </ul>
         </div>
       </div>
-
-  </div>
-
-  <div class="container  " >
-    <h3 class="text-center">Popular locations</h3>
-    <div class="row " style="padding-bottom: 30px" >
-      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="location in poplocs">
-        <h4 style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 25px">{{location.location}}</h4>
-        <p4 style="color: darkgray">{{location.num}} restaurants</p4>
-      </div>
     </div>
   </div>
+</div>
+
+<div class="container">
+  <h3 class="text-center">Popular locations</h3>
+  <div class="row popular-locations-row">
+    <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="city in popularLocations">
+      <h4 >{{city.location}}</h4>
+      <p4 class="number">{{city.num}} restaurants</p4>
+    </div>
+  </div>
+</div>
 
 
 </body>

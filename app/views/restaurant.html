@@ -2,21 +2,22 @@
   <link rel="stylesheet" href="../styles/restaurant.css">
 </head>
 
-<body >
+<body>
 
-  <script  ng-controller="ReviewCtrl as $ctrl" type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
-      <div class="glyphicon glyphicon-remove back-icon-review" ng-click="$ctrl.cancel()"></div>
-      <h3 class="modal-title" id="modal-title">Rate this place</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-      <div class="row center-block row-review">
-        <div class="col-12 ">
-          <form class="reviewForm" name="reviewForm" ng-submit="$ctrl.ok()" novalidate>
+<script ng-controller="ReviewCtrl as $ctrl" type="text/ng-template" id="myModalContent.html">
+  <div class="modal-header">
+    <div class="glyphicon glyphicon-remove back-icon-review" ng-click="$ctrl.cancel()"></div>
+    <h3 class="modal-title" id="review-modal-title">Rate this place</h3>
+  </div>
+  <div class="modal-body" id="review-modal-body">
+    <div class="row center-block row-review">
+      <div class="col-12 ">
+        <form class="reviewForm" name="reviewForm" ng-submit="$ctrl.ok()" novalidate>
 
-            <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+          <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null"
+                aria-labelledby="default-rating"></span>
 
-            <div class="form-group">
+          <div class="form-group">
 
               <textarea name="review" rows="5"
                         class="form-control "
@@ -26,149 +27,151 @@
                         ng-model="review"
                         required="required"
               ></textarea>
-            </div>
-            <button type="submit" class="btn btn-block "  ng-disabled="reviewForm.$invalid" >Save</button>
+          </div>
+          <button type="submit" class="btn btn-block " ng-disabled="reviewForm.$invalid">Save</button>
 
-          </form>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</script>
+
+<div class="masthead" style="height: 340px">
+</div>
+
+
+<div class="container main">
+  <div class="row">
+
+    <div class="hidden-sm hidden-xs  col-md-3 ">
+      <div>
+        <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}"></div>
+
+        <div class="list-group">
+          <a href="#reservation" class="list-group-item">Reservation</a>
+          <a href="#about" class="list-group-item">About</a>
+          <a href="#menu" class="list-group-item">Menu</a>
+          <a href="#" class="list-group-item">Photos</a>
         </div>
       </div>
 
     </div>
-  </script>
 
-  <div class="masthead" style="height: 340px">
-  </div>
+    <div class="col-md-9">
 
+      <div class="container-info">
+        <h3>{{restaurant.restaurantName}}</h3>
+        <ul class="list list-inline">
+          <li>
+            <span class="glyphicon glyphicon-star " ng-repeat="n in range(restaurant.mark)"></span><span
+            class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-restaurant.mark)"></span>
+          </li>
+          <li>
+            <div>({{restaurant.votes}})</div>
+          </li>
+          <li>
+            <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(restaurant.priceRange)"></span><span
+            class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-restaurant.priceRange)"></span>
+          </li>
+          <li>
+            {{restaurant.foodType}}
+          </li>
+          <li class="pull-right ">
+            <button ng-controller="ReviewCtrl as $ctrl" type="button" class="btn btn-block btn-default"
+                    style="width: 160px" ng-click="$ctrl.open()">Rate this place
+            </button>
+          </li>
+        </ul>
+      </div>
 
-  <div class="container main"  >
-    <div class="row" >
+      <div class="container-card">
+        <h5 class="h5-heading-reservation"><a id="reservation"></a>Make a free reservation</h5>
 
-      <div class="hidden-sm hidden-xs  col-md-3 "  >
-        <div >
-          <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}"></div>
+        <p class="pull-right hidden-xs">Booked n times today</p>
 
-          <div class="list-group">
-            <a href="#reservation" class="list-group-item">Reservation</a>
-            <a href="#about" class="list-group-item">About</a>
-            <a href="#menu" class="list-group-item">Menu</a>
-            <a href="#" class="list-group-item">Photos</a>
+        <form>
+          <div class="row no-gutters">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <select class="custom-select form-control " required>
+                <option value="">Two people</option>
+                <option value="1">One people</option>
+                <option value="2">Four people</option>
+                <option value="3">Three people</option>
+              </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <input type="date" class="form-control ">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <input type="time" class="form-control">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
+            </div>
           </div>
-        </div>
+        </form>
+
 
       </div>
 
-      <div class="col-md-9">
+      <div class="container-card">
+        <h5><a id="about"></a>About {{restaurant.restaurantName}}</h5>
+        <div id="map" class="map"></div>
+        <h6 class="desc">Description</h6>
+        <p6 class="desc-p">
+          {{restaurant.description}}
+        </p6>
+      </div>
 
-        <div class="container-info" >
-          <h3  >{{restaurant.restaurantName}}</h3>
-          <ul class="list list-inline">
-            <li >
-              <span class="glyphicon glyphicon-star " ng-repeat="n in range(restaurant.mark)"></span><span class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-restaurant.mark)"></span>
-            </li>
-            <li >
-              <div>({{restaurant.votes}})</div>
-            </li>
-            <li>
-              <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(restaurant.priceRange)"></span><span class="glyphicon  glyphicon-usd dolar-empty"  ng-repeat="n in range(5-restaurant.priceRange)"></span>
-            </li>
-            <li >
-              {{restaurant.foodType}}
-            </li>
-            <li class="pull-right ">
-              <button ng-controller="ReviewCtrl as $ctrl" type="button" class="btn btn-block btn-default" style="width: 160px" ng-click="$ctrl.open()">Rate this place</button>
-            </li>
-          </ul>
+      <div class="container-card" ng-controller="MenuCtr as $menu">
+
+        <h5 class="menu-heading">Menu: </h5>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
+          </label>
+          <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
+            <input type="radio" name="options" id="option2" autocomplete="off" > Lunch
+          </label>
+          <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
+            <input type="radio" name="options" id="option3" autocomplete="off" > Dinner
+          </label>
         </div>
 
-        <div class="container-card">
-            <h5 class="h5-heading-reservation" ><a id="reservation"></a>Make a free reservation</h5>
+        <hr>
 
-            <p class="pull-right hidden-xs" >Booked n times today</p>
-
-          <form>
-            <div class="row no-gutters">
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <select class="custom-select form-control " required>
-                  <option value="">Two people</option>
-                  <option value="1">One people</option>
-                  <option value="2">Four people</option>
-                  <option value="3">Three people</option>
-                </select>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <input type="date" class="form-control " >
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <input type="time" class="form-control" >
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>
-              </div>
-            </div>
-          </form>
-
-
-        </div>
-
-        <div class="container-card">
-          <h5  ><a id="about"></a>About {{restaurant.restaurantName}}</h5>
-          <div id="map" class="map"  ></div>
-          <h6 class="desc" >Description</h6>
-          <p6 class="desc-p">
-            {{restaurant.description}}
-          </p6>
-        </div>
-
-        <div class="container-card" ng-controller="MenuCtr as $menu">
-
-          <h5 class="menu-heading">Menu: </h5>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons" >
-            <label class="btn btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked > Breakfast
-            </label>
-            <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
-              <input type="radio" name="options" id="option2" autocomplete="off" ng-click=""> Lunch
-            </label>
-            <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
-              <input type="radio" name="options" id="option3" autocomplete="off" ng-click=""> Dinner
-            </label>
-          </div>
-
-          <hr>
-
-          <div class="menu-items" ng-style="{'max-height': $menu.myHeight}">
-            <a id="menu"></a>
-            <div >
-              <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
-                <h6 class="type-title"> {{dishType[0].dishType}}</h6>
-                <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
-                  <div class="col-xs-3">
-                    {{dish.name}}
-                  </div>
-                  <div class="col-xs-6">
-                  </div>
-                  <div class="col-xs-3 price">
-                    ${{dish.price}}
-                  </div>
-                  <p4 class="menu-dish-description">{{dish.description}}</p4>
-
+        <div class="menu-items" ng-style="{'max-height': $menu.myHeight}">
+          <a id="menu"></a>
+          <div>
+            <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
+              <h6 class="type-title"> {{dishType[0].dishType}}</h6>
+              <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
+                <div class="col-xs-3">
+                  {{dish.name}}
                 </div>
+                <div class="col-xs-6">
+                </div>
+                <div class="col-xs-3 price">
+                  ${{dish.price}}
+                </div>
+                <p4 class="menu-dish-description">{{dish.description}}</p4>
+
               </div>
             </div>
-
           </div>
-          <div class="fadeout"></div>
-
-
-
-          <button  class="btn btn-block see-full-menu center-block " ng-click="$menu.showMenu()" >{{$menu.text}}</button>
 
         </div>
+        <div class="fadeout"></div>
+
+
+        <button class="btn btn-block see-full-menu center-block " ng-click="$menu.showMenu()">{{$menu.text}}</button>
 
       </div>
 
-
-
     </div>
+
+
   </div>
+</div>
 </body>

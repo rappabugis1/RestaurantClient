@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('HeaderCtrl', function ($scope, $location, $localStorage, AuthenticationService) {
+  .controller('NavigationController', function ($scope, $location, $localStorage, AuthenticationService) {
 
     $scope.isLoged = function(){
       return  $localStorage.currentUser;

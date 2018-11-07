@@ -9,32 +9,32 @@
  */
 angular.module('clientApp')
 
-  .controller('MainCtrl', function ($scope, $http, ShareDataService, $location, RestaurantService){
+  .controller('HomeController', function ($scope, $http, ShareDataService, $location, RestaurantService) {
 
-    $scope.dishes=[
+    $scope.dishes = [
       {
-        "heading" : "Best pizza of 2016",
-        "location" : "New York",
-        "numRestaurants" : 43
+        "heading": "Best pizza of 2016",
+        "location": "New York",
+        "numRestaurants": 43
       },
       {
-        "heading" : "Best cevapi",
-        "location" : "Sarajevo",
-        "numRestaurants" : 28
+        "heading": "Best cevapi",
+        "location": "Sarajevo",
+        "numRestaurants": 28
       },
       {
-        "heading" : "Fresh and Spicy",
-        "location" : "Philladelphia",
-        "numRestaurants" : 16
+        "heading": "Fresh and Spicy",
+        "location": "Philladelphia",
+        "numRestaurants": 16
       },
       {
-        "heading" : "Cupcakes Flavor",
-        "location" : "Chicago",
-        "numRestaurants" : 11
+        "heading": "Cupcakes Flavor",
+        "location": "Chicago",
+        "numRestaurants": 11
       }
     ];
 
-    $scope.range = function(count){
+    $scope.range = function (count) {
 
       var ratings = [];
 
@@ -45,17 +45,17 @@ angular.module('clientApp')
       return ratings;
     };
 
-    $scope.save= function(rest){
+    $scope.save = function (rest) {
       ShareDataService.add(rest);
       $location.path('/restaurant');
     };
 
-    RestaurantService.getRandomRestaurants().then(function(response) {
+    RestaurantService.getRandomRestaurants().then(function (response) {
       $scope.restaurants = response.data;
     });
 
-    RestaurantService.getRestaurantLocations().then(function(response) {
-      $scope.poplocs = response.data;
+    RestaurantService.getRestaurantLocations().then(function (response) {
+      $scope.popularLocations = response.data;
     });
 
 

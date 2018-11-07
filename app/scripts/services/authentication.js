@@ -10,19 +10,18 @@
 angular.module('clientApp')
   .factory('AuthenticationService', function ($http, $localStorage) {
 
-    var service= {};
+    var service = {};
 
     function Login(username, password, callback) {
-      $http.post('app/login', { email: username, password: password })
+      $http.post('app/login', {email: username, password: password})
         .then(function onSucces(response) {
           // login successful if there's a token in the response
-
 
 
           if (response.headers('authorization')) {
 
             // store username and token in local storage to keep user logged in between page refreshes
-            $localStorage.currentUser = { currentUser: response, token: response.headers('Authorization') };
+            $localStorage.currentUser = {currentUser: response, token: response.headers('Authorization')};
 
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = response.headers('Authorization');
@@ -35,21 +34,21 @@ angular.module('clientApp')
 
           }
         })
-        .catch(function onError(){
+        .catch(function onError() {
 
           callback(false);
 
         });
     }
 
-    function Register(payload, callback){
+    function Register(payload, callback) {
       $http.post('app/register', payload)
         .then(function onSucces() {
 
-            callback(true);
+          callback(true);
 
         })
-        .catch(function onError(){
+        .catch(function onError() {
 
           callback(false);
 
@@ -63,7 +62,7 @@ angular.module('clientApp')
     }
 
     service.Login = Login;
-    service.Register= Register;
+    service.Register = Register;
     service.Logout = Logout;
 
     return service;

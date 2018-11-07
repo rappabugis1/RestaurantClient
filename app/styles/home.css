@@ -1,4 +1,4 @@
-.restaurant-popular{
+.restaurant-popular {
   max-width: 270px;
   padding-bottom: 50px;
   padding-left: 0px;
@@ -6,11 +6,11 @@
 
 }
 
-.container-restaurants{
+.container-restaurants {
   padding-bottom: 100px;
 }
 
-.masthead{
+.masthead {
   height: 680px;
 
 }
@@ -37,56 +37,57 @@ div.masthead h3 {
   padding-bottom: 30px;
 }
 
-.form-control{
+.form-control {
   border: none;
   height: 56px;
 }
 
-.btn{
+.btn {
   border: none;
   border-radius: 0;
   height: 56px;
   background-color: coral;
   color: white;
 }
+
 .btn:hover, .btn:focus {
-  color:white;
+  color: white;
   background-color: coral;
   border-color: coral;
-  box-shadow:  0 0 4px coral;
+  box-shadow: 0 0 4px coral;
 }
-.container h3{
+
+.container h3 {
   margin-top: 73px;
   font-size: 30px;
   margin-bottom: 40px;
 }
 
-
-.container + .masthead{
+.container + .masthead {
   background-color: #343a40;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url("../images/mastpop.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/mastpop.jpg") no-repeat center center;
   background-size: cover;
   height: 584px;
 }
 
-.container + .masthead >div >div>div>div>.card{
+.container + .masthead > div > div > div > div > .card {
   height: 260px;
   box-shadow: none;
 }
 
-.container + .masthead >div >div>div>div>.card>div{
+.container + .masthead > div > div > div > div > .card > div {
   padding: 0px;
   margin: 0px;
 
 }
 
-.container + .masthead >div >div>div>div>.card>img{
+.container + .masthead > div > div > div > div > .card > img {
   height: 180px;
   max-width: 300px;
 
 }
 
-.container + .masthead >div >div>div>div>.card>div h3 {
+.container + .masthead > div > div > div > div > .card > div h3 {
   font-size: 25px;
   padding-bottom: 5px;
 }
@@ -95,17 +96,32 @@ div.masthead h3 {
   font-size: 30px;
 }
 
-.p5-reserv{
-  margin-top:15px;
+.p5-reserv {
+  margin-top: 15px;
 }
 
-.glyphicon-star, .glyphicon-star-empty{
+.glyphicon-star, .glyphicon-star-empty {
   color: goldenrod;
 }
 
-.dolar-full{
+.dolar-full {
   color: black;
 }
-.dolar-empty{
+
+.dolar-empty {
   color: gray;
+}
+
+.popular-locations-row{
+  padding-bottom: 30px;
+}
+
+.popular-locations-row>div>h4{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-top: 25px
+}
+
+.popular-locations-row>div>.number{
+  color: darkgray;
 }

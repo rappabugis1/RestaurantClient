@@ -74,7 +74,6 @@ body {
   .popular-rests{
     max-width: 930px;
   }
-
 }
 
 .footer-left{
@@ -105,12 +104,9 @@ body {
   box-shadow: none;
 }
 
-
-
 .form-control{
   border-radius: 0px;
 }
-
 
 select{
 -webkit-appearance: listbox;

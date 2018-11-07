@@ -8,10 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantCtrl', function ($http, $scope, ShareDataService,RestaurantService) {
+  .controller('RestaurantController', function ($http, $scope, ShareDataService, RestaurantService) {
 
 
-    $scope.initialize = function(a,b) {
+    $scope.initialize = function (a, b) {
       $scope.mapOptions = {
         zoom: 15,
         center: new google.maps.LatLng(a, b)
@@ -19,7 +19,7 @@ angular.module('clientApp')
       $scope.map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions);
     };
 
-    $scope.loadScript = function(a,b) {
+    $scope.loadScript = function (a, b) {
 
       if (window.google) {
         setTimeout(function () {
@@ -38,7 +38,7 @@ angular.module('clientApp')
     };
 
 
-    $scope.range = function(count){
+    $scope.range = function (count) {
 
       var ratings = [];
 
@@ -49,22 +49,22 @@ angular.module('clientApp')
       return ratings;
     };
 
-    RestaurantService.getRestaurantDetails(ShareDataService.get().id ).then(function(response) {
+    RestaurantService.getRestaurantDetails(ShareDataService.get().id).then(function (response) {
       $scope.restaurant = response.data;
       $scope.loadScript($scope.restaurant.latitude, $scope.restaurant.longitude);
     });
 
   })
 
-  .controller('ReviewCtrl', function ( $scope,$uibModal, $document, $log,  $location, $localStorage, RestaurantService, ShareDataService) {
+  .controller('ReviewCtrl', function ($scope, $uibModal, $document, $log, $location, $localStorage, RestaurantService, ShareDataService) {
 
-    var $ctrl=this;
+    var $ctrl = this;
 
 
     $ctrl.animationsEnabled = true;
 
     $ctrl.open = function (size, parentSelector) {
-      if($localStorage.currentUser){
+      if ($localStorage.currentUser) {
         var parentElem = parentSelector ?
           angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
         var modalInstance = $uibModal.open({
@@ -79,11 +79,11 @@ angular.module('clientApp')
         });
 
         modalInstance.result.then(function (payload) {
-          payload={
-            comment:payload.comment,
-            mark:payload.mark,
-            idUser : $localStorage.currentUser.currentUser.data.id,
-            idRestaurant : ShareDataService.get().id
+          payload = {
+            comment: payload.comment,
+            mark: payload.mark,
+            idUser: $localStorage.currentUser.currentUser.data.id,
+            idRestaurant: ShareDataService.get().id
           };
           $log.info(payload);
           RestaurantService.insertComment(payload);
@@ -91,7 +91,7 @@ angular.module('clientApp')
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
         });
-      }else {
+      } else {
         $location.path('/login');
       }
 
@@ -103,14 +103,14 @@ angular.module('clientApp')
   .controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
     var $ctrl = this;
 
-    $scope.rate= 3;
-    $scope.review="";
+    $scope.rate = 3;
+    $scope.review = "";
 
     $ctrl.ok = function () {
 
-      var payload= {
-        comment : $scope.review,
-        mark : $scope.rate
+      var payload = {
+        comment: $scope.review,
+        mark: $scope.rate
 
       };
       $uibModalInstance.close(payload);
@@ -121,25 +121,25 @@ angular.module('clientApp')
     };
   })
 
-  .controller('MenuCtr', function($scope, RestaurantService, ShareDataService, $log){
+  .controller('MenuCtr', function ($scope, RestaurantService, ShareDataService, $log) {
     var $menu = this;
 
     $scope.arrayDishes = [];
 
     $menu.getMenu = function (type) {
-      RestaurantService.getMenu(type.toString(), ShareDataService.get().id).then(function(response) {
-        var  menuData= response.data;
-        var dishTypes= new Array;
-        var arrayDishesLoc= new Array(0);
+      RestaurantService.getMenu(type.toString(), ShareDataService.get().id).then(function (response) {
+        var menuData = response.data;
+        var dishTypes = new Array;
+        var arrayDishesLoc = new Array(0);
 
-        menuData.forEach(function(element){
-          if(!dishTypes.includes(element.dishType)){
+        menuData.forEach(function (element) {
+          if (!dishTypes.includes(element.dishType)) {
             dishTypes.push(element.dishType);
             arrayDishesLoc.push(new Array(0));
-            arrayDishesLoc[arrayDishesLoc.length-1].push(element);
-          }else {
+            arrayDishesLoc[arrayDishesLoc.length - 1].push(element);
+          } else {
             arrayDishesLoc.forEach(function (value) {
-              if(value[0].dishType===element.dishType){
+              if (value[0].dishType === element.dishType) {
                 value.push(element);
               }
             });
@@ -150,19 +150,19 @@ angular.module('clientApp')
       });
     };
 
-    $menu.text="Show full menu";
-    $menu.tick= false;
+    $menu.text = "Show full menu";
+    $menu.tick = false;
 
-    $menu.showMenu = function(){
-      if($menu.tick){
-        $menu.text="Show full menu";
-        $menu.tick=false;
-        $menu.myHeight='350px';
+    $menu.showMenu = function () {
+      if ($menu.tick) {
+        $menu.text = "Show full menu";
+        $menu.tick = false;
+        $menu.myHeight = '350px';
       }
-      else{
-        $menu.text="See less";
-        $menu.tick=true;
-        $menu.myHeight='none';
+      else {
+        $menu.text = "See less";
+        $menu.tick = true;
+        $menu.myHeight = 'none';
 
       }
     };

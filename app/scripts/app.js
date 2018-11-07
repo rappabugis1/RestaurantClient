@@ -23,19 +23,19 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl',
+        controller: 'HomeController',
         controllerAs: 'main'
       })
 
       .when('/login',{
         templateUrl:   'views/login.html',
-        controller: 'LoginCtrl',
+        controller: 'LoginController',
         controllerAs: 'login'
       })
 
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'RegisterCtrl',
+        controller: 'RegisterController',
         controllerAs: 'register'
       })
 
