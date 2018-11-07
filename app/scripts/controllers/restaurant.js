@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantController', function ($http, $scope, ShareDataService, RestaurantService) {
+  .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService) {
     $scope.initialize = function (a, b) {
       $scope.mapOptions = {
         zoom: 15,

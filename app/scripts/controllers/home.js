@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('MainCtrl', function ($scope, $http, SessionStorageService, $location, RestaurantService, $log){
+  .controller('HomeController', function ($scope, $http, SessionStorageService, $location, RestaurantService, $log){
 
     $scope.dishes = [
       {

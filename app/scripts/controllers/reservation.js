@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ReservationCtrl', function ($scope) {
+  .controller('ReservationController', function ($scope) {
     $scope.dateToday= new Date();
     $scope.dateMax = new Date().setMonth($scope.dateToday.getMonth()+4);
     $scope.selectedDate =$scope.dateToday;

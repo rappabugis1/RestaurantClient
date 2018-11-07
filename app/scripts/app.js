@@ -41,7 +41,7 @@ angular
 
       .when('/restaurant',{
         templateUrl: 'views/restaurant.html',
-        controller: 'RestaurantCtrl',
+        controller: 'RestaurantController',
         controllerAs: 'restaurant'
       })
 
