@@ -54,10 +54,6 @@ angular.module('clientApp')
 
   })
 
-  .controller('SearchCtrl', function ($scope) {
-    $scope.dateToday= new Date();
-    $scope.dateMax = new Date().setMonth($scope.dateToday.getMonth()+4);
-  })
 
   .controller('ReviewCtrl', function ( $scope,$uibModal, $document, $log,  $location, $localStorage, RestaurantService, SessionStorageService) {
 

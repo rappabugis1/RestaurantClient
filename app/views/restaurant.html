@@ -1,4 +1,4 @@
-<head xmlns="http://www.w3.org/1999/html">
+<head xmlns:date="http://www.w3.org/1999/xhtml" xmlns:date="http://www.w3.org/1999/xhtml">
   <link rel="stylesheet" href="../styles/restaurant.css">
 </head>
 
@@ -102,7 +102,7 @@
                 <input type="date" class="form-control " ng-model="selectedDate"  min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{dateMax | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}"  >
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="09:00" max="22:00" value="09:00" >
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>

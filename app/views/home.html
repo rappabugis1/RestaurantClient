@@ -9,27 +9,26 @@
         <div class=" col-xs-12">
           <h1 >Make a free reservation </h1>
           <h3 >Choose your table from n restaurants near you</h3>
-          <form >
+          <form ng-controller="ReservationCtrl as $ctrl">
             <div class="row no-gutters form-row">
               <div class="col-sm-12 col-md-4">
                 <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
               </div>
               <div class=" col-sm-3 col-md-2" >
                 <select class="custom-select form-control" required>
-                  <option value="">Two</option>
-                  <option value="1">One</option>
-                  <option value="2">Four</option>
-                  <option value="3">Three</option>
+                  <option value="" selected disabled >Number of people</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
                 </select>
 
               </div>
               <div class=" col-sm-3 col-md-2">
-                <input type="date" class="form-control"  required >
-
+                <input type="date" class="form-control " ng-model="selectedDate"  min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{dateMax | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}" required >
               </div>
               <div class=" col-sm-3 col-md-2">
-                <input type="time" class="form-control" step="900" min="09:00" max="22:00" value="09:00" required>
-
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>
               </div>
               <div class="col-sm-3 col-md-2">
                 <button type="submit" class="btn btn-block " >Find a table</button>

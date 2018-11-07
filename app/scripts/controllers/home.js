@@ -61,7 +61,6 @@ angular.module('clientApp')
 
   })
 
-
   .directive('resize', function ($window) {
     return function (scope) {
       var w = angular.element($window);
@@ -85,6 +84,7 @@ angular.module('clientApp')
         scope.$apply();
       });
     };
-  });
+  })
+;
 
 
