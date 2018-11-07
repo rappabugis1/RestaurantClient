@@ -25,7 +25,7 @@
 
               </div>
               <div class=" col-sm-3 col-md-2">
-                <input type="date" class="form-control " ng-model="selectedDate"  min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{dateMax | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}" required >
+                <input type="date" class="form-control " ng-model="selectedDate" min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}" required >
               </div>
               <div class=" col-sm-3 col-md-2">
                 <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>

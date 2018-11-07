@@ -91,19 +91,19 @@
           <form ng-controller="ReservationController as $ctrl">
             <div class="row no-gutters">
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <select class="custom-select form-control " required>
+                <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
                   <option value="" selected disabled >Number of people</option>
-                  <option value="1">Two people</option>
-                  <option value="2">One people</option>
-                  <option value="3">Four people</option>
-                  <option value="4">Three people</option>
                 </select>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <input type="date" class="form-control " ng-model="selectedDate"  min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{dateMax | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}"  >
+                <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
+                min: {{minDate | date:'yyyy-MM-dd'}}
+                now: {{selectedDate | date:'yyyy-MM-dd'}}
+                max : {{maxDate | date:'yyyy-MM-dd'}}
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>
+                {{minTime | date:'HH:mm'}}
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>
