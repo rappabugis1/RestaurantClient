@@ -1,10 +1,10 @@
-<head xmlns:date="http://www.w3.org/1999/xhtml" xmlns:date="http://www.w3.org/1999/xhtml">
+<head >
   <link rel="stylesheet" href="../styles/restaurant.css">
 </head>
 
 <body>
 
-<script ng-controller="ReviewCtrl as $ctrl" type="text/ng-template" id="myModalContent.html">
+<script ng-controller="ReviewController as $ctrl" type="text/ng-template" id="myModalContent.html">
   <div class="modal-header">
     <div class="glyphicon glyphicon-remove back-icon-review" ng-click="$ctrl.cancel()"></div>
     <h3 class="modal-title" id="review-modal-title">Rate this place</h3>
@@ -78,7 +78,7 @@
             {{restaurant.foodType}}
           </li>
           <li class="pull-right ">
-            <button ng-controller="ReviewCtrl as $ctrl" type="button" class="btn btn-block btn-default"
+            <button ng-controller="ReviewController as $ctrl" type="button" class="btn btn-block btn-default"
                     style="width: 160px" ng-click="$ctrl.open()">Rate this place
             </button>
           </li>
@@ -122,7 +122,7 @@
         </p6>
       </div>
 
-      <div class="container-card" ng-controller="MenuCtr as $menu">
+      <div class="container-card" ng-controller="MenuController as $menu">
 
         <h5 class="menu-heading">Menu: </h5>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">

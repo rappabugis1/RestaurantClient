@@ -55,7 +55,7 @@ angular.module('clientApp')
   })
 
 
-  .controller('ReviewCtrl', function ( $scope,$uibModal, $document, $log,  $location, $localStorage, RestaurantService, SessionStorageService) {
+  .controller('ReviewController', function ($scope, $uibModal, $document, $log, $location, $localStorage, RestaurantService, SessionStorageService) {
 
     var $ctrl = this;
 
@@ -71,7 +71,7 @@ angular.module('clientApp')
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
           templateUrl: 'myModalContent.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'ModalInstanceController',
           controllerAs: '$ctrl',
           size: size,
           appendTo: parentElem
@@ -84,7 +84,6 @@ angular.module('clientApp')
             idUser : $localStorage.currentUser.currentUser.data.id,
             idRestaurant : JSON.parse(SessionStorageService.get("restaurantId")).id
           };
-          $log.info(payload);
           RestaurantService.insertComment(payload);
 
         }, function () {
@@ -99,7 +98,7 @@ angular.module('clientApp')
 
   })
 
-  .controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
+  .controller('ModalInstanceController', function ($uibModalInstance, $scope) {
     var $ctrl = this;
 
     $scope.rate = 3;
@@ -120,7 +119,7 @@ angular.module('clientApp')
     };
   })
 
-  .controller('MenuCtr', function($scope, RestaurantService, SessionStorageService){
+  .controller('MenuController', function($scope, RestaurantService, SessionStorageService){
     var $menu = this;
 
     $scope.arrayDishes = [];
