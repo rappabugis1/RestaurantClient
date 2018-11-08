@@ -5,7 +5,7 @@
   background: white;
   width: 100%;
   margin-bottom: 80px;
-  padding: 24px 30px 45px 30px;
+  padding: 24px 30px 35px 30px;
 }
 
 .head {
@@ -18,6 +18,8 @@
 
 .reservation-details-head{
   font-size: 20px;
+  margin: 0px 0 0px 0;
+
   color: rgba(19,29,36,0.40);
 }
 
@@ -40,7 +42,7 @@
 .btn{
   border-radius: 0px;
   border-color: coral;
-  background-color: coral;
+  background-color: coral !important;
   color: white;
 }
 .btn:hover, .btn:focus {
@@ -80,4 +82,27 @@ h4 {
   color: #878787;
   letter-spacing: 0;
   margin-bottom: 220px;
+}
+
+.request{
+  line-height: 1.75;
+}
+
+.profile {
+  height: 182px;
+  width: 210px;
+  border: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: coral;
+}
+
+.col-input {
+  padding: 20px 0 20px 0;
+}
+
+select.input-lg {
+  height: 46px;
+  line-height: normal;
+
 }

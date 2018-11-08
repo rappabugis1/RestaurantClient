@@ -43,9 +43,9 @@ angular.module('clientApp')
 
     function Register(payload, callback) {
       $http.post('app/register', payload)
-        .then(function onSucces() {
+        .then(function onSucces(response) {
 
-          callback(true);
+          callback(response.data);
 
         })
         .catch(function onError() {

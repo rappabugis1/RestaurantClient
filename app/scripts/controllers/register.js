@@ -36,7 +36,7 @@ angular.module('clientApp')
 
 
         AuthenticationService.Register(payload, function (result) {
-            if (result === true) {
+            if (result) {
               $location.path('/login');
             }
             else {
