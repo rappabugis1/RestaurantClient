@@ -88,7 +88,7 @@
       <div class="container-card">
         <h5 class="h5-heading-reservation"><a id="reservation"></a>Make a free reservation</h5>
 
-          <form ng-controller="ReservationController as $ctrl">
+          <form name= "reservationForm" ng-controller="ReservationBarController as $ctrl" ng-submit="proceedReservation()">
             <div class="row no-gutters">
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
@@ -97,16 +97,13 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
-                min: {{minDate | date:'yyyy-MM-dd'}}
-                now: {{selectedDate | date:'yyyy-MM-dd'}}
-                max : {{maxDate | date:'yyyy-MM-dd'}}
+
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>
-                {{minTime | date:'HH:mm'}}
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
-                <button type="submit" class="btn btn-block btn-primary form-btn" >Find a table</button>
+                <button type="submit" class="btn btn-block btn-primary form-btn"  >Find a table</button>
               </div>
             </div>
           </form>

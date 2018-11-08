@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation</title>
+    <link rel="stylesheet" href="../styles/reservation.css">
+
+</head>
+<body>
+  <div class="container">
+    <div class="row text-center">
+      <h3 class="head">Complete your reservation</h3>
+    </div>
+    <div class="container-card" >
+      <uib-progressbar value="counter" class="progress-reservation" max="180" >You have {{(counter/60)-(counter%60)/60 | number : 0}}:{{counter%60}} minutes to complete your reservation.</uib-progressbar>
+      <h5 class="reservation-details-head">Restaurant Details</h5>
+      <h6 class="reservation-det-name">RESTAURANT</h6>
+      <p class="rest-name">Red Food</p>
+      <div class="row">
+        <div class="col-xs-4">
+          <h6 class="reservation-det-name">GUESTS</h6>
+          <p class="reservation-info">{{information.people}} People</p>
+        </div>
+        <div class="col-xs-4">
+          <h6 class="reservation-det-name">DATE</h6>
+          <p class="reservation-info">{{information.date | date:'yyyy-MM-dd'}}</p>
+        </div>
+        <div class="col-xs-4">
+          <h6 class="reservation-det-name">TIME</h6>
+          <p class="reservation-info">{{information.time | date:'HH:mm'}}</p>
+        </div>
+      </div>
+    </div>
+
+    <h4>Already a member? <a href="#/login" class="sign-in">Sign in!</a> </h4>
+
+    <form name="reserveForm" ng-submit="" class="text-center" novalidate>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group formg">
+            <input name="firstName"
+                   class="form-control input-lg input-h"
+                   type="text"
+                   id="firstName"
+                   placeholder="First Name"
+                   ng-model="firstName"
+                   required="required">
+          </div>
+
+          <div class="form-group formg"
+               ng-class="{'has-error' : registerForm.phone.$touched && !registerForm.phone.$valid  }">
+            <input name="phone"
+                   class="form-control input-lg input-h "
+                   type="text" id="phone"
+                   placeholder="Phone Number"
+                   ng-model="phone"
+                   ng-minlength="9"
+                   required="required">
+
+            <p ng-show="registerForm.phone.$touched && !registerForm.phone.$valid" class="help-block">Phone number must be at
+              least 9 cases long.</p>
+          </div>
+
+          <div class="form-group formg"
+               ng-class="{'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine}">
+            <input name="email"
+                   class="form-control input-lg input-h "
+                   type="email"
+                   id="email"
+                   placeholder="Email"
+                   ng-model="email"
+                   required="required">
+            <p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Enter a valid
+              email.</p>
+          </div>
+
+        </div>
+        <div class="col-xs-12 col-sm-6">
+
+          <div class="form-group formg">
+            <input name="lastName"
+                   class="form-control input-lg input-h"
+                   type="text"
+                   id="lastName"
+                   placeholder="Last Name"
+                   ng-model="lastName"
+                   required="required">
+          </div>
+
+          <div class="form-group formg">
+            <input name="lastName"
+                   class="form-control input-lg input-h"
+                   type="text"
+                   id="lastName2"
+                   placeholder="Last Name"
+                   ng-model="lastName"
+                   required="required">
+          </div>
+
+          <textarea name="request" rows="1"
+                    class="form-control input-lg input-h"
+                    type="text"
+                    id="review"
+                    placeholder="Add a special request (optional)"
+                    ng-model="request"
+          ></textarea>
+
+        </div>
+      </div>
+
+
+
+
+
+
+      <div ng-if="error" class="alert alert-danger">{{error}}</div>
+
+      <button type="submit"
+              class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block"
+              ng-disabled="registerForm.$invalid">
+        Complete Reservation
+      </button>
+
+      <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
+
+    </form>
+  </div>
+
+</body>
+</html>
