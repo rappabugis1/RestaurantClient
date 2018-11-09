@@ -51,19 +51,28 @@ angular.module('clientApp')
     $scope.numberPeople = [1,2,3,4,5,6,7,8,9,10];
   })
 
-  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage, SessionStorageService, $log) {
+  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage, SessionStorageService, $location) {
 
+    //If there is no current session in sessionStorage, redirects to home page. exp If user manually enters /reservation
+    if(!SessionStorageService.get("reservationInformation"))
+      $location.path('/');
+
+    //Gets reservation information from sesssionStorage
     $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
     $scope.startTime= new Date(SessionStorageService.get("reservationStartTime"));
 
-    $log.info(new Date());
-    $log.info($scope.startTime);
+    //Calculates remaining time based of the time when the reservation session started
     $scope.counter =180-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
 
+    //Simulates second countdown
     $scope.onTimeout = function(){
       $scope.counter--;
+
+      //If time expires, clear session information and go back
       if($scope.counter===0){
-        $window.alert("Time expired");
+        $window.alert("Your reservation session has expired");
+        SessionStorageService.delete("reservationInformation");
+        SessionStorageService.delete("reservationStartTime");
         $window.history.back();
       }
       seconds = $timeout($scope.onTimeout,1000);
@@ -76,8 +85,8 @@ angular.module('clientApp')
 
   })
 
-  .controller('SubmitReservationController', function ($scope, $http, AuthenticationService, $log, ReservationService, ShareDataService) {
-    $scope.information=ShareDataService.getData();
+  .controller('SubmitReservationController', function ($scope, $http, AuthenticationService, $log, ReservationService, SessionStorageService) {
+    $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
 
     $http.get("jsonexp/locations.json").then(
       function (response) {
@@ -85,9 +94,7 @@ angular.module('clientApp')
       }
     );
 
-
-
-
+    //Creates payload and submits reservation
     $scope.reservationSubmit = function (){
       var reservationPayload = {
         persons:  $scope.information.people,
@@ -100,6 +107,8 @@ angular.module('clientApp')
       ReservationService.addReservation(reservationPayload);
     };
 
+
+    //Registers user and if succesfull submits reservation
     $scope.registerSubmit = function (isValid) {
       if (isValid) {
         var payload = {

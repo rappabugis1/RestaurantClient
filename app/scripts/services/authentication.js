@@ -24,7 +24,7 @@ angular.module('clientApp')
             $localStorage.currentUser = {currentUser: response, token: response.headers('Authorization')};
 
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = response.headers('Authorization');
+            $http.defaults.headers.common.Authorization ="Bearer "+response.headers('Authorization');
 
             // execute callback with true to indicate successful login
             callback(true);

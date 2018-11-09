@@ -16,6 +16,9 @@ angular.module('clientApp')
       },
       save: function(key, data) {
         $window.sessionStorage.setItem(key, data);
+      },
+      delete: function (key) {
+        $window.sessionStorage.removeItem(key);
       }
     };
   });
