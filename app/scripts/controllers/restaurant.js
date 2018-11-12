@@ -8,7 +8,14 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService) {
+  .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService, $uibModalStack) {
+
+    $scope.$on('$locationChangeStart', handleLocationChange);
+
+    function handleLocationChange() {
+      $uibModalStack.dismissAll();
+    }
+
     $scope.initialize = function (a, b) {
       $scope.mapOptions = {
         zoom: 15,

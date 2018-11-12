@@ -10,8 +10,60 @@
 angular.module('clientApp')
   .factory('ReservationService', function ($http) {
     return {
-      addReservation: function (payload) {
-        $http.post('app/addReservation', payload);
+      checkReservationAvailability : function (payload, callback) {
+        $http.post('app/checkReservationAvailability', payload)
+          .then(function onSucces(response) {
+
+            //If succesfull return data
+            callback(response.data);
+          })
+          .catch(function onError(error) {
+            if(error.status===400) {
+              callback(error.data);
+            }
+          });
+      },
+
+      makeTemporaryReservation : function (payload, callback) {
+        $http.post('app/makeReservation', payload)
+          .then(function onSucces(response) {
+
+            //If succesfull return data
+            callback(response.data);
+          })
+          .catch(function onError(error) {
+            if(error.status===400){
+              callback(error.data);
+            }
+          });
+      },
+
+      deleteTemporaryReservation : function (payload, callback) {
+        $http.post('app/deleteReservation', payload)
+          .then(function onSucces(response) {
+
+            //If succesfull return data
+            callback(response);
+          })
+          .catch(function onError(error) {
+            if(error.status===400) {
+              callback(error.data);
+            }
+          });
+      },
+
+      updateToFixed : function (payload, callback) {
+        $http.post('app/setReservationToFixed', payload)
+          .then(function onSucces(response) {
+
+            //If succesfull return data
+            callback(response);
+          })
+          .catch(function onError(error) {
+            if(error.status===400) {
+              callback(error.data);
+            }
+          });
       }
     };
   });

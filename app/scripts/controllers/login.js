@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LoginController', function ($log, $scope, $location, AuthenticationService) {
+  .controller('LoginController', function ($log, $scope, $location, AuthenticationService, SessionStorageService, $window) {
 
 
     function initController() {
@@ -27,7 +27,15 @@ angular.module('clientApp')
 
         AuthenticationService.Login(payload.email, payload.password, function (result) {
             if (result === true) {
-              $location.path('/');
+              //If there is a goBack value, after login the window is restored to previous one
+              if(SessionStorageService.get("goBack")){
+                SessionStorageService.delete("goBack");
+                SessionStorageService.save("reservationStartTime", new Date());
+                $window.history.back();
+              }
+              else{
+                $location.path('/');
+              }
             }
             else {
 

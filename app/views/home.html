@@ -14,24 +14,25 @@
               <div class="col-sm-12 col-md-4">
                 <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
               </div>
-              <div class=" col-sm-3 col-md-2" >
-                <select class="custom-select form-control" required>
-                  <option value="" selected disabled >Number of people</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
+                  <option value="" selected disabled >Number of guests</option>
                 </select>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
 
               </div>
-              <div class=" col-sm-3 col-md-2">
-                <input type="date" class="form-control " ng-model="selectedDate" min="{{dateToday | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{dateToday  | date:'yyyy-MM-dd'}}" required >
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
               </div>
-              <div class=" col-sm-3 col-md-2">
-                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{minTime| date:'HH:mm'}}"  required>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <select class="custom-select form-control " ng-model="selectedLength" ng-options="minutes for minutes in numberMinutes" required>
+                  <option value="" selected disabled >Duration (minutes)</option>
+                </select>
               </div>
-              <div class="col-sm-3 col-md-2">
-                <button type="submit" class="btn btn-block " >Find a table</button>
+              <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-10">
+                <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
               </div>
             </div>
           </div>

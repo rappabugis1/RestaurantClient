@@ -85,29 +85,46 @@
         </ul>
       </div>
 
-      <div class="container-card">
+      <div class="container-card" ng-controller="ReservationBarController as $ctrl">
         <h5 class="h5-heading-reservation"><a id="reservation"></a>Make a free reservation</h5>
 
-          <form name= "reservationForm" ng-controller="ReservationBarController as $ctrl" ng-submit="proceedReservation()">
+          <form name= "reservationForm"  ng-submit="checkReservation()">
             <div class="row no-gutters">
-              <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="col-xs-12 col-sm-6 col-md-2">
                 <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
-                  <option value="" selected disabled >Number of people</option>
+                  <option value="" selected disabled >Guests</option>
                 </select>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
                 <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
 
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="col-xs-12 col-sm-6 col-md-2">
                 <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-3">
+                <select class="custom-select form-control " ng-model="selectedLength" ng-options="minutes for minutes in numberMinutes" required>
+                  <option value="" selected disabled >Duration (minutes)</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-2">
                 <button type="submit" class="btn btn-block btn-primary form-btn"  >Find a table</button>
               </div>
             </div>
           </form>
 
+        <div uib-collapse="AvailabilityErrorColapsed">
+          <div class="alert alert-warning">
+            <strong>Sorry!</strong> {{error}}.
+          </div>
+        </div>
+
+        <div uib-collapse="AvailabilityInfoColapsed">
+          <h3 class="availability-info">Availability on {{selectedDate  | date:'MMMM d, yyyy'}} around {{selectedTime| date:'HH:mm'}} for {{selectedNumber}}: </h3>
+          <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> {{tablesLeft}} tables left
+          <h3 class="availability-info">Select the nearest time that fits your chosen time:</h3>
+          <button type="button" class="btn btn-block btn-reserv" ng-repeat="time in bestTimes" ng-click="proceedReservation(time)">{{time}}</button>
+        </div>
 
       </div>
 

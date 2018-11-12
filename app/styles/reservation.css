@@ -18,8 +18,8 @@
 
 .reservation-details-head{
   font-size: 20px;
-  margin: 0px 0 0px 0;
-
+  margin: 0px 0 20px 0;
+  padding-left: 15px;
   color: rgba(19,29,36,0.40);
 }
 
@@ -59,6 +59,12 @@
 .sign-in{
   color: coral;
   font-size: 18px;
+  border: none;
+  box-shadow: none;
+}
+
+.sign-in:focus{
+  outline:  none;
 }
 
 .reserve-form {
@@ -104,5 +110,25 @@ h4 {
 select.input-lg {
   height: 46px;
   line-height: normal;
+
+}
+
+.exclamation{
+  color: red;
+}
+
+.ok{
+  color: limegreen;
+}
+
+.warning {
+  font-size: 15px;
+  margin: 0px 0 20px 0;
+  color: rgba(19,29,36,0.40);
+}
+
+.form-control:focus {
+  border-color: coral;
+  box-shadow: 0 0 4px coral;
 
 }

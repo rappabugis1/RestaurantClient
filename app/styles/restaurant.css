@@ -52,10 +52,8 @@ h5{
 
 .form-control{
   height: 56px;
-  border-right: 0px;
+  border: 0px;
 }
-
-
 
 .form-btn{
   height: 56px;
@@ -98,7 +96,6 @@ hr {
  */
 
 .modal-body{
-
   padding: 30px;
   padding-bottom: 50px;
 }
@@ -265,4 +262,14 @@ h6{
   cursor: pointer;
 }
 
+.availability-info{
+  font-size: 18px;
+  color: #131D24;
+}
 
+.btn-reserv{
+  max-width: 80px;
+  margin-right: 10px;
+  display: inline;
+  margin-top: 0 !important;
+}

@@ -13,11 +13,13 @@
     </div>
     <div class="container-card" >
       <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <h5 class="reservation-details-head">Reservation Details</h5>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <uib-progressbar value="counter" class="progress-reservation" max="180" >You have {{(counter/60)-(counter%60)/60 | number : 0}}:{{counter%60}} minutes to complete your reservation.</uib-progressbar>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <h5 class="reservation-details-head">Reservation Details</h5>
+          </div>
+          <div class="col-xs-12 col-sm-6" ng-if="userLogged">
+            <uib-progressbar value="counter" class="progress-reservation" max="180" >You have {{(counter/60)-(counter%60)/60 | number : 0}}:{{counter%60}} minutes to complete your reservation.</uib-progressbar>
+          </div>
         </div>
         <div class="col-xs-12 col-sm-3 ">
           <div class="profile"></div>
@@ -26,23 +28,31 @@
           <h6 class="reservation-det-name">RESTAURANT</h6>
           <p class="rest-name">Red Food</p>
           <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-12 col-sm-6">
               <h6 class="reservation-det-name">GUESTS</h6>
-              <p class="reservation-info">{{information.people}} People</p>
+              <p class="reservation-info">{{information.persons}}</p>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="reservation-det-name">DURATION</h6>
+              <p class="reservation-info">{{information.lengthOfStay}} minutes</p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
               <h6 class="reservation-det-name">DATE</h6>
-              <p class="reservation-info">{{information.date | date:"fullDate"}}</p>
+              <p class="reservation-info">{{information.reservationDate | date:"MMMM d, yyyy"}}</p>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-6">
               <h6 class="reservation-det-name">TIME</h6>
-              <p class="reservation-info">{{information.time | date:'HH:mm'}}</p>
+              <p class="reservation-info">{{information.reservationHour | date:'HH:mm'}}</p>
             </div>
+
           </div>
         </div>
       </div>
 
     </div>
+
+    <h5 ng-if="!userLogged" class="warning"><span class="glyphicon glyphicon-exclamation-sign exclamation" aria-hidden="true"></span> Reservation is not secured! Login in or Register to secure your table.</h5>
+    <h5 ng-if="userLogged" class="warning"><span class="glyphicon glyphicon-ok-circle ok" aria-hidden="true"></span> Reservation is secured for the duration of the countdown.</h5>
 
     <div ng-if="currentUser" ng-controller="SubmitReservationController">
       <h4>Special Request:</h4>
@@ -65,7 +75,7 @@
     </div>
 
     <div ng-if="!currentUser" ng-controller="SubmitReservationController">
-      <h4>Already a member? <a href="#/login" class="sign-in">Sign in!</a> </h4>
+      <h4>Already a member? <button class="sign-in" ng-click="signInClick()">Sign in!</button> </h4>
       <h4>Register</h4>
       <form name="registerForm" ng-submit="registerSubmit(registerForm.$valid)" class="text-center" novalidate>
 
