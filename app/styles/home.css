@@ -125,3 +125,26 @@ div.masthead h3 {
 .popular-locations-row>div>.number{
   color: darkgray;
 }
+
+.filter-container{
+  padding-top: 60px;
+}
+
+.filter-row{
+  height: 1480px;
+}
+
+/*pagination*/
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+  background-color: coral;
+  border-color: coral;
+}
+
+.pagination > li > a, .pagination > li > span{
+  color: coral;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
+  color: coral;
+}

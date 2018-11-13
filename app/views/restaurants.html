@@ -1,0 +1,54 @@
+<head>
+  <link rel="stylesheet" href="../styles/home.css">
+</head>
+
+<body >
+
+  <div class="container text-center container-restaurants filter-container">
+    <div class="row filter-row ">
+      <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
+        <div class="card">
+          <img ng-src="{{y.imageFileName}}">
+          <div class="container">
+            <h3>
+              {{y.restaurantName}}
+            </h3>
+            <ul class="list list-inline ">
+              <li>
+                <span class="glyphicon glyphicon-star " ng-repeat="n in range(y.mark)"></span><span
+                class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-y.mark)"></span>
+              </li>
+              <li>
+                <span>({{y.votes}})</span>
+              </li>
+              <li>
+                <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(y.priceRange)"></span><span
+                class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-y.priceRange)"></span>
+              </li>
+            </ul>
+            <hr>
+            <p1 style="color: gray">
+              {{y.foodType}}
+            </p1>
+          </div>
+          <button type="button" class="btn btn-block " ng-click="save(y)">Reserve Now</button>
+        </div>
+      </div>
+    </div>
+    <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
+
+  </div>
+
+
+  <div class="container">
+
+    <h3 class="text-center">Popular locations</h3>
+    <div class="row popular-locations-row">
+      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="city in popularLocations">
+        <h4 >{{city.location}}</h4>
+        <p4 class="number">{{city.num}} restaurants</p4>
+      </div>
+    </div>
+  </div>
+
+</body>
