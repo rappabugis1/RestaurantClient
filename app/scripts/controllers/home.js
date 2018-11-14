@@ -28,11 +28,23 @@ angular.module('clientApp')
         "numRestaurants": 16
       },
       {
-        "heading": "Cupcakes Flavor",
-        "location": "Chicago",
-        "numRestaurants": 11
+        "heading": "Best baklava",
+        "location": "New York",
+        "numRestaurants": 43
+      },
+      {
+        "heading": "Best burek",
+        "location": "Sarajevo",
+        "numRestaurants": 28
+      },
+      {
+        "heading": "Fresh and Spicy 2",
+        "location": "Philladelphia",
+        "numRestaurants": 16
       }
     ];
+
+    $scope.numberRepeat=Math.ceil($scope.dishes.length/3);
 
     $scope.range = function (count) {
 

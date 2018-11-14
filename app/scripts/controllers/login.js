@@ -10,7 +10,7 @@
 angular.module('clientApp')
   .controller('LoginController', function ($log, $scope, $location, AuthenticationService, SessionStorageService, $window) {
 
-
+    $window.scrollTo(0,0);
     function initController() {
       AuthenticationService.Logout();
     }

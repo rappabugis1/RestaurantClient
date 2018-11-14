@@ -24,21 +24,20 @@
               <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
                      max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}">
 
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <select class="custom-select form-control " ng-model="selectedLength" ng-options="minutes for minutes in numberMinutes" required>
+                  <option value="" selected disabled >Duration (minutes)</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-5 col-submit">
+                <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
+              </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-2">
-              <input type="time" class="form-control" ng-model="selectedTime" step="900"
-                     min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}" required>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-2">
-              <select class="custom-select form-control " ng-model="selectedLength"
-                      ng-options="minutes for minutes in numberMinutes" required>
-                <option value="" selected disabled>Duration (minutes)</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-10">
-              <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
-            </div>
-          </div>
+        </form>
       </div>
       </form>
     </div>
@@ -116,37 +115,49 @@
 </div>
 
 <div class="masthead text-center">
-  <h3>Specials</h3>
+  <div class="container">
+    <h3>Specials</h3>
+    <div uib-carousel active="0" >
+      <div uib-slide ng-repeat="n in range(numberRepeat)" index=$index>
+        <div class="col-sm-4" ng-repeat="dish in [dishes[$index*3], dishes[1+$index*3], dishes[2+$index*3]] track by $index">
 
-  <div uib-carousel active="1">
-    <div uib-slide ng-repeat="dish in dishes" index=$index>
-      <div class="card">
-        <img src="images/sampleprofile.jpg">
-        <div class="container " style="color: whitesmoke;">
-          <h3> {{dish.heading}}</h3>
-          <ul class="list list-inline ">
-            <li>
-              <p3>{{dish.location}}</p3>
-            </li>
-            <li>
-              <p3>|</p3>
-            </li>
-            <li>
-              <p3>{{dish.numRestaurants}} restaurants</p3>
-            </li>
-          </ul>
+          <div class="card-blog" ng-if="dish.heading">
+            <img src="images/sampleprofile.jpg">
+            <div class="container " style="color: whitesmoke;">
+              <h3 class="heading-blog"> {{dish.heading}}</h3>
+              <ul class="list list-inline ">
+                <li>
+                  <p>{{dish.location}}</p>
+                </li>
+                <li>
+                  <p3>|</p3>
+                </li>
+                <li>
+                  <p>{{dish.numRestaurants}} restaurants</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="container">
   <h3 class="text-center">Popular locations</h3>
   <div class="row popular-locations-row">
+<<<<<<< HEAD
     <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="city in popularLocations">
       <h4>{{city.location}}</h4>
       <p4 class="number">{{city.num}} restaurants</p4>
+=======
+    <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="name in popularLocations">
+      <h4 >{{name.location}}</h4>
+      <p4 class="number">{{name.num}} restaurants</p4>
+>>>>>>> Added database seeding at initialization
     </div>
   </div>
 </div>

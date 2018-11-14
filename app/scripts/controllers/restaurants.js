@@ -8,18 +8,16 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location) {
+  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService) {
 
+    $scope.searchText="";
 
-    FilterFactoryServis.getFilterResult({itemsPerPage : 9, pageNumber : 1, searchText : ""}, function (response) {
-      $scope.numPages = response.numberOfRestaurantPages*9;
-      $scope.restaurants = response.restaurants;
-    });
 
     $scope.pageChanged = function() {
       FilterFactoryServis.getFilterResult({itemsPerPage : 9, pageNumber : $scope.bigCurrentPage, searchText : ""}, function (response) {
         $scope.numPages = response.numberOfRestaurantPages*9;
         $scope.restaurants = response.restaurants;
+        $window.scrollTo(0,0);
       });
     };
 
@@ -40,5 +38,20 @@ angular.module('clientApp')
     };
 
     $scope.maxSize = 5;
-    $scope.bigCurrentPage = 1;
+
+    $scope.filter= function () {
+      FilterFactoryServis.getFilterResult({itemsPerPage : 9, pageNumber : 1, searchText : $scope.searchText}, function (response) {
+        $scope.bigCurrentPage = 1;
+        $scope.numPages = response.numberOfRestaurantPages*9;
+        $scope.restaurants = response.restaurants;
+      });
+    };
+
+    $scope.filter();
+
+    RestaurantService.getRestaurantLocations().then(function (response) {
+      $scope.popularLocations = response.data;
+    });
+
+
   });

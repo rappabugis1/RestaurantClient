@@ -70,34 +70,36 @@ div.masthead h3 {
   height: 584px;
 }
 
-.container + .masthead > div > div > div > div > .card {
-  height: 260px;
+.card-blog {
   box-shadow: none;
+  width: 300px;
+  display: inline-block;
+  text-align: left;
 }
 
-.container + .masthead > div > div > div > div > .card > div {
+.card-blog> div {
   padding: 0px;
   margin: 0px;
-
+  width: inherit;
 }
 
-.container + .masthead > div > div > div > div > .card > img {
+.card-blog > img {
   height: 180px;
-  max-width: 300px;
-
+  width: inherit;
 }
 
-.container + .masthead > div > div > div > div > .card > div h3 {
+.card-blog > div h3 {
   font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.heading-blog{
+  margin-bottom: 5px;
   padding-bottom: 5px;
 }
 
 .container + .masthead h3 {
   font-size: 30px;
-}
-
-.p5-reserv {
-  margin-top: 15px;
 }
 
 .glyphicon-star, .glyphicon-star-empty {
@@ -112,19 +114,6 @@ div.masthead h3 {
   color: gray;
 }
 
-.popular-locations-row{
-  padding-bottom: 30px;
-}
-
-.popular-locations-row>div>h4{
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  padding-top: 25px
-}
-
-.popular-locations-row>div>.number{
-  color: darkgray;
-}
 
 .filter-container{
   padding-top: 60px;
@@ -134,6 +123,11 @@ div.masthead h3 {
   height: 1480px;
 }
 
+.col-submit{
+  margin-top:30px;
+}
+
+/*restaurants*/
 /*pagination*/
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
@@ -147,4 +141,13 @@ div.masthead h3 {
 
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
   color: coral;
+}
+
+.search-filter-row {
+  margin: 60px 0px 60px 0px;
+  box-shadow: 1px 1px 2px darkgray;
+}
+
+.search-filter-col{
+padding: 0 0 0 0 ;
 }

@@ -72,7 +72,7 @@
       <div class="col-sm-6  formg">
 
         <select class="custom-select form-control input-lg input-h"
-                ng-model="country"
+                ng-model="name"
                 ng-options="c.country_name for c in locations"
                 required="required">
           <option value="" disabled selected>Country</option>
@@ -81,8 +81,8 @@
 
       <div class="col-sm-6 formg ">
         <select class=" form-control input-lg input-h"
-                ng-model="city"
-                ng-options="d.valueOf() for d in country.city_names"
+                ng-model="name"
+                ng-options="d.valueOf() for d in name.city_names"
                 required="required">
           <option value="" disabled selected>City</option>
         </select>

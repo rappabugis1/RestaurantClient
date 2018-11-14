@@ -5,8 +5,20 @@
 <body >
 
   <div class="container text-center container-restaurants filter-container">
+
+    <div class="row no-gutters form-row search-filter-row">
+      <form ng-submit="filter()" >
+        <div class="col-sm-12 col-md-11 search-filter-col">
+          <input type="search" ng-model="searchText" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
+        </div>
+        <div class="col-xs-12 col-sm-1 search-filter-col">
+          <button type="submit" class="btn btn-block btn-primary form-btn">Search</button>
+        </div>
+      </form>
+    </div>
+
     <div class="row filter-row ">
-      <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
+      <div class="col-sm-6 col-md-4 " ng-repeat="y in restaurants">
         <div class="card">
           <img ng-src="{{y.imageFileName}}">
           <div class="container">
@@ -44,9 +56,9 @@
 
     <h3 class="text-center">Popular locations</h3>
     <div class="row popular-locations-row">
-      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="city in popularLocations">
-        <h4 >{{city.location}}</h4>
-        <p4 class="number">{{city.num}} restaurants</p4>
+      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="name in popularLocations">
+        <h4 >{{name.location}}</h4>
+        <p4 class="number">{{name.num}} restaurants</p4>
       </div>
     </div>
   </div>
