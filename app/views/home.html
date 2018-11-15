@@ -3,26 +3,24 @@
 </head>
 
 <body>
-<div class="masthead text-center">
-  <div class="container">
-    <div class="row">
-      <div class=" col-xs-12">
-        <h1>Make a free reservation </h1>
-        <h3>Choose your table from n restaurants near you</h3>
-        <form ng-controller="ReservationBarController as $ctrl">
-          <div class="row no-gutters form-row">
-            <div class="col-sm-12 col-md-4">
-              <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-2">
-              <select class="custom-select form-control " ng-model="selectedNumber"
-                      ng-options="people for people in numberPeople" required>
-                <option value="" selected disabled>Number of guests</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-2">
-              <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
-                     max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}">
+  <div class="masthead text-center">
+    <div class="container">
+      <div class="row">
+        <div class=" col-xs-12">
+          <h1 >Make a free reservation </h1>
+          <h3 >Choose your table from n restaurants near you</h3>
+          <form ng-controller="ReservationBarController as $ctrl" ng-submit="homeSearch()">
+            <div class="row no-gutters form-row">
+              <div class="col-sm-12 col-md-4">
+                <input type="search" class="form-control form-control-lg" ng-model="searchHome" placeholder="Location, Restaurant or Cousine ">
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
+                  <option value="" selected disabled >Number of guests</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-2">
+                <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
 
               </div>
               <div class="col-xs-12 col-sm-6 col-md-2">
@@ -117,7 +115,7 @@
 <div class="masthead text-center">
   <div class="container">
     <h3>Specials</h3>
-    <div uib-carousel active="0" >
+    <div uib-carousel active="0"  ng-if="windowWidth >755">
       <div uib-slide ng-repeat="n in range(numberRepeat)" index=$index>
         <div class="col-sm-4" ng-repeat="dish in [dishes[$index*3], dishes[1+$index*3], dishes[2+$index*3]] track by $index">
 
@@ -141,12 +139,37 @@
         </div>
 
       </div>
+
+
+    </div>
+    <div uib-carousel active="0"  ng-if="windowWidth <755">
+      <div uib-slide ng-repeat="dish in dishes" index=$index>
+        <div class="col-sm-4">
+          <div class="card-blog" >
+            <img src="images/sampleprofile.jpg">
+            <div class="container " style="color: whitesmoke;">
+              <h3 class="heading-blog"> {{dish.heading}}</h3>
+              <ul class="list list-inline ">
+                <li>
+                  <p>{{dish.location}}</p>
+                </li>
+                <li>
+                  <p3>|</p3>
+                </li>
+                <li>
+                  <p>{{dish.numRestaurants}} restaurants</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
 
-<div class="container">
+
+<div class="container popular-loc">
   <h3 class="text-center">Popular locations</h3>
   <div class="row popular-locations-row">
 <<<<<<< HEAD
@@ -155,9 +178,16 @@
       <p4 class="number">{{city.num}} restaurants</p4>
 =======
     <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="name in popularLocations">
+<<<<<<< HEAD
       <h4 >{{name.location}}</h4>
       <p4 class="number">{{name.num}} restaurants</p4>
 >>>>>>> Added database seeding at initialization
+=======
+      <div class="center-block pop-loc-info">
+        <h4 >{{name.location}}</h4>
+        <p class="number">{{name.num}} restaurants</p>
+      </div>
+>>>>>>> finish home page search bar, started work on filterby dropdown
     </div>
   </div>
 </div>

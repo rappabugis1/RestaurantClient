@@ -8,10 +8,57 @@
 
     <div class="row no-gutters form-row search-filter-row">
       <form ng-submit="filter()" >
-        <div class="col-sm-12 col-md-11 search-filter-col">
+        <div class="col-xs-12 col-md-10 search-filter-col">
           <input type="search" ng-model="searchText" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
         </div>
-        <div class="col-xs-12 col-sm-1 search-filter-col">
+
+        <div class="col-xs-12 col-md-1 search-filter-col">
+          <div class="btn-group" uib-dropdown  auto-close="outsideClick">
+            <button id="single-button" type="button" class="btn filter-dropdown btn-primary btn-block" uib-dropdown-toggle ng-disabled="disabled">
+              Filter by <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li role="menuitem">
+                <ul class="list-inline filter-inline-drop">
+                  <li >
+                    <ul class="list-unstyled">
+                      <li >
+                        <h5>Price</h5>
+                      </li>
+                      <li>
+                        <span uib-rating ng-model="price" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+                      </li>
+                    </ul>
+                  </li>
+                  <li >
+                    <ul class="list-unstyled">
+                      <li >
+                        <h5>Rating</h5>
+                      </li>
+                      <li>
+                        <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li role="menuitem">
+                <h5>Cousine</h5>
+              </li>
+              <li role="menuitem">
+                <select  multiple id="categorymultiple" >
+                  <option    >Blue</option>
+                  <option >Red</option>
+                  <option>Green</option>
+                  <option>Yellow</option>
+                  <option>Brown</option>
+                </select>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-1 search-filter-col">
           <button type="submit" class="btn btn-block btn-primary form-btn">Search</button>
         </div>
       </form>
@@ -47,18 +94,19 @@
         </div>
       </div>
     </div>
-    <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
+    <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()"></ul>
 
   </div>
 
 
-  <div class="container">
-
+  <div class="container popular-loc">
     <h3 class="text-center">Popular locations</h3>
     <div class="row popular-locations-row">
       <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="name in popularLocations">
-        <h4 >{{name.location}}</h4>
-        <p4 class="number">{{name.num}} restaurants</p4>
+        <div class="center-block pop-loc-info">
+          <h4 >{{name.location}}</h4>
+          <p class="number">{{name.num}} restaurants</p>
+        </div>
       </div>
     </div>
   </div>

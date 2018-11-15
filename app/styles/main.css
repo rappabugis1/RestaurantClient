@@ -15,6 +15,27 @@ body {
 }
 
 
+.popular-loc{
+  margin-bottom: 204px;
+}
+
+.pop-loc-info{
+  width: fit-content;
+}
+
+.pop-loc-info>h4{
+  font-size: 20px;
+  color: #131D24;
+  margin-bottom: 2px;
+}
+
+
+.pop-loc-info >p{
+  opacity: 0.4;
+  font-size: 18px;
+  color: #131D24;
+  margin-bottom: 25px;
+}
 
 
 
@@ -130,6 +151,20 @@ select.input-lg {
   outline: 0 none;
 }
 
+/*filter*/
+
+.dropdown {
+  width: 100%;
+}
+
+.filter-dropdown{
+  background-color: white !important;
+  color:black !important;
+}
+
+.filter-inline-drop{
+  width: max-content;
+}
 
 /*carousel*/
 

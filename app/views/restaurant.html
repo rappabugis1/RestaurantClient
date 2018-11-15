@@ -37,7 +37,8 @@
   </div>
 </script>
 
-<div class="masthead" style="height: 340px">
+<div class="masthead">
+  <img ng-src="{{restaurant.coverFileName}}" >
 </div>
 
 
@@ -46,7 +47,9 @@
 
     <div class="hidden-sm hidden-xs  col-md-3 ">
       <div>
-        <div class="profile" ng-style="{'background':'url('+restaurant.imageFileName+')'}"></div>
+        <div class="profile" >
+          <img ng-src="{{restaurant.imageFileName}}" >
+        </div>
 
         <div class="list-group">
           <a href="#reservation" class="list-group-item">Reservation</a>

@@ -95,7 +95,7 @@ div.masthead h3 {
 
 .heading-blog{
   margin-bottom: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 0px !important;
 }
 
 .container + .masthead h3 {
@@ -120,7 +120,7 @@ div.masthead h3 {
 }
 
 .filter-row{
-  height: 1480px;
+  min-height: 1480px;
 }
 
 .col-submit{
@@ -144,7 +144,7 @@ div.masthead h3 {
 }
 
 .search-filter-row {
-  margin: 60px 0px 60px 0px;
+  margin: 60px 30px 60px 30px !important;
   box-shadow: 1px 1px 2px darkgray;
 }
 

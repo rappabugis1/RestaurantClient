@@ -10,16 +10,9 @@
 angular.module('clientApp')
   .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService) {
 
-    $scope.searchText="";
-
-
-    $scope.pageChanged = function() {
-      FilterFactoryServis.getFilterResult({itemsPerPage : 9, pageNumber : $scope.bigCurrentPage, searchText : ""}, function (response) {
-        $scope.numPages = response.numberOfRestaurantPages*9;
-        $scope.restaurants = response.restaurants;
-        $window.scrollTo(0,0);
-      });
-    };
+    RestaurantService.getRestaurantLocations().then(function (response) {
+      $scope.popularLocations = response.data;
+    });
 
     $scope.range = function (count) {
 
@@ -37,21 +30,53 @@ angular.module('clientApp')
       $location.path('/restaurant');
     };
 
+    //filter stuff
+    //initialize values in the beginning
+    $scope.searchText="";
+    $scope.reservationInfo= null;
+    $scope.pageNumber= 1;
     $scope.maxSize = 5;
+    $scope.bigCurrentPage=1;
 
+    //if coming from home search bar do this
+    if(SessionStorageService.get("homeSearch")){
+      $scope.reservationInfo=JSON.parse(SessionStorageService.get("homeSearch")).reservationInfo;
+      $scope.searchText=JSON.parse(SessionStorageService.get("homeSearch")).searchText;
+    }
+
+    //on filter click
     $scope.filter= function () {
-      FilterFactoryServis.getFilterResult({itemsPerPage : 9, pageNumber : 1, searchText : $scope.searchText}, function (response) {
-        $scope.bigCurrentPage = 1;
+
+      //If filter has changed, delete the home search
+      if(SessionStorageService.get("homeSearch") && $scope.searchText!==JSON.parse(SessionStorageService.get("homeSearch")).searchText){
+          SessionStorageService.delete("homeSearch");
+          $scope.reservationInfo=null;
+      }
+
+      //populate payload with data for search
+      $scope.searchPayload = {
+        itemsPerPage :9 ,
+        pageNumber: $scope.bigCurrentPage,
+        searchText: $scope.searchText,
+        reservationInfo: $scope.reservationInfo ,
+        mark : null,
+        priceRange: null
+      };
+
+      FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
         $scope.numPages = response.numberOfRestaurantPages*9;
         $scope.restaurants = response.restaurants;
+        $window.scrollTo(0,0);
       });
     };
 
+    //when coming to restaurants page trigger function once
     $scope.filter();
 
-    RestaurantService.getRestaurantLocations().then(function (response) {
-      $scope.popularLocations = response.data;
-    });
-
+    //multiple select categories
+    document.getElementById("categorymultiple").onmousedown= function(event) {
+      event.preventDefault();
+      event.target.selected=!event.target.selected;
+    }
 
   });

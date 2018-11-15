@@ -110,6 +110,24 @@ angular.module('clientApp')
 
     $scope.numberPeople = ["1 Person", "2 People","3 People","4 People","5 People","6 People","7 People","8 People"];
     $scope.numberMinutes=["15 minutes","30 minutes","45 minutes","60 minutes","90 minutes","120 minutes"];
+
+    $scope.searchHome = "";
+    $scope.homeSearch = function () {
+
+      $scope.reservationCheckPayload = {
+        persons: Number($scope.selectedNumber.toString().substring(0,1)),
+        reservationDate: $scope.selectedDate.toLocaleDateString("en-GB"),
+        reservationHour: $scope.selectedTime.getHours()+":"+ $scope.selectedTime.getMinutes(),
+        lengthOfStay : Number($scope.selectedLength.toString().substring(0,3))
+      };
+
+      $scope.filterPayload = {
+        searchText: $scope.searchHome,
+        reservationInfo: $scope.reservationCheckPayload
+      };
+      SessionStorageService.save("homeSearch", JSON.stringify($scope.filterPayload));
+      $location.path('/restaurants');
+    }
   })
 
 //Reservation page controller

@@ -7,6 +7,27 @@
   border-color: white;
 }
 
+.profile >img {
+  height: 172px;
+  width: 200px;
+}
+
+.masthead{
+  background-color: #343a40;
+  height: 340px;
+  padding: 0;
+  overflow:hidden;
+}
+
+.masthead > img{
+  position: center;
+  filter: brightness(50%);
+  width: 100%;
+  min-height: 340px;
+  display: block;
+
+}
+
 .main{
   transform: translateY(-120px);
 }
