@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService) {
+  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService, $log) {
 
     RestaurantService.getRestaurantLocations().then(function (response) {
       $scope.popularLocations = response.data;
@@ -116,6 +116,7 @@ angular.module('clientApp')
 
     //TODO there is a problem with multiple select with event.preventDefault(), it prevents adding the category to selected items so angularjs binding does not work
     //TODO so i made it the old fashion way by combing through the options to see which is selected
+
     function getSelectedOptions(idelement) {
       var opts = [],
         opt;
@@ -125,7 +126,7 @@ angular.module('clientApp')
         opt = document.getElementById(idelement).options[i];
 
         if (opt.selected) {
-          opts.push(opt.outerText);
+          opts.push(opt.label);
         }
       }
 
