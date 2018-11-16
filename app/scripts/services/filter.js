@@ -23,6 +23,20 @@ angular.module('clientApp')
               callback(error.data);
             }
           });
+      },
+
+      getAllCategories:function (callback) {
+        $http.get('app/getAllCategories')
+          .then(function onSucces(response) {
+
+            //If succesfull return data
+            callback(response.data);
+          })
+          .catch(function onError(error) {
+            if(error.status===400){
+              callback(error.data);
+            }
+          });
       }
     };
   });

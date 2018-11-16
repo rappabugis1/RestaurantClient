@@ -1,5 +1,6 @@
 <head>
   <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/restaurants.css">
 </head>
 
 <body >
@@ -18,42 +19,43 @@
               Filter by <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-              <li role="menuitem">
+              <li role="menuitem" >
                 <ul class="list-inline filter-inline-drop">
-                  <li >
+                  <li class="filter-item">
                     <ul class="list-unstyled">
                       <li >
-                        <h5>Price</h5>
+                        <h5 class="filter-heading">PRICE</h5>
                       </li>
                       <li>
-                        <span uib-rating ng-model="price" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+                        <span uib-rating ng-model="price" class="rate" on-leave="overStar = null" state-on="'glyphicon glyphicon-usd glyph-filter-full'" state-off="'glyphicon glyphicon-usd glyph-filter-empty'" aria-labelledby="default-rating"></span>
                       </li>
                     </ul>
                   </li>
-                  <li >
+                  <li class="filter-item">
                     <ul class="list-unstyled">
                       <li >
-                        <h5>Rating</h5>
+                        <h5 class="filter-heading">RATING</h5>
                       </li>
                       <li>
-                        <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+                        <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" state-on="'glyphicon glyphicon-star glyph-filter-full'" state-off="'glyphicon glyphicon-star-empty glyph-filter-empty'" aria-labelledby="default-rating"></span>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li class="divider"></li>
-              <li role="menuitem">
-                <h5>Cousine</h5>
+              <li role="menuitem" class="filter-item">
+                <h5 class="filter-heading">COUSINE</h5>
               </li>
-              <li role="menuitem">
-                <select  multiple id="categorymultiple" >
-                  <option    >Blue</option>
-                  <option >Red</option>
-                  <option>Green</option>
-                  <option>Yellow</option>
-                  <option>Brown</option>
-                </select>
+              <li role="menuitem" >
+                <ul class="list-inline filter-inline-drop">
+                  <li class="filter-item">
+                    <select  multiple="multiple" id="categorymultipleleft" ng-model="categoriesLeft[$index]" ng-options="category.name for category in categories.left track by category.id" size="{{categories.left.length+categories.left.length/2}}"></select>
+                  </li>
+                  <li class="filter-item">
+                    <select  multiple="multiple" id="categorymultipleright" ng-model="categoriesRight[$index]" ng-options="category.name for category in categories.right track by category.id" size="{{categories.right.length+categories.right.length/2}}"></select>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -65,7 +67,12 @@
     </div>
 
     <div class="row filter-row ">
-      <div class="col-sm-6 col-md-4 " ng-repeat="y in restaurants">
+      <img src="../images/ajax-loader.gif" ng-show="loading" />
+      <div class="no-results" ng-show="noResults">
+        <h3>No restaurants where found!</h3>
+      </div>
+
+      <div class="col-sm-6 col-md-4 " ng-repeat="y in restaurants" ng-show="!loading && !noResults">
         <div class="card">
           <img ng-src="{{y.imageFileName}}">
           <div class="container">
@@ -94,7 +101,7 @@
         </div>
       </div>
     </div>
-    <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()"></ul>
+    <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ng-show="!noResults"></ul>
 
   </div>
 
@@ -102,11 +109,11 @@
   <div class="container popular-loc">
     <h3 class="text-center">Popular locations</h3>
     <div class="row popular-locations-row">
-      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="name in popularLocations">
-        <div class="center-block pop-loc-info">
+      <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-model="name" ng-repeat="name in popularLocations">
+        <button class="btn-location center-block pop-loc-info" ng-click="filterLocations(name.location)">
           <h4 >{{name.location}}</h4>
           <p class="number">{{name.num}} restaurants</p>
-        </div>
+        </button>
       </div>
     </div>
   </div>

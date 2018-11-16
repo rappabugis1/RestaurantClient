@@ -14,6 +14,11 @@ angular.module('clientApp')
       $scope.popularLocations = response.data;
     });
 
+    $scope.filterLocations= function (name) {
+      $scope.searchText=name;
+      $scope.filter();
+    };
+
     $scope.range = function (count) {
 
       var ratings = [];
@@ -37,21 +42,28 @@ angular.module('clientApp')
     $scope.pageNumber= 1;
     $scope.maxSize = 5;
     $scope.bigCurrentPage=1;
+    $scope.rate=null;
+    $scope.price=null;
+    $scope.categoriesLeft=[];
+    $scope.categoriesRight=[];
+
 
     //if coming from home search bar do this
     if(SessionStorageService.get("homeSearch")){
       $scope.reservationInfo=JSON.parse(SessionStorageService.get("homeSearch")).reservationInfo;
       $scope.searchText=JSON.parse(SessionStorageService.get("homeSearch")).searchText;
+      SessionStorageService.delete("homeSearch");
+    }
+    if(SessionStorageService.get("locationSearch")){
+      $scope.searchText=JSON.parse(SessionStorageService.get("locationSearch"));
+      SessionStorageService.delete("locationSearch");
+
     }
 
     //on filter click
     $scope.filter= function () {
 
-      //If filter has changed, delete the home search
-      if(SessionStorageService.get("homeSearch") && $scope.searchText!==JSON.parse(SessionStorageService.get("homeSearch")).searchText){
-          SessionStorageService.delete("homeSearch");
-          $scope.reservationInfo=null;
-      }
+      $scope.loading = true;
 
       //populate payload with data for search
       $scope.searchPayload = {
@@ -59,14 +71,22 @@ angular.module('clientApp')
         pageNumber: $scope.bigCurrentPage,
         searchText: $scope.searchText,
         reservationInfo: $scope.reservationInfo ,
-        mark : null,
-        priceRange: null
+        mark : $scope.rate,
+        priceRange: $scope.price,
+        categories: getSelectedOptions("categorymultipleright").concat(getSelectedOptions("categorymultipleleft"))
       };
 
       FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
-        $scope.numPages = response.numberOfRestaurantPages*9;
-        $scope.restaurants = response.restaurants;
+        if(response.numberOfRestaurantPages!==0){
+          $scope.numPages = response.numberOfRestaurantPages*9;
+          $scope.restaurants = response.restaurants;
+          $scope.noResults=false;
+        } else {
+          $scope.noResults=true;
+        }
+
         $window.scrollTo(0,0);
+        $scope.loading = false;
       });
     };
 
@@ -74,9 +94,43 @@ angular.module('clientApp')
     $scope.filter();
 
     //multiple select categories
-    document.getElementById("categorymultiple").onmousedown= function(event) {
+    document.getElementById("categorymultipleright").onmousedown= function(event) {
       event.preventDefault();
       event.target.selected=!event.target.selected;
+    };
+
+    document.getElementById("categorymultipleleft").onmousedown= function(event) {
+      event.preventDefault();
+      event.target.selected=!event.target.selected;
+    };
+
+
+    //Get categories and half them to two arrays
+    FilterFactoryServis.getAllCategories(function (response) {
+      $scope.categories =
+        {
+          left: response.splice(0, Math.ceil(response.length/2)),
+          right: response
+        };
+    });
+
+    //TODO there is a problem with multiple select with event.preventDefault(), it prevents adding the category to selected items so angularjs binding does not work
+    //TODO so i made it the old fashion way by combing through the options to see which is selected
+    function getSelectedOptions(idelement) {
+      var opts = [],
+        opt;
+      var len = document.getElementById(idelement).options.length;
+
+      for (var i = 0; i < len; i++) {
+        opt = document.getElementById(idelement).options[i];
+
+        if (opt.selected) {
+          opts.push(opt.outerText);
+        }
+      }
+
+      return opts;
     }
+
 
   });

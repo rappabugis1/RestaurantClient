@@ -151,34 +151,6 @@ select.input-lg {
   outline: 0 none;
 }
 
-/*filter*/
-
-.dropdown {
-  width: 100%;
-}
-
-.filter-dropdown{
-  background-color: white !important;
-  color:black !important;
-}
-
-.filter-inline-drop{
-  width: max-content;
-}
-
-/*carousel*/
-
-.carousel-control {
-  color: black;
-}
-
-.carousel-indicators li {
-  display: none;
-}
-.right.carousel-control, .left.carousel-control {
-  background-image: none;
-}
-
 
 /*cards*/
 
@@ -237,5 +209,18 @@ select.input-lg {
 
 .input-lg{
   font-size: 14px;
+}
+
+.btn-location{
+  text-align: left;
+  padding: 0px;
+  background: none;
+  border: none;
+  height: fit-content;
+  outline: none;
+}
+
+.btn-location:hover>h4{
+  color: coral;
 }
 

@@ -66,10 +66,17 @@ angular.module('clientApp')
       $scope.restaurants = response.data;
     });
 
+  })
+
+  .controller('PopularLocationsController', function ($scope, RestaurantService, SessionStorageService, $location) {
     RestaurantService.getRestaurantLocations().then(function (response) {
       $scope.popularLocations = response.data;
     });
 
+    $scope.filterLocations= function (name) {
+      SessionStorageService.save("locationSearch", JSON.stringify(name));
+      $location.path('/restaurants');
+    }
 
   })
 

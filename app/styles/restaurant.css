@@ -146,9 +146,6 @@ hr {
   color: gray;
 }
 
-.rate> span:focus{
-  outline: none;
-}
 
 .row-review{
   text-align: center;
@@ -294,3 +291,4 @@ h6{
   display: inline;
   margin-top: 0 !important;
 }
+

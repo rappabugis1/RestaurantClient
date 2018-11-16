@@ -1,0 +1,82 @@
+
+.dropdown {
+  width: 100%;
+}
+
+.filter-dropdown{
+  background-color: white !important;
+  color:black !important;
+}
+
+.filter-inline-drop{
+  width: max-content;
+}
+
+select{
+  border:none;
+}
+
+.filter-heading{
+  font-size: 14px;
+  color: rgba(46,57,63,0.60);
+  letter-spacing: 0;
+  margin-bottom: 15px;
+}
+
+.filter-item{
+  margin:0 20px 10px 20px;
+}
+
+select option{
+  margin: 6px 0 6px 0;
+}
+
+select option:focus,
+select option:active,
+select option:checked
+{
+  background: linear-gradient(white,white);
+  color: coral;
+  -webkit-text-fill-color: coral;
+}
+
+.glyph-filter-full {
+  color: coral !important;
+}
+
+.glyph-filter-empty{
+  color: gray !important;
+}
+
+.rate> span:focus{
+  outline: none;
+}
+
+/*pagination*/
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+  background-color: coral;
+  border-color: coral;
+}
+
+.pagination > li > a, .pagination > li > span{
+  color: coral;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
+  color: coral;
+}
+
+.search-filter-row {
+  margin: 60px 30px 60px 30px !important;
+  box-shadow: 1px 1px 2px darkgray;
+}
+
+.search-filter-col{
+  padding: 0 0 0 0 ;
+}
+
+.no-results{
+  width: inherit;
+  height: inherit;
+}
