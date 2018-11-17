@@ -243,3 +243,12 @@ select.input-lg {
   width: 200px;
 }
 
+.rate
+{
+  outline: none;
+}
+
+.rate >span {
+  outline: none;
+}
+
