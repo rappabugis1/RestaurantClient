@@ -112,6 +112,8 @@ angular.module('clientApp')
     $scope.numberMinutes=["15 minutes","30 minutes","45 minutes","60 minutes","90 minutes","120 minutes"];
 
     $scope.searchHome = "";
+
+
     $scope.homeSearch = function () {
 
       $scope.reservationCheckPayload = {
@@ -131,7 +133,7 @@ angular.module('clientApp')
   })
 
 //Reservation page controller
-  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage, SessionStorageService, $location, ReservationService) {
+  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage,$log, SessionStorageService, $location, ReservationService) {
 
     //If there is no current session in sessionStorage, redirects to home page. exp If user manually enters /reservation
     if(!SessionStorageService.get("reservationInformation"))
@@ -146,26 +148,47 @@ angular.module('clientApp')
       $scope.currentUser =$localStorage.currentUser.currentUser.data.id;
       $scope.userLogged=true;
 
-      //Make a temporary reservation to secure it from being taken by other users
-      ReservationService.makeTemporaryReservation(JSON.parse(SessionStorageService.get("payloadApi")), function (response) {
+      if(!SessionStorageService.get("tempReservationId")){
+        //Make a temporary reservation to secure it from being taken by other users
+        ReservationService.makeTemporaryReservation(JSON.parse(SessionStorageService.get("payloadApi")), function (response) {
 
-        //If the reservation of temp has succeeded save its data, else show alert and go back
-        if(response.id){
-          SessionStorageService.save("tempReservationId", response.id);
-        }
-        else{
-          $window.alert("The reservation has just been booked!");
-          SessionStorageService.delete("reservationInformation");
-          SessionStorageService.delete("reservationStartTime");
-          $window.history.back();
-        }
-      });
+          //If the reservation of temp has succeeded save its data, else show alert and go back
+          if(response.id){
+            SessionStorageService.save("tempReservationId", response.id);
+          }
+          else{
+            $window.alert("The reservation has just been booked!");
+            deleteSession();
+            $window.history.back();
+          }
+        });
+      }
+
+
 
 
       //Get reservation start time
       $scope.startTime= new Date(SessionStorageService.get("reservationStartTime"));
       //Calculates remaining time based of the time when the reservation session started
-      $scope.counter =180-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
+      $scope.counter =10-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
+
+      //Creates payload and submits reservation delete temp information and go back
+      $scope.reservationSubmit = function (){
+
+        $timeout.cancel($scope.seconds);
+
+        $scope.loading=true;
+
+        $timeout(function() {
+
+          ReservationService.updateToFixed({idReservation: JSON.parse(SessionStorageService.get("tempReservationId"))}, function (response) {
+            $scope.loading= false;
+          });
+
+          deleteSession();
+          $window.history.back(); }
+          , 2000);
+      };
 
       //Simulates second countdown
       $scope.onTimeout = function(){
@@ -174,15 +197,22 @@ angular.module('clientApp')
         //If time expires, clear session information and go back
         if($scope.counter===0){
           $window.alert("Your reservation session has expired");
-          ReservationService.deleteTemporaryReservation($scope.temporaryReservation.id);
-          SessionStorageService.delete("payloadApi");
-          SessionStorageService.delete("reservationInformation");
-          SessionStorageService.delete("reservationStartTime");
+          ReservationService.deleteTemporaryReservation(JSON.parse(SessionStorageService.get("tempReservationId")));
+          deleteSession();
+          $timeout.cancel($scope.seconds);
           $window.history.back();
         }
-        seconds = $timeout($scope.onTimeout,1000);
+        $scope.seconds = $timeout($scope.onTimeout,1000);
       };
-      var seconds = $timeout($scope.onTimeout,1000);
+
+      var deleteSession = function () {
+        SessionStorageService.delete("tempReservationId");
+        SessionStorageService.delete("reservationInformation");
+        SessionStorageService.delete("reservationStartTime");
+        SessionStorageService.delete("payloadApi");
+      };
+
+       $scope.seconds = $timeout($scope.onTimeout,1000);
     }
 
   })
@@ -201,16 +231,6 @@ angular.module('clientApp')
       }
     );
 
-    //Creates payload and submits reservation delete temp information and go back
-    $scope.reservationSubmit = function (){
-      ReservationService.updateToFixed({idReservation: JSON.parse(SessionStorageService.get("tempReservationId"))});
-      SessionStorageService.delete("tempReservationId");
-      SessionStorageService.delete("reservationInformation");
-      SessionStorageService.delete("reservationStartTime");
-      SessionStorageService.delete("payloadApi");
-      $window.history.back();
-    };
-
 
     //Registers user and if succesfull submits reservation
     $scope.registerSubmit = function (isValid) {
@@ -228,7 +248,10 @@ angular.module('clientApp')
         $scope.confirmPassword = null;
         $scope.password = null;
 
+
+        $scope.loading= true;
         AuthenticationService.Register(payload, function (result) {
+          $scope.loading= false;
 
             if (!result.status) {
               //go back so that login can go back to this window

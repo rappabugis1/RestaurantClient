@@ -59,9 +59,9 @@
   <h5 ng-if="userLogged" class="warning"><span class="glyphicon glyphicon-ok-circle ok" aria-hidden="true"></span>
     Reservation is secured for the duration of the countdown.</h5>
 
-  <div ng-if="currentUser" ng-controller="SubmitReservationController">
-    <h4>Special Request:</h4>
-    <form name="reserveLoggedIn" ng-submit="reservationSubmit()" class="text-center" novalidate>
+    <div ng-if="currentUser">
+      <h4>Special Request:</h4>
+      <form name="reserveLoggedIn" ng-submit="reservationSubmit()" class="text-center" novalidate>
         <textarea name="request" rows="1"
                   class="form-control input-lg input-h request"
                   type="text"
@@ -70,14 +70,19 @@
                   ng-model="request">
         </textarea>
 
-      <button type="submit"
-              class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block ">
-        Complete Reservation
-      </button>
+        <button type="submit"
+                class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block ">
+          Complete Reservation
+        </button>
+        <div>
+          <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
+        </div>
 
-      <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
-    </form>
-  </div>
+        <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
+
+
+      </form>
+    </div>
 
   <div ng-if="!currentUser" ng-controller="SubmitReservationController">
     <h4>Already a member?
@@ -209,13 +214,17 @@
 
       </div>
 
-      <div ng-if="error" class="alert alert-danger">{{error}}</div>
+        <button type="submit"
+                class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block "
+                ng-disabled="registerForm.$invalid">
+          Register account
+        </button>
 
-      <button type="submit"
-              class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block "
-              ng-disabled="registerForm.$invalid">
-        Complete Reservation
-      </button>
+        <div>
+          <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
+        </div>
+
+        <p class="terms">You need to be logged in to make a reservation.</p>
 
       <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
 

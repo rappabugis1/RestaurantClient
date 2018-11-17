@@ -28,6 +28,7 @@ angular.module('clientApp')
         };
 
         $scope.loading=true;
+
         AuthenticationService.Login(payload.email, payload.password, function (result) {
           $scope.loading=false;
 

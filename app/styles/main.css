@@ -224,3 +224,8 @@ select.input-lg {
   color: coral;
 }
 
+.loading{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
