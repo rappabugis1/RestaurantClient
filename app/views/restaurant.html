@@ -52,10 +52,8 @@
         </div>
 
         <div class="list-group">
-          <a href="#reservation" class="list-group-item">Reservation</a>
-          <a href="#about" class="list-group-item">About</a>
-          <a href="#menu" class="list-group-item">Menu</a>
-          <a href="#" class="list-group-item">Photos</a>
+          <a ng-click="goTo(anchor)" class="list-group-item" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews', 'Photos']">{{anchor}}</a>
+
         </div>
       </div>
 
@@ -88,8 +86,8 @@
         </ul>
       </div>
 
-      <div class="container-card" ng-controller="ReservationBarController as $ctrl">
-        <h5 class="h5-heading-reservation"><a id="reservation"></a>Make a free reservation</h5>
+      <div class="container-card" id="Reservation" ng-controller="ReservationBarController as $ctrl">
+        <h5 class="h5-heading-reservation">Make a free reservation</h5>
 
         <form name="reservationForm" ng-submit="checkReservation()">
           <div class="row no-gutters">
@@ -138,8 +136,9 @@
 
       </div>
 
-      <div class="container-card">
-        <h5><a id="about"></a>About {{restaurant.restaurantName}}</h5>
+
+      <div id="About" class="container-card">
+        <h5>About {{restaurant.restaurantName}}</h5>
         <div id="map" class="map"></div>
         <h6 class="desc">Description</h6>
         <p class="desc-p">
@@ -147,7 +146,7 @@
         </p>
       </div>
 
-      <div class="container-card" ng-controller="MenuController as $menu">
+      <div id="Menu" class="container-card" ng-controller="MenuController as $menu">
 
         <h5 class="menu-heading">Menu: </h5>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -165,10 +164,10 @@
         <hr>
 
         <div class="menu-items" ng-style="{'max-height': $menu.myHeight}">
-          <a id="menu"></a>
           <div>
             <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
               <h6 class="type-title"> {{dishType[0].dishType}}</h6>
+              <hr>
               <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
                 <div class="col-xs-3">
                   {{dish.name}}
@@ -192,9 +191,27 @@
 
       </div>
 
+      <div id="Reviews" class="container-card" >
+        <h5 class="h5-heading-reservation">Reviews</h5>
+        <h6  ng-show="noReviews">No available reviews for this restaurant ...</h6>
+
+        <div class="review-item" ng-repeat="review in reviews">
+          <h6 class="review-item-name">
+            {{review.name}}
+          </h6>
+
+          <span class="glyphicon glyphicon-star " ng-repeat="n in range(review.mark)"></span><span
+          class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-review.mark)"></span>
+
+          <p>{{review.comment}}</p>
+          <p class="review-time">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
+        </div>
+      </div>
+
     </div>
 
-
   </div>
+  <a id="Photos"></a>
+
 </div>
 </body>

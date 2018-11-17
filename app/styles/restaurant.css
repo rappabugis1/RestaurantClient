@@ -119,6 +119,10 @@ hr {
   color: black;
 }
 
+.type-title{
+  font-size: 18px;
+}
+
 .rate{
   font-size: 30px;
 }
@@ -280,3 +284,19 @@ h6{
   margin-top: 0 !important;
 }
 
+
+/*reviews*/
+
+.review-item-name{
+  padding-top: 10px;
+}
+
+.review-time{
+  float: right;
+  margin-top: 0px;
+}
+
+.review-card{
+  max-height: 500px;
+  overflow: scroll;
+}

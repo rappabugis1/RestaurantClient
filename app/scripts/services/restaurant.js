@@ -36,6 +36,20 @@ angular.module('clientApp')
           idUser: payload.idUser,
           idRestaurant: payload.idRestaurant
         });
+      },
+
+      getAllRestaurantComments : function (id, callback) {
+        $http.post('/app/getAllRestaurantComments', {idRestaurant : id})
+          .then(function onSucces(response) {
+
+          //If succesfull return data
+          callback(response.data);
+          })
+          .catch(function onError(error) {
+            if (error.status === 400) {
+              callback(error.data);
+            }
+          });
       }
 
     };
