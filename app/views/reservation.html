@@ -170,44 +170,25 @@
       </div>
 
         <div class="row">
-          <div class=" col-xs-12 col-sm-6 row no-gutters">
-            <div class="col-sm-6  ">
+            <div class="col-xs-12 col-sm-6 form-group ">
 
               <select class="custom-select form-control input-lg "
-                      ng-model="name"
+                      ng-model="country"
                       ng-options="c.country_name for c in locations"
                       required="required">
                 <option value="" disabled selected>Country</option>
               </select>
             </div>
 
-            <div class="col-sm-6 ">
+            <div class="col-xs-12 col-sm-6 form-group ">
               <select class=" form-control input-lg "
-                      ng-model="name"
-                      ng-options="d.valueOf() for d in name.city_names"
+                      ng-model="city"
+                      ng-options="d.valueOf() for d in country.city_names"
                       required="required">
                 <option value="" disabled selected>City</option>
               </select>
             </div>
-          </div>
 
-          <div class="col-sm-6 ">
-            <select class=" form-control input-lg "
-                    ng-model="city"
-                    ng-options="name.valueOf() for name in country.city_names"
-                    required="required">
-              <option value="" disabled selected>City</option>
-            </select>
-          </div>
-        </div>
-
-        <div class=" col-xs-12 col-sm-6 row no-gutters">
-            <textarea name="request" rows="1"
-                      class="form-control input-lg request"
-                      type="text"
-                      id="requestRegistered"
-                      placeholder="Add a special request (optional)"
-                      ng-model="request">
 
             </textarea>
         </div>

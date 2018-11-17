@@ -133,7 +133,7 @@ angular.module('clientApp')
   })
 
 //Reservation page controller
-  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage,$log, SessionStorageService, $location, ReservationService) {
+  .controller('ReservationController', function ($scope,ShareDataService, $timeout, $templateCache, $window, $localStorage,$log, SessionStorageService, $location,RestaurantService, ReservationService) {
 
     //If there is no current session in sessionStorage, redirects to home page. exp If user manually enters /reservation
     if(!SessionStorageService.get("reservationInformation"))
@@ -141,6 +141,10 @@ angular.module('clientApp')
 
     //Gets reservation information from sesssionStorage
     $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
+    RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
+       $scope.restaurantNameImage = response.data;
+    });
+
 
     $scope.userLogged=false;
     //Start countdown if logged in
@@ -159,6 +163,7 @@ angular.module('clientApp')
           else{
             $window.alert("The reservation has just been booked!");
             deleteSession();
+            $timeout.cancel($scope.seconds);
             $window.history.back();
           }
         });
@@ -170,7 +175,7 @@ angular.module('clientApp')
       //Get reservation start time
       $scope.startTime= new Date(SessionStorageService.get("reservationStartTime"));
       //Calculates remaining time based of the time when the reservation session started
-      $scope.counter =10-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
+      $scope.counter =180-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
 
       //Creates payload and submits reservation delete temp information and go back
       $scope.reservationSubmit = function (){

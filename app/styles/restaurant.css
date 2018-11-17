@@ -1,16 +1,4 @@
-.profile {
-  height: 182px;
-  width: 210px;
-  border: 5px;
-  border-style: solid;
-  border-radius: 5px;
-  border-color: white;
-}
 
-.profile >img {
-  height: 172px;
-  width: 200px;
-}
 
 .masthead{
   background-color: #343a40;
