@@ -32,7 +32,7 @@ angular.module('clientApp')
             callback(response.data);
           })
           .catch(function onError(error) {
-            if(error.status===400){
+            if (error.status === 400) {
               callback(error.data);
             }
           });

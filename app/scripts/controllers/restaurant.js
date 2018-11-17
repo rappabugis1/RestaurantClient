@@ -54,7 +54,7 @@ angular.module('clientApp')
       return ratings;
     };
 
-    RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
+    RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function (response) {
       $scope.restaurant = response.data;
       $scope.loadScript($scope.restaurant.latitude, $scope.restaurant.longitude);
     });
@@ -85,11 +85,11 @@ angular.module('clientApp')
         });
 
         modalInstance.result.then(function (payload) {
-          payload={
-            comment:payload.comment,
-            mark:payload.mark,
-            idUser : $localStorage.currentUser.currentUser.data.id,
-            idRestaurant : JSON.parse(SessionStorageService.get("restaurantId")).id
+          payload = {
+            comment: payload.comment,
+            mark: payload.mark,
+            idUser: $localStorage.currentUser.currentUser.data.id,
+            idRestaurant: JSON.parse(SessionStorageService.get("restaurantId")).id
           };
           RestaurantService.insertComment(payload);
 
@@ -126,16 +126,16 @@ angular.module('clientApp')
     };
   })
 
-  .controller('MenuController', function($scope, RestaurantService, SessionStorageService){
+  .controller('MenuController', function ($scope, RestaurantService, SessionStorageService) {
     var $menu = this;
 
     $scope.arrayDishes = [];
 
     $menu.getMenu = function (type) {
-      RestaurantService.getMenu(type.toString(), JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
-        var  menuData= response.data;
-        var dishTypes= new Array;
-        var arrayDishesLoc= new Array(0);
+      RestaurantService.getMenu(type.toString(), JSON.parse(SessionStorageService.get("restaurantId")).id).then(function (response) {
+        var menuData = response.data;
+        var dishTypes = [];
+        var arrayDishesLoc = [];
 
         menuData.forEach(function (element) {
           if (!dishTypes.includes(element.dishType)) {

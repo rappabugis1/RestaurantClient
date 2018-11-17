@@ -212,13 +212,13 @@ angular.module('clientApp')
 
         AuthenticationService.Register(payload, function (result) {
 
-            if (result) {
+            if (!result.status) {
               //go back so that login can go back to this window
               SessionStorageService.save("goBack", true);
               $location.path('/login');
             }
             else {
-              $scope.error = 'Email is already in use!';
+              $scope.error = result.data;
             }
 
         });

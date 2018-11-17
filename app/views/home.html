@@ -3,43 +3,47 @@
 </head>
 
 <body>
-  <div class="masthead text-center">
-    <div class="container">
-      <div class="row">
-        <div class=" col-xs-12">
-          <h1 >Make a free reservation </h1>
-          <h3 >Choose your table from n restaurants near you</h3>
-          <form ng-controller="ReservationBarController as $ctrl">
-            <div class="row no-gutters form-row">
-              <div class="col-sm-12 col-md-4">
-                <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-2">
-                <select class="custom-select form-control " ng-model="selectedNumber" ng-options="people for people in numberPeople" required>
-                  <option value="" selected disabled >Number of guests</option>
-                </select>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-2">
-                <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}" >
+<div class="masthead text-center">
+  <div class="container">
+    <div class="row">
+      <div class=" col-xs-12">
+        <h1>Make a free reservation </h1>
+        <h3>Choose your table from n restaurants near you</h3>
+        <form ng-controller="ReservationBarController as $ctrl">
+          <div class="row no-gutters form-row">
+            <div class="col-sm-12 col-md-4">
+              <input type="search" class="form-control form-control-lg" placeholder="Location, Restaurant or Cousine ">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <select class="custom-select form-control " ng-model="selectedNumber"
+                      ng-options="people for people in numberPeople" required>
+                <option value="" selected disabled>Number of guests</option>
+              </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
+                     max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}">
 
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-2">
-                <input type="time" class="form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-2">
-                <select class="custom-select form-control " ng-model="selectedLength" ng-options="minutes for minutes in numberMinutes" required>
-                  <option value="" selected disabled >Duration (minutes)</option>
-                </select>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-10">
-                <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
-              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <input type="time" class="form-control" ng-model="selectedTime" step="900"
+                     min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}" required>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <select class="custom-select form-control " ng-model="selectedLength"
+                      ng-options="minutes for minutes in numberMinutes" required>
+                <option value="" selected disabled>Duration (minutes)</option>
+              </select>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-10">
+              <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
             </div>
           </div>
-        </form>
       </div>
+      </form>
     </div>
   </div>
+</div>
 </div>
 
 <div class="container text-center container-restaurants">
@@ -139,7 +143,7 @@
   <h3 class="text-center">Popular locations</h3>
   <div class="row popular-locations-row">
     <div class="col-xs-6 col-sm-3 col-md-3 text-left " ng-repeat="city in popularLocations">
-      <h4 >{{city.location}}</h4>
+      <h4>{{city.location}}</h4>
       <p4 class="number">{{city.num}} restaurants</p4>
     </div>
   </div>

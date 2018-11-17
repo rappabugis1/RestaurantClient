@@ -49,8 +49,9 @@ angular.module('clientApp')
 
         })
         .catch(function onError() {
-
-          callback(false);
+          if(error.status===400){
+            callback(error);
+          }
 
         });
     }
