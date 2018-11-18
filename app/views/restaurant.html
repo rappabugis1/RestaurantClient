@@ -175,9 +175,9 @@
                 <div class="col-xs-6">
                 </div>
                 <div class="col-xs-3 price">
-                  ${{dish.price}}
+                  {{dish.price | currency : "$ " : 2}}
                 </div>
-                <p class="menu-dish-description">{{dish.description}}</p4>
+                <p class="menu-dish-description">{{dish.description}}</p>
 
               </div>
             </div>

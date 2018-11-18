@@ -1,0 +1,42 @@
+/* Custom page header */
+.header {
+  position: relative;
+}
+
+.navbar{
+  background: none;
+
+  border: none;
+  margin:0;
+}
+.navbar-fixed-top{
+  position: absolute;
+}
+
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+  color: coral;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-brand:hover{
+  color: gray;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: #333;
+  background-color: black;
+}
+.in {
+  background-color: white;
+}
+
+@media (min-width: 768px) {
+  .in {
+    background-color: transparent;
+  }
+}
+
+.navbar-nav{
+  margin-top: 0px !important;
+}
