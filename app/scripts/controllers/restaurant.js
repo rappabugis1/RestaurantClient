@@ -77,7 +77,7 @@ angular.module('clientApp')
   })
 
 
-  .controller('ReviewController', function ($scope, $uibModal, $document, $log, $location, $localStorage, RestaurantService, SessionStorageService) {
+  .controller('ReviewController', function ($scope, $uibModal, $document, $location, $localStorage, RestaurantService, SessionStorageService) {
 
     var $ctrl = this;
 
@@ -109,7 +109,6 @@ angular.module('clientApp')
           RestaurantService.insertComment(payload);
 
         }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
         });
       } else {
         SessionStorageService.save("goBack", true);
@@ -233,5 +232,5 @@ angular.module('clientApp')
     };
 
   });
-;
+
 

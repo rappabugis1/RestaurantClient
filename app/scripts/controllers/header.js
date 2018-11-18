@@ -14,6 +14,15 @@ angular.module('clientApp')
       return  $localStorage.currentUser;
     };
 
+    $scope.isAdmin = function () {
+      var token = $localStorage.currentUser.token;
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace('-', '+').replace('_', '/');
+      var json= JSON.parse(atob(base64));
+
+      return json.user_type.toString()==="admin";
+    };
+
     $scope.Logout = function(){
       AuthenticationService.Logout();
     };

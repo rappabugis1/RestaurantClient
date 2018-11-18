@@ -9,7 +9,7 @@
  */
 angular.module('clientApp')
 
-  .controller('HomeController', function ($scope, $http, SessionStorageService, $location, RestaurantService, $log){
+  .controller('HomeController', function ($scope, $http, SessionStorageService, $location, RestaurantService){
 
     $scope.dishes = [
       {
@@ -76,7 +76,7 @@ angular.module('clientApp')
     $scope.filterLocations= function (name) {
       SessionStorageService.save("locationSearch", JSON.stringify(name));
       $location.path('/restaurants');
-    }
+    };
 
   })
 

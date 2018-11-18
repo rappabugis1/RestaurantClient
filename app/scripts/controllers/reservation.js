@@ -83,7 +83,7 @@ angular.module('clientApp')
             $scope.AvailabilityErrorColapsed=false;
             $scope.error=result;
           }else{
-            $scope.error="Something went wrong."
+            $scope.error="Something went wrong.";
           }
         }
 
@@ -107,7 +107,7 @@ angular.module('clientApp')
 
 
         $location.path('/reservation');
-      }
+      };
     };
 
     $scope.numberPeople = ["1 Person", "2 People","3 People","4 People","5 People","6 People","7 People","8 People"];
@@ -131,7 +131,7 @@ angular.module('clientApp')
       };
       SessionStorageService.save("homeSearch", JSON.stringify($scope.filterPayload));
       $location.path('/restaurants');
-    }
+    };
   })
 
 //Reservation page controller
@@ -222,8 +222,8 @@ angular.module('clientApp')
 
             finishSession();
 
-            $window.history.back(); }
-          , 2000);
+            $window.history.back();
+            }, 2000);
       };
 
       //Simulates second countdown
@@ -257,7 +257,7 @@ angular.module('clientApp')
 
   })
 
-  .controller('SubmitReservationController', function ($scope, $http, AuthenticationService, $location, ReservationService, SessionStorageService, $window) {
+  .controller('SubmitReservationController', function ($scope, $http, AuthenticationService, $location, ReservationService, SessionStorageService) {
     $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
 
     $scope.signInClick= function(){
