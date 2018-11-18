@@ -64,15 +64,15 @@
     <div ng-if="currentUser">
       <h4>Special Request:</h4>
       <form name="reserveLoggedIn" ng-submit="reservationSubmit()" class="text-center" novalidate>
+
         <textarea name="request" rows="1"
                   class="form-control input-lg input-h request"
                   type="text"
                   id="requestLogged"
                   placeholder="Add a special request (optional)"
-                  ng-model="request">
+                  ng-model="request"
+                  maxlength=200>
         </textarea>
-
-
 
         <button type="submit"
                 class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block " ng-show="information.active">

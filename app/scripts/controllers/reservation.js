@@ -144,7 +144,6 @@ angular.module('clientApp')
     //Gets reservation information from sesssionStorage
     $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
 
-
     RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function(response) {
        $scope.restaurantNameImage = response.data;
     });
@@ -156,12 +155,10 @@ angular.module('clientApp')
 
         } else {
           ReservationService.deleteTemporaryReservation(JSON.parse(SessionStorageService.get("tempReservationId")));
-          SessionStorageService.delete("tempReservationId");
-          SessionStorageService.delete("payloadApi");
 
-          $scope.information.active = false;
+          finishSession();
+
           $timeout.cancel($scope.seconds);
-          SessionStorageService.save("reservationInformation", JSON.stringify($scope.information));
         }
       }
 
@@ -183,9 +180,8 @@ angular.module('clientApp')
           }
           else{
             $window.alert("The reservation has just been booked!");
-            $scope.information.active=false;
 
-            SessionStorageService.save("reservationInformation", JSON.stringify($scope.information));
+            finishSession();
 
             $timeout.cancel($scope.seconds);
           }
@@ -202,6 +198,10 @@ angular.module('clientApp')
 
       if(!$scope.information.active)
         $scope.counter=0;
+
+
+      $scope.request="";
+
       //Creates payload and submits reservation delete temp information and go back
       $scope.reservationSubmit = function (){
 
@@ -209,14 +209,18 @@ angular.module('clientApp')
 
         $scope.loading=true;
 
+        var fixedPayload = {
+          idReservation : JSON.parse(SessionStorageService.get("tempReservationId")),
+          request : this.request
+        };
+
         $timeout(function() {
 
-            ReservationService.updateToFixed({idReservation: JSON.parse(SessionStorageService.get("tempReservationId"))}, function (response) {
+            ReservationService.updateToFixed(fixedPayload, function (response) {
               $scope.loading= false;
             });
 
-            deleteSession();
-            $scope.information.active=false;
+            finishSession();
 
             $window.history.back(); }
           , 2000);
@@ -230,24 +234,23 @@ angular.module('clientApp')
         if($scope.counter===0){
 
           ReservationService.deleteTemporaryReservation(JSON.parse(SessionStorageService.get("tempReservationId")));
-          SessionStorageService.delete("tempReservationId");
-          SessionStorageService.delete("payloadApi");
 
-          $scope.information.active=false;
-
-          SessionStorageService.save("reservationInformation", JSON.stringify($scope.information));
+          finishSession();
 
           $timeout.cancel($scope.seconds);
         }
         $scope.seconds = $timeout($scope.onTimeout,1000);
       };
 
-      var deleteSession = function () {
-        SessionStorageService.delete("tempReservationId");
-        SessionStorageService.delete("reservationInformation");
-        SessionStorageService.delete("reservationStartTime");
+      var finishSession = function ( ) {
         SessionStorageService.delete("payloadApi");
+        SessionStorageService.delete("tempReservationId");
+
+        $scope.information.active=false;
+
+        SessionStorageService.save("reservationInformation", JSON.stringify($scope.information));
       };
+
 
        $scope.seconds = $timeout($scope.onTimeout,1000);
     }
