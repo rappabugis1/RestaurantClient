@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myreservations</title>
+    <link rel="stylesheet" href="../styles/myreservations.css">
+
+</head>
+<body>
+
+<div class="container">
+  <div class="container cont-my-reservations">
+    <div>
+      <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
+    </div>
+
+    <div class="container-card" ng-show="reservation" >
+      <h5 class="reservation-details-head">Reservation Details</h5>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 ">
+          <div class="profile reservation-prof">
+            <img ng-src="{{reservation.imageFileName}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+          <h6 class="reservation-det-name">RESTAURANT</h6>
+          <p class="rest-name">{{reservation.restaurantName}}</p>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="reservation-det-name">GUESTS</h6>
+              <p class="reservation-info">{{reservation.guests}}</p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="reservation-det-name">DURATION</h6>
+              <p class="reservation-info">{{reservation.reservationDuration}} minutes</p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="reservation-det-name">DATE</h6>
+              <p class="reservation-info">{{reservation.reservationDate }}</p>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="reservation-det-name">TIME</h6>
+              <p class="reservation-info">{{reservation.reservationHour}}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <uib-tabset class="tabs-reservations" active="activeJustified" justified="true">
+      <uib-tab index="0" heading="Active reservations">
+          <div class="row row-info">
+            <div class="col-xs-4">
+              Restaurant name
+            </div>
+            <div class="col-xs-4">
+              Date
+            </div>
+            <div class="col-xs-4">
+              Time
+            </div>
+          </div>
+
+        <div class="container-reservations-info" >
+          <div class="no-reservations" ng-show="noReservationsActive">
+          No active reservations!
+          </div>
+          <button class="row-reservation btn-block" ng-repeat="reservationActive in userReservations.activeReservations" ng-click="pick(reservationActive)">
+            <div class="col-xs-4 col-info">
+              {{reservationActive.restaurantName}}
+            </div>
+            <div class="col-xs-4 col-info">
+              {{reservationActive.reservationDate}}
+            </div>
+            <div class="col-xs-4 col-info">
+              {{reservationActive.reservationHour}}
+            </div>
+          </button>
+        </div>
+      </uib-tab>
+      <uib-tab index="1" heading="Past reservations">
+        <div class="row row-info">
+          <div class="col-xs-4">
+            Restaurant name
+          </div>
+          <div class="col-xs-4">
+            Date
+          </div>
+          <div class="col-xs-4">
+            Time
+          </div>
+
+        </div>
+
+        <div class="container-reservations-info">
+          <div class="no-reservations" ng-show="noReservationsPast">
+            No past reservations!
+          </div>
+          <button class="row-reservation btn-block" ng-repeat="reservationPast in userReservations.pastReservations" ng-click="pick(reservationPast)">
+              <div class="col-xs-4 col-info">
+                {{reservationPast.restaurantName}}
+              </div>
+              <div class="col-xs-4 col-info">
+                {{reservationPast.reservationDate}}
+              </div>
+              <div class="col-xs-4 col-info">
+                {{reservationPast.reservationHour}}
+              </div>
+
+          </button>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>
+
+
+
+</body>
+</html>

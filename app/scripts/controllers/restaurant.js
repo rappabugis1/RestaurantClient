@@ -112,6 +112,7 @@ angular.module('clientApp')
           $log.info('Modal dismissed at: ' + new Date());
         });
       } else {
+        SessionStorageService.save("goBack", true);
         $location.path('/login');
       }
 
