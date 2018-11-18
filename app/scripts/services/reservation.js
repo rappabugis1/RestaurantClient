@@ -39,7 +39,7 @@ angular.module('clientApp')
       },
 
       deleteTemporaryReservation : function (payload, callback) {
-        $http.post('app/deleteReservation', payload)
+        $http.post('app/deleteReservation', {idReservation: payload})
           .then(function onSucces(response) {
 
             //If succesfull return data

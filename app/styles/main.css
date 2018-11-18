@@ -252,3 +252,15 @@ select.input-lg {
   outline: none;
 }
 
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+  color: coral;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-brand:hover{
+  color: gray;
+}
+
+a:hover, a:focus{
+  color: coral;
+}

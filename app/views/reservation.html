@@ -24,11 +24,13 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-3 ">
-        <div class="profile"></div>
+        <div class="profile reservation-prof">
+          <img ng-src="{{restaurantNameImage.imageFileName}}">
+        </div>
       </div>
       <div class="col-xs-12 col-sm-9">
         <h6 class="reservation-det-name">RESTAURANT</h6>
-        <p class="rest-name">Red Food</p>
+        <p class="rest-name">{{restaurantNameImage.restaurantName}}</p>
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <h6 class="reservation-det-name">GUESTS</h6>
@@ -70,15 +72,20 @@
                   ng-model="request">
         </textarea>
 
+
+
         <button type="submit"
-                class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block ">
+                class="btn btn-primary btn-block no-border btn-lg input-h btn-submit center-block " ng-show="information.active">
           Complete Reservation
         </button>
+        <div class="alert alert-danger alert-expired" ng-show="!information.active">
+          <strong>Expired!</strong> This reservation session is expired and cannot be finalised.
+        </div>
         <div>
           <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
         </div>
 
-        <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
+        <p class="terms" ng-show="information.active">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
 
 
       </form>

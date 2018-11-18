@@ -192,20 +192,26 @@
       </div>
 
       <div id="Reviews" class="container-card" >
-        <h5 class="h5-heading-reservation">Reviews</h5>
-        <h6  ng-show="noReviews">No available reviews for this restaurant ...</h6>
+        <h5 class="h5-heading-reservation review-h5">Reviews</h5>
+        <div class=" review-card">
+          <h6  ng-show="noReviews">No available reviews for this restaurant ...</h6>
 
-        <div class="review-item" ng-repeat="review in reviews">
-          <h6 class="review-item-name">
-            {{review.name}}
-          </h6>
+          <div class="review-item" ng-repeat="review in reviews">
+            <hr>
+            <h6 class="review-item-name">
+              {{review.name}}
+            </h6>
 
-          <span class="glyphicon glyphicon-star " ng-repeat="n in range(review.mark)"></span><span
-          class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-review.mark)"></span>
+            <span class="glyphicon glyphicon-star " ng-repeat="n in range(review.mark)"></span><span
+            class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-review.mark)"></span>
 
-          <p>{{review.comment}}</p>
-          <p class="review-time">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
+            <p>{{review.comment}}</p>
+            <p class="review-time">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
+          </div>
         </div>
+
+
+
       </div>
 
     </div>
