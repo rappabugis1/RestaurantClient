@@ -37,10 +37,6 @@ body {
   margin-bottom: 25px;
 }
 
-
-
-
-
 .footer {
   padding-top: 19px;
   border-top: 1px solid #e5e5e5;
@@ -115,20 +111,12 @@ body {
 
 }
 
-
+.form-control:focus {
+  box-shadow: 0px 1px 0px 0px coral;
+}
 
 select{
 -webkit-appearance: listbox;
-}
-
-select.input-lg {
-  height: 55px;
-  line-height: normal;
-
-}
-
-.form-control:focus {
-  box-shadow: 0px 1px 0px 0px coral;
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {

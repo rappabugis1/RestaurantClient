@@ -1,29 +1,24 @@
-<head>
 
-  <!-- build:css(.tmp) styles/restaurant.css -->
-  <link rel="stylesheet" type="text/css" href="styles/restaurant.css">
-  <!-- endbuild -->
-</head>
 
 <body>
 
 <script ng-controller="ReviewController as $ctrl" type="text/ng-template" id="myModalContent.html">
   <div class="modal-header">
     <div class="glyphicon glyphicon-remove back-icon-review" ng-click="$ctrl.cancel()"></div>
-    <h3 class="modal-title" id="review-modal-title">Rate this place</h3>
+    <h3 class="modal-title restaurant-h3" id="review-modal-title">Rate this place</h3>
   </div>
   <div class="modal-body" id="review-modal-body">
     <div class="row center-block row-review">
       <div class="col-12 ">
         <form class="reviewForm" name="reviewForm" ng-submit="$ctrl.ok()" novalidate>
 
-          <span uib-rating ng-model="rate" class="rate" on-leave="overStar = null" enable-reset="false"
+          <span uib-rating ng-model="rate" class="rate restaurant-rate" on-leave="overStar = null" enable-reset="false"
                 aria-labelledby="default-rating"></span>
 
           <div class="form-group">
 
               <textarea name="review" rows="5"
-                        class="form-control "
+                        class="form-control restaurant-form-control"
                         type="text"
                         id="review"
                         placeholder="Write a review"
@@ -31,7 +26,7 @@
                         required="required"
               ></textarea>
           </div>
-          <button type="submit" class="btn btn-block " ng-disabled="reviewForm.$invalid">Save</button>
+          <button type="submit" class="btn btn-restaurant btn-block " ng-disabled="reviewForm.$invalid">Save</button>
 
         </form>
       </div>
@@ -40,7 +35,7 @@
   </div>
 </script>
 
-<div class="masthead">
+<div class="restaurant-masthead">
   <img ng-src="{{restaurant.coverFileName}}">
 </div>
 
@@ -65,24 +60,24 @@
     <div class="col-md-9">
 
       <div class="container-info">
-        <h3>{{restaurant.restaurantName}}</h3>
+        <h3 class="restaurant-h3">{{restaurant.restaurantName}}</h3>
         <ul class="list list-inline">
-          <li>
+          <li class="restaurant-li">
             <span class="glyphicon glyphicon-star " ng-repeat="n in range(restaurant.mark)"></span><span
             class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-restaurant.mark)"></span>
           </li>
-          <li>
+          <li class="restaurant-li">
             <div>({{restaurant.votes}})</div>
           </li>
-          <li>
-            <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(restaurant.priceRange)"></span><span
+          <li class="restaurant-li">
+            <span class="glyphicon glyphicon-usd dolar-full-restaurant" ng-repeat="n in range(restaurant.priceRange)"></span><span
             class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-restaurant.priceRange)"></span>
           </li>
-          <li>
+          <li class="restaurant-li">
             {{restaurant.foodType}}
           </li>
-          <li class="pull-right ">
-            <button ng-controller="ReviewController as $ctrl" type="button" class="btn btn-block btn-default"
+          <li class="pull-right restaurant-li ">
+            <button ng-controller="ReviewController as $ctrl" type="button" class="btn btn-restaurant btn-block btn-default"
                     style="width: 160px" ng-click="$ctrl.open()">Rate this place
             </button>
           </li>
@@ -90,33 +85,33 @@
       </div>
 
       <div class="container-card" id="Reservation" ng-controller="ReservationBarController as $ctrl">
-        <h5 class="h5-heading-reservation">Make a free reservation</h5>
+        <h5 class="h5-heading-reservation restaurant-h5">Make a free reservation</h5>
 
         <form name="reservationForm" ng-submit="checkReservation()">
           <div class="row no-gutters">
             <div class="col-xs-12 col-sm-6 col-md-2">
-              <select class="custom-select form-control " ng-model="selectedNumber"
+              <select class="custom-select form-control restaurant-form-control " ng-model="selectedNumber"
                       ng-options="people for people in numberPeople" required>
                 <option value="" selected disabled>Guests</option>
               </select>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-              <input type="date" class="form-control " ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
+              <input type="date" class="form-control  restaurant-form-control" ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
                      max="{{maxDate | date:'yyyy-MM-dd'}}" value="{{selectedDate  | date:'yyyy-MM-dd'}}">
 
             </div>
             <div class="col-xs-12 col-sm-6 col-md-2">
-              <input type="time" class="form-control" ng-model="selectedTime" step="900"
+              <input type="time" class="form-control restaurant-form-control" ng-model="selectedTime" step="900"
                      min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}" required>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-              <select class="custom-select form-control " ng-model="selectedLength"
+              <select class="custom-select form-control restaurant-form-control" ng-model="selectedLength"
                       ng-options="minutes for minutes in numberMinutes" required>
                 <option value="" selected disabled>Duration (minutes)</option>
               </select>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
-              <button type="submit" class="btn btn-block btn-primary form-btn">Find a table</button>
+              <button type="submit" class="btn btn-restaurant btn-block btn-primary form-btn">Find a table</button>
             </div>
           </div>
         </form>
@@ -128,11 +123,11 @@
         </div>
 
         <div uib-collapse="AvailabilityInfoColapsed">
-          <h3 class="availability-info">Availability on {{selectedDate | date:'MMMM d, yyyy'}} around {{selectedTime|
+          <h3 class="availability-info restaurant-h3">Availability on {{selectedDate | date:'MMMM d, yyyy'}} around {{selectedTime|
             date:'HH:mm'}} for {{selectedNumber}}: </h3>
           <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> {{tablesLeft}} tables left
-          <h3 class="availability-info">Select the nearest time that fits your chosen time:</h3>
-          <button type="button" class="btn btn-block btn-reserv" ng-repeat="time in bestTimes"
+          <h3 class="availability-info restaurant-h3">Select the nearest time that fits your chosen time:</h3>
+          <button type="button" class="btn btn-restaurant btn-block btn-reserv" ng-repeat="time in bestTimes"
                   ng-click="proceedReservation(time)">{{time}}
           </button>
         </div>
@@ -141,25 +136,25 @@
 
 
       <div id="About" class="container-card">
-        <h5>About {{restaurant.restaurantName}}</h5>
+        <h5 class="restaurant-h5">About {{restaurant.restaurantName}}</h5>
         <div id="map" class="map"></div>
-        <h6 class="desc">Description</h6>
-        <p class="desc-p">
+        <h6 class="desc restaurant-h6">Description</h6>
+        <p class="desc-p restaurant-p">
           {{restaurant.description}}
         </p>
       </div>
 
       <div id="Menu" class="container-card" ng-controller="MenuController as $menu">
 
-        <h5 class="menu-heading">Menu: </h5>
+        <h5 class="menu-heading restaurant-h5">Menu: </h5>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
+          <label class="btn  btn-restaurant btn-secondary btn-menu active-menu" ng-click="$menu.getMenu('Breakfast')">
             <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
           </label>
-          <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
+          <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
             <input type="radio" name="options" id="option2" autocomplete="off"> Lunch
           </label>
-          <label class="btn btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
+          <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
             <input type="radio" name="options" id="option3" autocomplete="off"> Dinner
           </label>
         </div>
@@ -169,7 +164,7 @@
         <div class="menu-items" ng-style="{'max-height': $menu.myHeight}">
           <div>
             <div class="dish-type-row" ng-repeat="dishType in arrayDishes">
-              <h6 class="type-title"> {{dishType[0].dishType}}</h6>
+              <h6 class="type-title restaurant-h6"> {{dishType[0].dishType}}</h6>
               <hr>
               <div class="row no-gutters dish-row" ng-repeat="dish in dishType">
                 <div class="col-xs-3">
@@ -180,7 +175,7 @@
                 <div class="col-xs-3 price">
                   {{dish.price | currency : "$ " : 2}}
                 </div>
-                <p class="menu-dish-description">{{dish.description}}</p>
+                <p class="menu-dish-description restaurant-p">{{dish.description}}</p>
 
               </div>
             </div>
@@ -190,26 +185,26 @@
         <div class="fadeout"></div>
 
 
-        <button class="btn btn-block see-full-menu center-block " ng-click="$menu.showMenu()">{{$menu.text}}</button>
+        <button class="btn btn-restaurant btn-block see-full-menu center-block " ng-click="$menu.showMenu()">{{$menu.text}}</button>
 
       </div>
 
       <div id="Reviews" class="container-card" >
-        <h5 class="h5-heading-reservation review-h5">Reviews</h5>
+        <h5 class="h5-heading-reservation review-h5 restaurant-h5">Reviews</h5>
         <div class=" review-card">
-          <h6  ng-show="noReviews">No available reviews for this restaurant ...</h6>
+          <h6 class="restaurant-h6" ng-show="noReviews">No available reviews for this restaurant ...</h6>
 
           <div class="review-item" ng-repeat="review in reviews">
             <hr>
-            <h6 class="review-item-name">
+            <h6 class="review-item-name restaurant-h6">
               {{review.name}}
             </h6>
 
             <span class="glyphicon glyphicon-star " ng-repeat="n in range(review.mark)"></span><span
             class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-review.mark)"></span>
 
-            <p>{{review.comment}}</p>
-            <p class="review-time">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
+            <p class="restaurant-p">{{review.comment}}</p>
+            <p class="review-time restaurant-p">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
           </div>
         </div>
 

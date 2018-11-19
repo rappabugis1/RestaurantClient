@@ -18,11 +18,11 @@ angular.module('clientApp')
       },
 
       getRandomRestaurants: function () {
-        return $http.get('/app/getRandomRestaurants');
+        return $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getRandomRestaurants');
       },
 
       getRestaurantLocations: function () {
-        return $http.get('/app/getRestaurantLocations');
+        return $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getRestaurantLocations');
       },
 
       getRestaurantDetails: function (id) {

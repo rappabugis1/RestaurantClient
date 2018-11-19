@@ -1,9 +1,3 @@
-<head>
-  <!-- build:css(.tmp) styles/loginregister.css -->
-  <link rel="stylesheet" type="text/css" href="styles/loginregister.css">
-  <!-- endbuild -->
-</head>
-
 <body>
 
 <div class="container container-form">
@@ -11,17 +5,17 @@
 
     <ul class="list list-inline">
       <li>
-        <h3>Login</h3>
+        <h3 class="login-h3">Login</h3>
       </li>
       <li class="pull-right ">
-        <p><a href="#/register">Create Account</a></p>
+        <p><a class="login-a" href="#/register">Create Account</a></p>
       </li>
     </ul>
 
     <div class="form-group login-form-group"
          ng-class="{'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
       <input name="email"
-             class="form-control input-lg input-h"
+             class="login-form-control input-lg input-h"
              type="email"
              id="email"
              placeholder="Email"
@@ -32,7 +26,7 @@
     </div>
     <div class="bottom">
       <input name="password"
-             class="form-control input-lg input-h"
+             class="login-form-control input-lg input-h"
              type="password"
              id="password"
              placeholder="Password"

@@ -37,12 +37,14 @@ angular
         templateUrl: 'views/register.html',
         controller: 'RegisterController',
         controllerAs: 'register'
+
       })
 
       .when('/restaurant',{
         templateUrl: 'views/restaurant.html',
         controller: 'RestaurantController',
         controllerAs: 'restaurant'
+
       })
 
       .when('/reservation',{

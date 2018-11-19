@@ -1,7 +1,15 @@
 
-.form-control:focus {
-  border-color: coral;
-  box-shadow: 0 0 4px coral;
+.login-form-control{
+  border-radius: 1px;
+  box-shadow: inset 0 0 2px rgba(1,0,0,0.4) !important;
+  width: 100%;
+  outline: none;
+  border: coral;
+}
+
+.login-form-control:focus {
+  border-color: coral !important;
+  box-shadow: 0 0 4px coral !important;
 
 }
 
@@ -20,11 +28,11 @@
   max-width: 465px
 }
 
-h3 {
+.login-h3 {
   margin: 0px
 }
 
-a {
+.login-a {
   color: #FD6F60
 }
 

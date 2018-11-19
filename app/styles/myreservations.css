@@ -53,21 +53,11 @@
 
 }
 
-a{
-  color: coral;
-}
-
 .no-reservations {
   color: gray;
   width: inherit;
   text-align: center;
   padding-top: 20%;
-}
-
-.reservation-details-head{
-  font-size: 20px;
-  margin: 0px 0 20px 0;
-  color: rgba(19,29,36,0.40);
 }
 
 .reservation-det-name{

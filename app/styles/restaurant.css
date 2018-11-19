@@ -1,14 +1,18 @@
 
 
-.masthead{
+.restaurant-masthead{
   background-color: #343a40;
   height: 340px;
   padding: 0;
   overflow:hidden;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url("../images/masthead.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
 }
 
-.masthead > img{
-  position: center;
+.restaurant-masthead > img{
   filter: brightness(50%);
   width: 100%;
   min-height: 340px;
@@ -27,39 +31,17 @@
   margin-bottom: 67px;
 }
 
-.container-card {
-  margin: 3px;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.181) 0px 0px 9px 0px;
-  background: white;
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 24px 30px 45px 30px;
-}
-
-h3,li {
+.restaurant-h3,.restaurant-li {
   color:white;
 }
 
-h5{
+.restaurant-h5{
   font-size: 20px;
   color: rgba(19,29,36,0.40);
   margin-bottom: 25px;
 }
 
-.row.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-
-}
-
-.row.no-gutters > [class^="col-"],
-.row.no-gutters > [class*=" col-"] {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.form-control{
+.restaurant-form-control{
   height: 56px;
   border: 0px;
 }
@@ -68,13 +50,13 @@ h5{
   height: 56px;
 }
 
-.btn{
+.btn-restaurant{
   border-radius: 0px;
   border-color: coral;
   background-color: coral;
   color: white;
 }
-.btn:hover, .btn:focus {
+.btn-restaurant:hover, .btn-restaurant:focus {
   color:white;
   background-color: coral;
   border-color: coral;
@@ -120,16 +102,17 @@ hr {
   font-size: 18px;
 }
 
-.rate{
+.restaurant-rate{
   font-size: 30px;
 }
 
-.glyphicon-star, .glyphicon-star-empty{
-  color: goldenrod;
-  font-size: 18px;
+.restaurant-rate >span {
+  outline: none;
 }
 
-.dolar-full{
+
+
+.dolar-full-restaurant{
   color: white;
 }
 .dolar-empty{
@@ -142,7 +125,7 @@ hr {
   max-width: 450px;
 }
 
-textarea.form-control{
+textarea.restaurant-form-control{
   height: 233px;
   margin-top: 30px;
   margin-bottom: 50px;
@@ -159,7 +142,7 @@ textarea.form-control{
 }
 
 
-p{
+.restaurant-p{
   margin-top: 15px;
 }
 
@@ -178,7 +161,7 @@ p{
   float: none;
 }
 
-.active{
+.active-menu{
   background-color: coral;
   color: white;
 
@@ -204,7 +187,7 @@ p{
   text-align: right;
 }
 
-h6{
+.restaurant-h6{
   font-size: 14px;
   margin-bottom: 20px;
 }

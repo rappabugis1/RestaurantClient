@@ -1,4 +1,4 @@
-.container-card {
+.container-card-reservation {
   margin: 3px;
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.181) 0px 0px 9px 0px;
@@ -19,33 +19,21 @@
 .reservation-details-head{
   font-size: 20px;
   margin: 0px 0 20px 0;
-  padding-left: 15px;
   color: rgba(19,29,36,0.40);
 }
 
-.reservation-det-name{
-  opacity: 0.4;
-  font-size: 14px;
-  color: #171717;
+.reservation-details-head-add{
+  padding-left: 15px;
+
 }
 
-.reservation-info{
-  font-size: 20px;
-  color: #131D24;
-}
-
-.rest-name{
-  font-size: 20px;
-  color: #FD6F60;
-}
-
-.btn{
+.btn-reservation{
   border-radius: 0px;
   border-color: coral;
   background-color: coral !important;
   color: white;
 }
-.btn:hover, .btn:focus {
+.btn-reservation:hover, .btn-reservation:focus {
   color:white;
   background-color: coral;
   border-color: coral;
@@ -72,13 +60,13 @@
 
 }
 
-.btn-submit {
+.btn-submit-reservation {
   margin-top: 200px;
   max-width: 300px;
   margin-bottom: 40px;
  }
 
-h4 {
+.h4-reservation {
   margin-bottom: 20px;
   font-size: 18px;
 }
@@ -94,7 +82,7 @@ h4 {
   line-height: 1.75;
 }
 
-.profile {
+.reservation-profile {
   height: 182px;
   width: 210px;
   border: 5px;
@@ -104,6 +92,11 @@ h4 {
   margin-top: 10px;
 }
 
+.reservation-profile >img {
+  height: 172px;
+  width: 200px;
+}
+
 .col-input {
   padding: 20px 0 20px 0;
 }
@@ -111,7 +104,7 @@ h4 {
 select.input-lg {
   height: 46px;
   line-height: normal;
-
+  background-color: white;
 }
 
 .exclamation{
@@ -128,10 +121,14 @@ select.input-lg {
   color: rgba(19,29,36,0.40);
 }
 
-.form-control:focus {
+.reservation-form-control{
+  border-radius: 0px;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.075);
+}
+
+.reservation-form-control:focus {
   border-color: coral;
   box-shadow: 0 0 4px coral;
-
 }
 
 

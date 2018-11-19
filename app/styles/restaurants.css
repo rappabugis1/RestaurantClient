@@ -12,7 +12,7 @@
   width: max-content;
 }
 
-select{
+.restaurants-select{
   border:none;
 }
 
@@ -27,13 +27,13 @@ select{
   margin:0 20px 10px 20px;
 }
 
-select option{
+.restaurants-select option{
   margin: 6px 0 6px 0;
 }
 
-select option:focus,
-select option:active,
-select option:checked
+.restaurants-select option:focus,
+.restaurants-select option:active,
+.restaurants-select option:checked
 {
   background: linear-gradient(white,white);
   color: coral;
@@ -48,9 +48,18 @@ select option:checked
   color: gray !important;
 }
 
-.rate> span:focus{
+.restaurants-rate{
+  font-size: 18px;
+}
+
+.restaurants-rate >span {
   outline: none;
 }
+
+.restaurants-rate >span:focus {
+  outline: none;
+}
+
 
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
