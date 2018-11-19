@@ -2,332 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="663c4ebd-da05-4351-aea5-76150e9d57b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/angular-animate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/angular-animate.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/angular-animate.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-animate/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/angular-cookies.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/angular-cookies.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/angular-cookies.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-cookies/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/angular-mocks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/ngAnimateMock.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/ngMock.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/ngMockE2E.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-mocks/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/angular-resource.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/angular-resource.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/angular-resource.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-resource/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/angular-route.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/angular-route.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/angular-route.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-route/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/angular-sanitize.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/angular-sanitize.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/angular-sanitize.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-sanitize/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/angular-touch.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/angular-touch.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/angular-touch.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular-touch/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/angular-csp.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/angular.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/angular.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/angular.min.js.gzip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/angular.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/angular/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/Gruntfile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap-theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap-theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/dist/js/npm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/.jshintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/bs-commonjs-generator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/bs-glyphicons-data-generator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/bs-lessdoc-parser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/bs-raw-files-generator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/configBridge.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/grunt/sauce_browsers.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/.jscsrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/.jshintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/affix.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/alert.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/button.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/carousel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/collapse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/dropdown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/modal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/popover.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/scrollspy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/tab.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/tooltip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/js/transition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/.csscomb.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/.csslintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/alerts.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/badges.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/bootstrap.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/breadcrumbs.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/button-groups.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/buttons.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/carousel.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/close.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/code.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/component-animations.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/dropdowns.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/forms.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/glyphicons.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/grid.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/input-groups.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/jumbotron.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/labels.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/list-group.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/media.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/alerts.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/background-variant.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/border-radius.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/buttons.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/center-block.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/clearfix.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/forms.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/gradients.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/grid-framework.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/grid.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/hide-text.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/image.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/labels.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/list-group.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/nav-divider.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/nav-vertical-align.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/opacity.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/pagination.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/panels.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/progress-bar.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/reset-filter.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/resize.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/responsive-visibility.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/size.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/tab-focus.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/table-row.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/text-emphasis.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/text-overflow.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/mixins/vendor-prefixes.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/modals.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/navbar.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/navs.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/normalize.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/pager.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/pagination.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/panels.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/popovers.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/print.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/progress-bars.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/responsive-embed.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/responsive-utilities.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/scaffolding.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/tables.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/theme.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/thumbnails.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/tooltip.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/type.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/utilities.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/variables.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/less/wells.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/package.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/bootstrap/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/.bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/AUTHORS.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/core.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.slim.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.slim.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/dist/jquery.slim.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/external/sizzle/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/external/sizzle/dist/sizzle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/external/sizzle/dist/sizzle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/external/sizzle/dist/sizzle.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/jsonp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/load.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/parseXML.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/var/location.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/var/nonce.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/var/rquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/ajax/xhr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes/attr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes/classes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes/prop.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/attributes/val.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/callbacks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/DOMEval.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/access.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/camelCase.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/nodeName.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/parseHTML.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/ready-no-deferred.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/ready.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/readyException.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/stripAndCollapse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/toType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/core/var/rsingleTag.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/addGetHookIf.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/adjustCSS.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/curCSS.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/hiddenVisibleSelectors.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/showHide.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/cssExpand.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/getStyles.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/isHiddenWithinTree.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/rboxStyle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/rnumnonpx.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/css/var/swap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/data/Data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/data/var/acceptData.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/data/var/dataPriv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/data/var/dataUser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/deferred.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/deferred/exceptionHook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/deprecated.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/dimensions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/effects.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/effects/Tween.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/effects/animatedSelector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event/ajax.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event/alias.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event/focusin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/event/trigger.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/exports/amd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/exports/global.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/_evalUrl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/buildFragment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/getAll.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/setGlobalEval.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/var/rcheckableType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/var/rscriptType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/var/rtagName.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/manipulation/wrapMap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/offset.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/queue.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/queue/delay.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/selector-native.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/selector-sizzle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/selector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/serialize.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/traversing.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/traversing/findFilter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/traversing/var/dir.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/traversing/var/rneedsContext.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/traversing/var/siblings.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/ObjectFunctionString.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/arr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/class2type.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/concat.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/document.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/documentElement.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/fnToString.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/getProto.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/hasOwn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/indexOf.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/isFunction.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/isWindow.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/pnum.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/push.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/rcssNum.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/rnothtmlwhite.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/slice.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/support.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/var/toString.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bower_components/jquery/src/wrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bower.json" beforeDir="false" afterPath="$PROJECT_DIR$/bower.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/scripts/vendor.e4133c48.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scripts/vendor.5a9bdd5b.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test/karma.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/karma.conf.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -374,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
+            <state relative-caret-position="300">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -443,6 +122,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
       <path value="$PROJECT_DIR$/bower_components/angular-animate/package.json" />
+      <path value="$PROJECT_DIR$/bower_components/angular-bootstrap/package.json" />
       <path value="$PROJECT_DIR$/bower_components/angular-cookies/package.json" />
       <path value="$PROJECT_DIR$/bower_components/angular-mocks/package.json" />
       <path value="$PROJECT_DIR$/bower_components/angular-resource/package.json" />
@@ -486,7 +166,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542589010527" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542589743810" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="/usr/local/lib/node_modules/grunt-cli" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -562,24 +242,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542588120329</updated>
-      <workItem from="1542588123248" duration="754000" />
+      <workItem from="1542588123248" duration="1086000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="754000" />
+    <option name="totallyTimeSpent" value="1086000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" id="Grunt " sideWeight="0.3068536" side_tool="true" visible="true" weight="0.24969475" />
+      <window_info id="Grunt " sideWeight="0.3068536" side_tool="true" visible="true" weight="0.24969475" />
       <window_info id="npm" side_tool="true" />
       <window_info id="Image Layers" />
       <window_info id="Designer" />
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6931464" visible="true" weight="0.24969475" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6931464" visible="true" weight="0.24969475" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
@@ -615,8 +296,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
+        <state relative-caret-position="300">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
