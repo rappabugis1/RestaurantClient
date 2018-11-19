@@ -17,7 +17,7 @@ angular.module('clientApp')
         .then(function onSucces(response) {
           // login successful if there's a token in the response
 
-          if (response.headers('Authorization')) {
+          if (1) {
 
             // store username and token in local storage to keep user logged in between page refreshes
             $localStorage.currentUser = {currentUser: response, token: response.headers('Authorization')};
