@@ -10,7 +10,7 @@
 angular.module('clientApp')
 
 //Reservation Bar controller
-  .controller('ReservationBarController', function ($scope,SessionStorageService, ShareDataService, $location, ReservationService) {
+  .controller('ReservationBarController', function ($scope,SessionStorageService, ShareDataService, $location, ReservationService,$localStorage) {
     //Getting todays date and initializing variables for dates
     $scope.dateToday= new Date();
     $scope.maxDate = new Date().setMonth($scope.dateToday.getMonth()+4);
@@ -93,7 +93,6 @@ angular.module('clientApp')
       $scope.proceedReservation = function(time){
 
         $scope.reservationCheckPayload.reservationHour=time;
-        $scope.reservationCheckPayload.active = true;
         //Save payload api
         SessionStorageService.save("payloadApi", JSON.stringify($scope.reservationCheckPayload));
 
@@ -102,9 +101,12 @@ angular.module('clientApp')
         $scope.reservationCheckPayload.persons=$scope.selectedNumber;
 
         //Save to session storage
-        SessionStorageService.save("reservationInformation",JSON.stringify($scope.reservationCheckPayload));
-        SessionStorageService.save("reservationStartTime", new Date());
+        if($localStorage.currentUser){
+          $scope.reservationCheckPayload.active = true;
+          SessionStorageService.save("reservationStartTime", new Date());
+        }
 
+        SessionStorageService.save("reservationInformation",JSON.stringify($scope.reservationCheckPayload));
 
         $location.path('/reservation');
       };
@@ -148,7 +150,7 @@ angular.module('clientApp')
        $scope.restaurantNameImage = response.data;
     });
 
-    $scope.$on('$routeChangeStart', function(event, next, current) {
+    $scope.$on('$routeChangeStart', function(event) {
       if($scope.information.active) {
         if (!$window.confirm("The reservation is not completed! Leave?")) {
           event.preventDefault();
@@ -156,7 +158,7 @@ angular.module('clientApp')
         } else {
           ReservationService.deleteTemporaryReservation(JSON.parse(SessionStorageService.get("tempReservationId")));
 
-          finishSession();
+          $scope.finishSession();
 
           $timeout.cancel($scope.seconds);
         }
@@ -181,7 +183,7 @@ angular.module('clientApp')
           else{
             $window.alert("The reservation has just been booked!");
 
-            finishSession();
+            $scope.finishSession();
 
             $timeout.cancel($scope.seconds);
           }
@@ -190,15 +192,15 @@ angular.module('clientApp')
 
 
 
-
-      //Get reservation start time
-      $scope.startTime= new Date(SessionStorageService.get("reservationStartTime"));
-      //Calculates remaining time based of the time when the reservation session started
-      $scope.counter =180-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
-
-      if(!$scope.information.active)
+      if(!$scope.information.active){
         $scope.counter=0;
-
+      }
+      else{
+        //Get reservation start time
+        $scope.startTime= new Date(SessionStorageService.get("reservationStartTime"));
+        //Calculates remaining time based of the time when the reservation session started
+        $scope.counter =180-(Math.floor(Math.abs(new Date()- $scope.startTime)/1000));
+      }
 
       $scope.request="";
 
@@ -220,7 +222,7 @@ angular.module('clientApp')
               $scope.loading= false;
             });
 
-            finishSession();
+          $scope.finishSession();
 
             $window.history.back();
             }, 2000);
@@ -235,22 +237,22 @@ angular.module('clientApp')
 
           ReservationService.deleteTemporaryReservation(JSON.parse(SessionStorageService.get("tempReservationId")));
 
-          finishSession();
+          $scope.finishSession();
 
           $timeout.cancel($scope.seconds);
         }
         $scope.seconds = $timeout($scope.onTimeout,1000);
       };
 
-      var finishSession = function ( ) {
+      $scope.finishSession = function () {
         SessionStorageService.delete("payloadApi");
         SessionStorageService.delete("tempReservationId");
+        SessionStorageService.delete("reservationStartTime");
 
         $scope.information.active=false;
 
         SessionStorageService.save("reservationInformation", JSON.stringify($scope.information));
       };
-
 
        $scope.seconds = $timeout($scope.onTimeout,1000);
     }
@@ -261,7 +263,7 @@ angular.module('clientApp')
     $scope.information=JSON.parse(SessionStorageService.get("reservationInformation"));
 
     $scope.signInClick= function(){
-      SessionStorageService.save("goBack", true);
+      SessionStorageService.save("goBackReservation", true);
       $location.path('/login');
     };
 
@@ -295,7 +297,7 @@ angular.module('clientApp')
 
             if (!result.status) {
               //go back so that login can go back to this window
-              SessionStorageService.save("goBack", true);
+              SessionStorageService.save("goBackReservation", true);
               $location.path('/login');
             }
             else {

@@ -50,7 +50,7 @@
         </div>
 
         <div class="list-group">
-          <a ng-click="goTo(anchor)" class="list-group-item" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews', 'Photos']">{{anchor}}</a>
+          <a ng-click="goTo(anchor)" class="list-group-item anchors" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews', 'Photos']">{{anchor}}</a>
 
         </div>
       </div>
@@ -62,14 +62,14 @@
       <div class="container-info">
         <h3 class="restaurant-h3">{{restaurant.restaurantName}}</h3>
         <ul class="list list-inline">
-          <li class="restaurant-li">
+          <li class="restaurant-li middle">
             <span class="glyphicon glyphicon-star " ng-repeat="n in range(restaurant.mark)"></span><span
             class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-restaurant.mark)"></span>
           </li>
           <li class="restaurant-li">
             <div>({{restaurant.votes}})</div>
           </li>
-          <li class="restaurant-li">
+          <li class="restaurant-li middle">
             <span class="glyphicon glyphicon-usd dolar-full-restaurant" ng-repeat="n in range(restaurant.priceRange)"></span><span
             class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-restaurant.priceRange)"></span>
           </li>

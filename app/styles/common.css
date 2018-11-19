@@ -16,7 +16,7 @@ body {
 
 
 .popular-loc{
-  margin-bottom: 204px;
+  padding-bottom: 204px;
 }
 
 .pop-loc-info{
@@ -221,8 +221,10 @@ select{
   outline: none;
 }
 
-
-
 a:hover, a:focus{
   color: coral;
+}
+
+.background{
+  background: #FBFBFA;
 }

@@ -60,8 +60,6 @@
   outline: none;
 }
 
-
-
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
   background-color: coral;
   border-color: coral;
@@ -87,4 +85,8 @@
 .no-results{
   width: inherit;
   height: inherit;
+}
+
+.left-cats{
+  margin-left: 60px;
 }

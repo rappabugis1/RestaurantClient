@@ -48,7 +48,7 @@
                   <li class="filter-item">
                     <select class="restaurants-select"  multiple="multiple" id="categorymultipleleft" ng-model="categoriesLeft[$index]" ng-options="category.name for category in categories.left track by category.id" size="{{categories.left.length+categories.left.length/2}}"></select>
                   </li>
-                  <li class="filter-item">
+                  <li class="filter-item left-cats">
                     <select class="restaurants-select" multiple="multiple" id="categorymultipleright" ng-model="categoriesRight[$index]" ng-options="category.name for category in categories.right track by category.id" size="{{categories.right.length+categories.right.length/2}}"></select>
                   </li>
                 </ul>
@@ -76,14 +76,14 @@
               {{y.restaurantName}}
             </h3>
             <ul class="list list-inline ">
-              <li>
+              <li class="middle">
                 <span class="glyphicon glyphicon-star " ng-repeat="n in range(y.mark)"></span><span
                 class="glyphicon glyphicon-star-empty " ng-repeat="n in range(5-y.mark)"></span>
               </li>
               <li>
                 <span>({{y.votes}})</span>
               </li>
-              <li>
+              <li class="middle">
                 <span class="glyphicon glyphicon-usd dolar-full" ng-repeat="n in range(y.priceRange)"></span><span
                 class="glyphicon  glyphicon-usd dolar-empty" ng-repeat="n in range(5-y.priceRange)"></span>
               </li>

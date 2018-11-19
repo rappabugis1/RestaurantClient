@@ -9,6 +9,7 @@
  */
 angular.module('clientApp')
   .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService, $uibModalStack, $location, anchorSmoothScroll) {
+    SessionStorageService.delete("reservationStartTime");
 
     //Get comments
 
@@ -80,7 +81,6 @@ angular.module('clientApp')
   .controller('ReviewController', function ($scope, $uibModal, $document, $location, $localStorage, RestaurantService, SessionStorageService) {
 
     var $ctrl = this;
-
 
     $ctrl.animationsEnabled = true;
 

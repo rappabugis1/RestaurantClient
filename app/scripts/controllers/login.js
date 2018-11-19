@@ -34,14 +34,28 @@ angular.module('clientApp')
 
           if (result === true) {
               //If there is a goBack value, after login the window is restored to previous one
-              if(SessionStorageService.get("goBack")){
-                SessionStorageService.delete("goBack");
+              if(SessionStorageService.get("goBackReservation")){
+                SessionStorageService.delete("goBackReservation");
                 SessionStorageService.save("reservationStartTime", new Date());
+
+                var info = JSON.parse(SessionStorageService.get("reservationInformation"));
+                info.active = true;
+
+                SessionStorageService.save("reservationInformation", JSON.stringify(info));
                 $window.history.back();
               }
               else{
-                $location.path('/');
+
+                if(SessionStorageService.get("goBack")){
+                  SessionStorageService.delete("goBack");
+                  $window.history.back();
+                }
+                else{
+                  $location.path('/');
+                }
+
               }
+
             }
             else {
 

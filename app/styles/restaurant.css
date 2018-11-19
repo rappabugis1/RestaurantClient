@@ -283,3 +283,11 @@ textarea.restaurant-form-control{
   overflow-x: visible;
   overflow-y: scroll;
 }
+
+.anchors{
+  background: #FBFBFA;
+}
+
+.middle{
+  vertical-align: middle;
+}

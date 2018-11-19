@@ -59,7 +59,7 @@
       <form name="reserveLoggedIn" ng-submit="reservationSubmit()" class="text-center" novalidate>
 
         <textarea name="request" rows="1"
-                  class="reservation-form-control input-lg input-h request"
+                  class="reservation-form-control input-lg input-h request login-form-control"
                   type="text"
                   id="requestLogged"
                   placeholder="Add a special request (optional)"
@@ -94,7 +94,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6 form-group">
           <input name="firstName"
-                 class="reservation-form-control input-lg "
+                 class="login-form-control reservation-form-control input-lg "
                  type="text"
                  id="firstName"
                  placeholder="First Name"
@@ -105,7 +105,7 @@
 
         <div class="col-xs-12 col-sm-6 form-group ">
           <input name="lastName"
-                 class="reservation-form-control input-lg "
+                 class="login-form-control reservation-form-control input-lg "
                  type="text"
                  id="lastName"
                  placeholder="Last Name"
@@ -119,7 +119,7 @@
         <div class="col-xs-12 col-sm-6 form-group"
              ng-class="{'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine}">
           <input name="email"
-                 class="reservation-form-control input-lg  "
+                 class="login-form-control reservation-form-control input-lg  "
                  type="email"
                  id="email"
                  placeholder="Email"
@@ -132,7 +132,7 @@
         <div class="col-xs-12 col-sm-6 form-group "
              ng-class="{'has-error' : registerForm.phone.$touched && !registerForm.phone.$valid  }">
           <input name="phone"
-                 class="reservation-form-control input-lg "
+                 class="login-form-control reservation-form-control input-lg "
                  type="text" id="phone"
                  placeholder="Phone Number"
                  ng-model="phone"
@@ -147,7 +147,7 @@
       <div class="row">
         <div class=" col-xs-12 col-sm-6 form-group">
           <input name="password"
-                 class="reservation-form-control input-lg"
+                 class="login-form-control reservation-form-control input-lg"
                  type="password"
                  id="password"
                  placeholder="Password"
@@ -158,7 +158,7 @@
         <div class="col-xs-12 col-sm-6 form-group"
              ng-class="{'has-error' : registerForm.confirmPassword.$touched   && confirmPassword!=password}">
           <input name="confirmPassword"
-                 class="reservation-form-control input-lg"
+                 class="login-form-control reservation-form-control input-lg"
                  type="password"
                  id="confirmPassword"
                  placeholder="Confirm Password"
@@ -172,7 +172,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6 form-group ">
 
-              <select class="custom-select reservation-form-control input-lg "
+              <select class="login-form-control custom-select reservation-form-control input-lg "
                       ng-model="country"
                       ng-options="c.country_name for c in locations"
                       required="required">
@@ -181,7 +181,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 form-group ">
-              <select class="reservation-form-control input-lg "
+              <select class="login-form-control reservation-form-control input-lg "
                       ng-model="city"
                       ng-options="d.valueOf() for d in country.city_names"
                       required="required">
@@ -190,6 +190,9 @@
             </div>
 
         </div>
+
+        <div ng-if="error" class="alert alert-danger">{{error}}</div>
+
 
         <button type="submit"
                 class="btn btn-reservation btn-primary btn-block no-border btn-lg input-h btn-submit-reservation center-block "
@@ -202,8 +205,6 @@
         </div>
 
         <p class="terms">You need to be logged in to make a reservation.</p>
-
-      <p class="terms">By clicking “Complete Reservation” you agree to the AppName Terms of use and Privacy Policy.</p>
 
     </form>
   </div>
