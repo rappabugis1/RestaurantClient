@@ -58,7 +58,7 @@ angular
       })
 
       .when('/myreservations',{
-        templateUrl: '/views/myreservations.html',
+        templateUrl: 'views/myreservations.html',
         controller: 'MyReservationsController'
       })
 
