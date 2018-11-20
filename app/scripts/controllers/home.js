@@ -14,33 +14,33 @@ angular.module('clientApp')
     $scope.dishes = [
       {
         "heading": "Best pizza of 2016",
-        "location": "New York",
-        "numRestaurants": 43
+        "location": "Cazin",
+        "numRestaurants": 8
       },
       {
         "heading": "Best cevapi",
         "location": "Sarajevo",
-        "numRestaurants": 28
+        "numRestaurants": 1
       },
       {
         "heading": "Fresh and Spicy",
-        "location": "Philladelphia",
-        "numRestaurants": 16
+        "location": "Kljuc",
+        "numRestaurants": 3
       },
       {
         "heading": "Best baklava",
-        "location": "New York",
-        "numRestaurants": 43
+        "location": "mostar",
+        "numRestaurants": 5
       },
       {
         "heading": "Best burek",
-        "location": "Sarajevo",
-        "numRestaurants": 28
+        "location": "Travnik",
+        "numRestaurants": 5
       },
       {
         "heading": "Fresh and Spicy 2",
-        "location": "Philladelphia",
-        "numRestaurants": 16
+        "location": "Maglaj",
+        "numRestaurants": 9
       }
     ];
 
