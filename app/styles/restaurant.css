@@ -34,6 +34,19 @@
   color:white;
 }
 
+.restaurant-h3-rate {
+  color: black;
+}
+
+.restaurant-rate .glyphicon-star{
+  font-size: 30px;
+}
+
+
+.restaurant-rate .glyphicon-star-empty{
+  font-size: 30px;
+}
+
 .restaurant-h5{
   font-size: 20px;
   color: rgba(19,29,36,0.40);
@@ -83,8 +96,8 @@ hr {
 }
 
 .modal-body{
-  padding: 30px;
-  padding-bottom: 50px;
+  padding: 0px 30px 50px 30px;
+
 }
 
 .modal-header{
