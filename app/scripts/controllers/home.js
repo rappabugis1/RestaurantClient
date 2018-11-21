@@ -15,32 +15,39 @@ angular.module('clientApp')
       {
         "heading": "Best pizza of 2016",
         "location": "Cazin",
-        "numRestaurants": 8
+        "numRestaurants": 8,
+        "img" :"https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },
       {
-        "heading": "Best cevapi",
+        "heading": "Rice over the Orient",
         "location": "Sarajevo",
-        "numRestaurants": 1
+        "numRestaurants": 1,
+        "img" : "https://images.pexels.com/photos/1306548/pexels-photo-1306548.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },
       {
         "heading": "Fresh and Spicy",
         "location": "Kljuc",
-        "numRestaurants": 3
+        "numRestaurants": 3,
+        "img" :"https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },
       {
-        "heading": "Best baklava",
+        "heading": "Turkish kebab 2018",
         "location": "mostar",
-        "numRestaurants": 5
+        "numRestaurants": 5,
+        "img" : "https://images.pexels.com/photos/604660/pexels-photo-604660.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },
       {
-        "heading": "Best burek",
+        "heading": "Delicious sweets",
         "location": "Travnik",
-        "numRestaurants": 5
+        "numRestaurants": 5,
+        "img" : "https://images.pexels.com/photos/8382/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },
       {
         "heading": "Fresh and Spicy 2",
         "location": "Maglaj",
-        "numRestaurants": 9
+        "numRestaurants": 9,
+        "img" : "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=540&w=680"
+
       }
     ];
 

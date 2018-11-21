@@ -116,7 +116,7 @@
         <div class="col-sm-4" ng-repeat="dish in [dishes[$index*3], dishes[1+$index*3], dishes[2+$index*3]] track by $index">
 
           <div class="card-blog" ng-if="dish.heading">
-            <img src="images/sampleprofile.jpg">
+            <img ng-src="{{dish.img}}">
             <div class="container " style="color: whitesmoke;">
               <h3 class="heading-blog container-h3"> {{dish.heading}}</h3>
               <ul class="list list-inline ">
@@ -142,7 +142,7 @@
       <div uib-slide ng-repeat="dish in dishes" index=$index>
         <div class="col-sm-4">
           <div class="card-blog" >
-            <img src="images/sampleprofile.jpg">
+            <img ng-src="{{dish.img}}">
             <div class="container " style="color: whitesmoke;">
               <h3 class="heading-blog container-h3"> {{dish.heading}}</h3>
               <ul class="list list-inline ">

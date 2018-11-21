@@ -110,6 +110,7 @@
              placeholder="Confirm Password"
              ng-model="confirmPassword"
              required="required"
+             minlength=5
       >
 
       <p ng-show=" registerForm.confirmPassword.$touched  && confirmPassword!=password" class="help-block">Passwords do not match.</p>
