@@ -46,7 +46,7 @@
 
   <div uib-carousel ng-if="windowWidth <755" active="1">
     <div uib-slide ng-repeat="y in restaurants" index=$index>
-      <div class="card">
+      <div class="card" ng-click="save(y)">
         <img ng-src="{{y.imageFileName}}">
         <div class="container">
           <h3 class="container-h3">
@@ -78,7 +78,7 @@
   <div class="row " ng-if="windowWidth >755">
     <div class=" col-sm-6 col-md-4 " ng-repeat="y in restaurants">
 
-      <div class="card">
+      <div class="card" ng-click="save(y)">
         <img ng-src="{{y.imageFileName}}">
         <div class="container">
           <h3 class="container-h3">

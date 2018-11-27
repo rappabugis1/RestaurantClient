@@ -13,7 +13,9 @@
 }
 
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover{
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover,
+.logout-dropdown-div:hover > a , .logout-dropdown-div :focus> a, .logout-dropdown-div :active> a
+{
   color: coral !important;
   background-color: transparent !important;
 }
@@ -38,4 +40,44 @@
 
 .navbar-nav{
   margin-top: 0px !important;
+}
+
+.logout-yes-button {
+  background: coral;
+  color: white;
+  height: 40px;
+  width: 60px;
+}
+
+.logout-no-button {
+  background: lightslategray;
+  color: white;
+  height: 40px;
+  width: 60px;
+}
+
+
+.logout-no-button:hover, .logout-no-button:active, .logout-no-button:focus{
+  background: lightslategray;
+  color: white;
+  border-color: lightslategray;
+  box-shadow: 0 0 4px lightslategray;
+
+}
+.logout-dropdown{
+  background-color: whitesmoke;
+  padding: 0 5px 10px 10px;
+
+}
+
+.logout-dropdown-div > a{
+  color: #9d9d9d;
+  background-color: transparent !important;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+.logout-dropdown-div{
+  padding: 15px 15px 15px 15px;
 }

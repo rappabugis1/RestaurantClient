@@ -50,7 +50,7 @@
         </div>
 
         <div class="list-group">
-          <a ng-click="goTo(anchor)" class="list-group-item anchors" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews', 'Photos']">{{anchor}}</a>
+          <a ng-click="goTo(anchor)" class="list-group-item anchors" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews']">{{anchor}}</a>
 
         </div>
       </div>
@@ -148,10 +148,10 @@
 
         <h5 class="menu-heading restaurant-h5">Menu: </h5>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn  btn-restaurant btn-secondary btn-menu active-menu" ng-click="$menu.getMenu('Breakfast')">
+          <label class="btn  btn-restaurant btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
             <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
           </label>
-          <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
+          <label class="btn btn-restaurant btn-secondary btn-menu " ng-click="$menu.getMenu('Lunch')">
             <input type="radio" name="options" id="option2" autocomplete="off"> Lunch
           </label>
           <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">

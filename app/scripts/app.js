@@ -69,7 +69,7 @@ angular
     $locationProvider.hashPrefix('');
 
   })
-  .run(function ($rootScope, $http, $location, $localStorage) {
+  .run(function ($rootScope, $http, $location, $localStorage, $window) {
     // keep user logged in after page refresh
     if ($localStorage.currentUser) {
       $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
@@ -83,8 +83,12 @@ angular
       if (restrictedPage && !$localStorage.currentUser  ) {
         $location.path('/login');
       }
-
     });
+
+    $rootScope.$on('$routeChangeSuccess', function () {
+      $window.scrollTo(0,0);
+    });
+
   }
 
 )
