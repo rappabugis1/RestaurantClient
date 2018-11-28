@@ -3,4 +3,5 @@
 /.sass-cache
 /bower_components
 .DS_Store
-workspace.xml
+**/.idea/workspace.xml 
+**/.idea/tasks.xml

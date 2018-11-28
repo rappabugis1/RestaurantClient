@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="663c4ebd-da05-4351-aea5-76150e9d57b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/scripts/controllers/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/scripts/controllers/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/scripts/controllers/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/scripts/controllers/reservation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/scripts/controllers/restaurants.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/scripts/controllers/restaurants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/styles/myreservations.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/styles/myreservations.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/styles/restaurants.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/styles/restaurants.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/restaurant.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/restaurant.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/restaurants.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/restaurants.html" afterDir="false" />
-    </list>
+    <list default="true" id="663c4ebd-da05-4351-aea5-76150e9d57b7" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -340,7 +330,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543441574393" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543441811269" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="/usr/local/lib/node_modules/grunt-cli" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -425,12 +415,12 @@
       <workItem from="1542712601978" duration="826000" />
       <workItem from="1542763249289" duration="1340000" />
       <workItem from="1543325534185" duration="5093000" />
-      <workItem from="1543419878327" duration="6835000" />
+      <workItem from="1543419878327" duration="7001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42509000" />
+    <option name="totallyTimeSpent" value="42675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
