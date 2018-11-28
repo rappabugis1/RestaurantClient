@@ -62,6 +62,10 @@
       </form>
     </div>
 
+    <div uib-alert class="alert-success alert-reservation-filter-info" ng-show="!alertHidden" close="closeAlert()">
+      Showing restaurants that are available on <strong>{{reservationInfo.reservationDate | date:'MMMM d, yyyy'}}</strong> around <strong>{{reservationInfo.reservationHour| date:'HH:mm'}}</strong> for <strong>{{reservationInfo.persons}}</strong>
+    </div>
+
     <div class="row filter-row ">
       <img src="../images/ajax-loader.gif" ng-show="loading" />
       <div class="no-results" ng-show="noResults">

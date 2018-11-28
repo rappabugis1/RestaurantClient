@@ -7,7 +7,11 @@
 }
 
 .tabs-reservations a {
-  color:coral;
+  color:gray;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  color: coral;
 }
 
 .row-info {

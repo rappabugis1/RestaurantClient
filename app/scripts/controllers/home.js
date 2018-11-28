@@ -32,7 +32,7 @@ angular.module('clientApp')
       },
       {
         "heading": "Turkish kebab 2018",
-        "location": "mostar",
+        "location": "Mostar",
         "numRestaurants": 5,
         "img" : "https://images.pexels.com/photos/604660/pexels-photo-604660.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
       },

@@ -90,10 +90,8 @@
         <form name="reservationForm" ng-submit="checkReservation()">
           <div class="row no-gutters">
             <div class="col-xs-12 col-sm-6 col-md-2">
-              <select class="custom-select form-control restaurant-form-control " ng-model="selectedNumber"
-                      ng-options="people for people in numberPeople" required>
-                <option value="" selected disabled>Guests</option>
-              </select>
+              <input type="number" class="form-control home-form-control" placeholder="Guests" ng-model="selectedNumber" min="1" max="15">
+
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
               <input type="date" class="form-control  restaurant-form-control" ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
