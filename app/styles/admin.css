@@ -1,0 +1,62 @@
+.card-admin-tabs {
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  display: inline-block;
+  margin: 85px 0px 20px 0px;
+  width: 100%;
+
+}
+
+
+.a-admin > a{
+  text-decoration: none;
+  margin: 15px 10px 15px 10px;
+  font-size: 16px;
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  letter-spacing: -0.2px;
+  line-height: 18px;
+}
+
+.a-admin>a:hover,.a-admin>a:active,.a-admin>a:focus{
+  color: coral;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.admin-tabs {
+  margin: 10px 0px 10px 0;
+}
+
+.admin-dash-card {
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  display: inline-block;
+  height: 220px;
+  max-width: 320px;
+  width: 100%;
+  align-items: center;
+  margin: 15px 15px 15px 15px;
+}
+
+.admin-dash-card >h5{
+  font-size: 16px;
+  color: #131D24;
+  letter-spacing: 0;
+  margin-bottom: 35px;
+
+}
+
+.admin-dash-card > h2 {
+  font-size: 48px;
+  color: #131D24;
+  letter-spacing: 0;
+  margin-top: 50px;
+
+}
+
+.container-admin-panels{
+  margin-top: 65px;
+}
+
+.container-admin{
+  height: 1300px;
+}

@@ -62,6 +62,11 @@ angular
         controller: 'MyReservationsController'
       })
 
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller : 'AdminPanelController'
+      })
+
       .otherwise({
         redirectTo: '/'
       });
@@ -80,10 +85,27 @@ angular
     $rootScope.$on('$locationChangeStart', function () {
       var publicPages = ['/login', '/', '', '/register', '/restaurant', '/reservation', '/restaurants'];
       var restrictedPage = publicPages.indexOf($location.path()) === -1;
-      if (restrictedPage && !$localStorage.currentUser  ) {
+      if ((restrictedPage && !$localStorage.currentUser)) {
         $location.path('/login');
       }
+
+      if($location.path()==='/admin' && !isAdmin()){
+        $location.path('/login');
+      }
+
     });
+
+    var isAdmin = function () {
+      if($localStorage.currentUser){
+        var token = $localStorage.currentUser.token;
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        var json= JSON.parse(atob(base64));
+
+        return json.user_type.toString()==="admin";
+      }
+      return false;
+    };
 
     $rootScope.$on('$routeChangeSuccess', function () {
       $window.scrollTo(0,0);
