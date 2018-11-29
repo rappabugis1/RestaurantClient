@@ -49,8 +49,90 @@
         </div>
       </div>
 
-      <!--Restaurant panel-->
-      
+      <!--Restaurant panel tabs-->
+
+      <form name="outerForm" class="tab-form-demo">
+        <uib-tabset active="activeForm">
+
+          <uib-tab index="0" heading="Basic details">
+            <ng-form name="nestedForm">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-logo">
+                  <div class="form-label">Add logo</div>
+                  <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="imageLogoSrc">
+                  <label for="logoSrc" class="uploadlogo">
+                    <img class="uploadcloud" src="../images/upload-cloud.png">
+                    Upload Logo
+                  </label>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-label">Add cover</div>
+
+                  <input type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="imageLogoSrc">
+                  <label for="logoSrc" class="uploadcover">
+                    <img class="uploadcloud " src="../images/upload-cloud.png">
+                    Upload Cover Photo
+                  </label>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-label">Name</div>
+                  <input name="restaurantName"
+                         class="login-form-control input-lg input-h"
+                         type="text"
+                         id="restaurantName"
+                         placeholder="Restaurant name"
+                         ng-model="restaurantName"
+                         required="required">
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6  col-inside">
+                    <div class="form-label">Country</div>
+
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-inside">
+                    <div class="form-label">Location</div>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 ">
+                  <div class="form-label">Category</div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-label">Description</div>
+                  <textarea name="resDescription" rows="5"
+                            class="login-form-control input-lg"
+                            type="text"
+                            id="resDescription"
+                            placeholder="Enter a description"
+                            ng-model="resDescription"
+                            required="required"
+                  ></textarea>
+                </div>
+              </div>
+
+            </ng-form>
+          </uib-tab>
+
+          <uib-tab index="1" heading="Menu">
+            Some Tab Content
+          </uib-tab>
+
+          <uib-tab index="2" heading="Tables">
+            More Tab Content
+          </uib-tab>
+        </uib-tabset>
+      </form>
+
+
     </div>
 
 

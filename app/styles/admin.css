@@ -58,5 +58,72 @@
 }
 
 .container-admin{
-  height: 1300px;
+  min-height: 1300px;
+}
+.nav-tabs > li > a {
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40) ;
+}
+
+.form-label {
+  font-size: 16px;
+  color: #1E1E1E;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.col-inside{
+  padding: 0px;
+}
+
+.tab-pane {
+  padding: 0 15px 15px 15px;
+  background-color: white;
+
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.uploadlogo {
+  cursor: pointer;
+  height: 140px;
+  width: 140px;
+  border: 1px;
+  border-style: solid;
+  border-color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  text-align: center;
+}
+
+.uploadcover {
+  cursor: pointer;
+  height: 140px;
+  width: 100%;
+  border: 1px;
+  border-style: solid;
+  border-color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+}
+
+
+
+.uploadcloud{
+  margin-bottom: auto;
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-top: 30px;
+  margin-right: auto;
+}
+
+.col-logo{
+  text-align: left;
 }
