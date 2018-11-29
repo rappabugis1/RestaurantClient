@@ -32,6 +32,11 @@ angular.module('clientApp')
 
     $scope.save= function(rest){
       SessionStorageService.save("restaurantId", JSON.stringify({id:rest.id}));
+
+      if($scope.alertHidden===false){
+        SessionStorageService.save("reservationInfo", JSON.stringify($scope.reservationInfo));
+      }
+
       $location.path('/restaurant');
     };
 
@@ -46,10 +51,12 @@ angular.module('clientApp')
     $scope.price=null;
     $scope.categoriesLeft=[];
     $scope.categoriesRight=[];
+    $scope.alertHidden = true;
 
 
     //if coming from home search bar do this
     if(SessionStorageService.get("homeSearch")){
+      $scope.alertHidden = false;
       $scope.reservationInfo=JSON.parse(SessionStorageService.get("homeSearch")).reservationInfo;
       $scope.searchText=JSON.parse(SessionStorageService.get("homeSearch")).searchText;
       SessionStorageService.delete("homeSearch");
@@ -59,6 +66,14 @@ angular.module('clientApp')
       SessionStorageService.delete("locationSearch");
 
     }
+
+    //close alert
+
+    $scope.closeAlert = function (){
+      $scope.alertHidden = true;
+      $scope.reservationInfo=null;
+      $scope.filter();
+    };
 
     //on filter click
     $scope.filter= function () {

@@ -50,7 +50,7 @@
         </div>
 
         <div class="list-group">
-          <a ng-click="goTo(anchor)" class="list-group-item anchors" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews', 'Photos']">{{anchor}}</a>
+          <a ng-click="goTo(anchor)" class="list-group-item anchors" ng-repeat="anchor in ['Reservation', 'About', 'Menu', 'Reviews']">{{anchor}}</a>
 
         </div>
       </div>
@@ -90,10 +90,8 @@
         <form name="reservationForm" ng-submit="checkReservation()">
           <div class="row no-gutters">
             <div class="col-xs-12 col-sm-6 col-md-2">
-              <select class="custom-select form-control restaurant-form-control " ng-model="selectedNumber"
-                      ng-options="people for people in numberPeople" required>
-                <option value="" selected disabled>Guests</option>
-              </select>
+              <input type="number" class="form-control home-form-control" placeholder="Guests" ng-model="selectedNumber" min="1" max="15">
+
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
               <input type="date" class="form-control  restaurant-form-control" ng-model="selectedDate" min="{{minDate | date:'yyyy-MM-dd'}}"
@@ -148,10 +146,10 @@
 
         <h5 class="menu-heading restaurant-h5">Menu: </h5>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn  btn-restaurant btn-secondary btn-menu active-menu" ng-click="$menu.getMenu('Breakfast')">
+          <label class="btn  btn-restaurant btn-secondary btn-menu active" ng-click="$menu.getMenu('Breakfast')">
             <input type="radio" name="options" id="option1" autocomplete="off" checked> Breakfast
           </label>
-          <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Lunch')">
+          <label class="btn btn-restaurant btn-secondary btn-menu " ng-click="$menu.getMenu('Lunch')">
             <input type="radio" name="options" id="option2" autocomplete="off"> Lunch
           </label>
           <label class="btn btn-restaurant btn-secondary btn-menu" ng-click="$menu.getMenu('Dinner')">
@@ -189,7 +187,7 @@
 
       </div>
 
-      <div id="Reviews" class="container-card" >
+      <div id="Reviews" class="container-card card-review" >
         <h5 class="h5-heading-reservation review-h5 restaurant-h5">Reviews</h5>
         <div class=" review-card">
           <h6 class="restaurant-h6" ng-show="noReviews">No available reviews for this restaurant ...</h6>
@@ -207,15 +205,13 @@
             <p class="review-time restaurant-p">{{review.insertTime | date:'yyyy-MM-dd'}}</p>
           </div>
         </div>
-
-
+        <a id="Photos"></a>
 
       </div>
 
     </div>
 
   </div>
-  <a id="Photos"></a>
 
 </div>
 </body>

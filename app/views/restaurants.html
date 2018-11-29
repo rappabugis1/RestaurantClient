@@ -62,14 +62,18 @@
       </form>
     </div>
 
+    <div uib-alert class="alert-success alert-reservation-filter-info" ng-show="!alertHidden" close="closeAlert()">
+      Showing restaurants that are available on <strong>{{reservationInfo.reservationDate | date:'MMMM d, yyyy'}}</strong> around <strong>{{reservationInfo.reservationHour| date:'HH:mm'}}</strong> for <strong>{{reservationInfo.persons}}</strong>
+    </div>
+
     <div class="row filter-row ">
       <img src="../images/ajax-loader.gif" ng-show="loading" />
       <div class="no-results" ng-show="noResults">
-        <h3>No restaurants where found!</h3>
+        <h3>No restaurants were found!</h3>
       </div>
 
       <div class="col-sm-6 col-md-4 " ng-repeat="y in restaurants" ng-show="!loading && !noResults">
-        <div class="card">
+        <div class="card" ng-click="save(y)">
           <img ng-src="{{y.imageFileName}}">
           <div class="container">
             <h3>

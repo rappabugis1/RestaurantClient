@@ -173,9 +173,9 @@ textarea.restaurant-form-control{
   float: none;
 }
 
-.active-menu{
-  background-color: coral;
+.btn-group > .btn.active{
   color: white;
+  background: coral;
 
 }
 
@@ -293,8 +293,8 @@ textarea.restaurant-form-control{
 
 .review-card{
   max-height: 500px;
-  overflow-x: visible;
-  overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .anchors{
@@ -303,4 +303,8 @@ textarea.restaurant-form-control{
 
 .middle{
   vertical-align: middle;
+}
+
+.card-review{
+  margin-bottom: 200px;
 }

@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="#/">Restaurant</a>
+      <a class="navbar-brand" href="#/">RestaurantLogo</a>
     </div>
 
     <div class="collapse navbar-collapse navbar-right no-border " ng-controller="NavigationController"
@@ -21,7 +21,30 @@
         <li ng-if="!isLoged()" ng-class="{ active: isActive('/login')}"><a href="#/login">Login</a></li>
         <li ng-if="isLoged()" ng-class="{ active: isActive('/myreservations')}"><a href="#/myreservations">My reservations</a></li>
         <li ng-if="isLoged() && isAdmin()" ng-class="{ active: isActive('/adminpanel')}"><a href="#/">Admin</a></li>
-        <li ng-if="isLoged()" ng-click="Logout()"><a href="#/">Logout</a></li>
+        <li ng-if="isLoged()" >
+
+          <div class="btn-group logout-dropdown-div" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+            <a uib-dropdown-toggle ng-disabled="disabled">Logout</a>
+
+            <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+              <li>
+                <h4>
+                  Are you sure you want to Logout?
+                </h4>
+              </li>
+              <li>
+                <ul class="list list-inline">
+                  <li>
+                    <button class="logout-yes-button btn-block btn-home btn" ng-click="Logout()">Yes</button>
+                  </li>
+                  <li>
+                    <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </li>
 
       </ul>
     </div>

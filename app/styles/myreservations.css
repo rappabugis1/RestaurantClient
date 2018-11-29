@@ -7,7 +7,11 @@
 }
 
 .tabs-reservations a {
-  color:coral;
+  color:gray;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  color: coral;
 }
 
 .row-info {
@@ -38,6 +42,7 @@
   min-width: 400px;
   color: gray;
   outline-color: coral;
+  background-color: white;
 }
 
 .row-reservation:hover {
@@ -46,7 +51,7 @@
 
 .container-reservations-info{
   height: 500px;
-  overflow: scroll;
+  overflow: auto;
   border: 1px;
   border-style: solid;
   border-color: lightgray;
@@ -55,7 +60,7 @@
 }
 
 .col-info{
-  overflow: scroll;
+  overflow: auto;
 }
 
 .no-reservations {

@@ -14,6 +14,8 @@ angular.module('clientApp')
       return  $localStorage.currentUser;
     };
 
+    $scope.isOpen = false;
+
     $scope.isAdmin = function () {
       var token = $localStorage.currentUser.token;
       var base64Url = token.split('.')[1];

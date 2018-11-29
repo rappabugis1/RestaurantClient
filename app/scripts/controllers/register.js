@@ -41,11 +41,11 @@ angular.module('clientApp')
         AuthenticationService.Register(payload, function (result) {
           $scope.loading=false;
 
-          if (result) {
+          if (result.status!==400) {
               $location.path('/login');
             }
             else {
-              $scope.error = 'Selected e-mail is already in use!';
+              $scope.error = result.data;
             }
           }
         );

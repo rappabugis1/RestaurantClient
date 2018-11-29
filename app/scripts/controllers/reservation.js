@@ -10,23 +10,54 @@
 angular.module('clientApp')
 
 //Reservation Bar controller
-  .controller('ReservationBarController', function ($scope,SessionStorageService, ShareDataService, $location, ReservationService,$localStorage) {
+  .controller('ReservationBarController', function ($scope,SessionStorageService, ShareDataService, $location, ReservationService,$localStorage, $log) {
+
     //Getting todays date and initializing variables for dates
     $scope.dateToday= new Date();
     $scope.maxDate = new Date().setMonth($scope.dateToday.getMonth()+4);
     $scope.minDate=new Date();
     $scope.selectedDate =new Date();
 
-    //If selected date is today and its <22 oclock, minimum hours for reservation time is current time + 1
-    if ($scope.selectedDate.getDate() === $scope.dateToday.getDate() && new Date() <= new Date().setHours(21,0,0) && new Date() >= new Date().setHours(9,0,0)) {
-      $scope.minTime = new Date().setHours(new Date().getHours() + 1, 0, 0);
+    $scope.numberMinutes=["15 minutes","30 minutes","45 minutes","60 minutes","90 minutes","120 minutes"];
+
+
+    //If coming from home search -> restaurants filter -> restaurant
+    if(SessionStorageService.get("reservationInfo")) {
+      //get from session storage
+      $scope.reservationInfo=JSON.parse(SessionStorageService.get("reservationInfo"));
+
+      //get date parts from string
+      var dateParts = $scope.reservationInfo.reservationDate.split("/");
+      var timeParts = $scope.reservationInfo.reservationHour.split(":");
+
+      //make set Date
+      $scope.selectedDate= new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+      $scope.selectedTime=  new Date($scope.selectedDate.setHours(timeParts[0], timeParts[1], 0));
+
+      //set guests
+      $scope.selectedNumber = $scope.reservationInfo.persons;
+
+      //set length of stay
+      $scope.selectedLength =$scope.numberMinutes[$scope.numberMinutes.indexOf($scope.reservationInfo.lengthOfStay + " minutes")];
+
+      SessionStorageService.delete("reservationInfo");
+
     } else {
 
-      //If its today and its >22 oclock, then minimum day is tomorrow and minimum time is 9
-      $scope.minTime = new Date().setHours(9, 0, 0);
-      $scope.minDate.setDate($scope.dateToday.getDate() + 1);
-      $scope.selectedDate.setDate($scope.dateToday.getDate() + 1);
+
+      //If selected date is today and its <22 oclock, minimum hours for reservation time is current time + 1
+      if ($scope.selectedDate.getDate() === $scope.dateToday.getDate() && new Date() <= new Date().setHours(21,0,0) && new Date() >= new Date().setHours(9,0,0)) {
+        $scope.minTime = new Date().setHours(new Date().getHours() + 1, 0, 0);
+      } else {
+
+        //If its today and its >22 oclock, then minimum day is tomorrow and minimum time is 9
+        $scope.minTime = new Date().setHours(9, 0, 0);
+        $scope.minDate.setDate($scope.dateToday.getDate() + 1);
+        $scope.selectedDate.setDate($scope.dateToday.getDate() + 1);
+      }
     }
+
+
 
     //Watches change in selected date, if its today, hour that can be chosen is restricted to from current time to 22 oclock
     $scope.$watch('selectedDate', function(){
@@ -112,8 +143,6 @@ angular.module('clientApp')
       };
     };
 
-    $scope.numberPeople = ["1 Person", "2 People","3 People","4 People","5 People","6 People","7 People","8 People"];
-    $scope.numberMinutes=["15 minutes","30 minutes","45 minutes","60 minutes","90 minutes","120 minutes"];
 
     $scope.searchHome = "";
 
@@ -121,7 +150,7 @@ angular.module('clientApp')
     $scope.homeSearch = function () {
 
       $scope.reservationCheckPayload = {
-        persons: Number($scope.selectedNumber.toString().substring(0,1)),
+        persons: $scope.selectedNumber,
         reservationDate: $scope.selectedDate.toLocaleDateString("en-GB"),
         reservationHour: $scope.selectedTime.getHours()+":"+ $scope.selectedTime.getMinutes(),
         lengthOfStay : Number($scope.selectedLength.toString().substring(0,3))
