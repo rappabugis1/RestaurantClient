@@ -3,13 +3,14 @@
   display: inline-block;
   margin: 85px 0px 20px 0px;
   width: 100%;
-
+  background-color: white;
+  padding: 15px 15px 15px 15px;
 }
 
 
 .a-admin > a{
   text-decoration: none;
-  margin: 15px 10px 15px 10px;
+  margin-right: 15px;
   font-size: 16px;
   color: rgba(-2147483648,-2147483648,-2147483648,0.40);
   letter-spacing: -0.2px;
@@ -77,10 +78,12 @@
   padding: 0px;
 }
 
-.tab-pane {
-  padding: 0 15px 15px 15px;
+.tab-pane-admin {
+  padding: 0 45px 45px 45px;
   background-color: white;
-
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
 }
 
 .inputfile {
@@ -98,7 +101,7 @@
   width: 140px;
   border: 1px;
   border-style: solid;
-  border-color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  border-color: #ddd;
   color: rgba(-2147483648,-2147483648,-2147483648,0.40);
   text-align: center;
 }
@@ -109,7 +112,7 @@
   width: 100%;
   border: 1px;
   border-style: solid;
-  border-color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  border-color: #ddd;
   color: rgba(-2147483648,-2147483648,-2147483648,0.40);
 }
 
@@ -126,4 +129,96 @@
 
 .col-logo{
   text-align: left;
+}
+
+.admin-menu-row{
+  text-align: left;
+}
+
+.input-text-dish{
+  max-width: 500px;
+}
+
+.admin-menu-dish-margin{
+  margin-top: 15px;
+  padding-top: 10px;
+
+}
+
+.input-admin-forms {
+  height: 40px !important;
+}
+
+.admin-menu-trash {
+  cursor: pointer;
+}
+
+.admin-menu-add {
+  background-color: lightgrey;
+  color: white;
+  margin-top: 5px;
+}
+
+
+.admin-menu-select{
+  margin-bottom: 50px;
+}
+
+.admin-dish-row{
+  margin-bottom: 20px;
+}
+
+.admin-add-rest-form{
+  margin-bottom: 100px;
+}
+
+
+.float-right{
+  float: right;
+}
+
+.admin-active{
+  color: coral !important; ;
+}
+
+.admin-add-user{
+  text-align: left;
+}
+
+.admin-add-user >div>div> h5 {
+  margin-bottom: 0px;
+}
+
+.admin-add-user>div{
+  padding: 10px;
+}
+
+
+.admin-add-user>div>.button-admin-add-user{
+  padding-top: 44.2%;
+}
+
+.container-table{
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  padding: 0px;
+  text-align: left;
+}
+
+.table-icon{
+  cursor: pointer;
+}
+
+.icon-col{
+  text-align: center;
+}
+
+
+.admin-add-button{
+  background-color: coral;
+  color: white !important;
+  margin-top: -8px;
+}
+
+.table{
+  background: white;
 }
