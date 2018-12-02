@@ -2,7 +2,9 @@
 
   <div class="container text-center container-admin">
 
+
     <div class="card-admin-tabs">
+
       <ul class="list-inline text-left admin-tabs">
         <li   class="a-admin">
           <a ng-click="changePanel('Dashboard')" ng-class="{'admin-active' : currentPanel === 'Dashboard'}" >Dashboard</a>
@@ -22,8 +24,8 @@
         <li class="a-admin float-right"  ng-if="currentPanel!=='Dashboard'">
           <button class="btn btn-block admin-add-button" ng-click="changeObject()">Add {{currentPanel}}</button>
         </li>
-        <li class="a-admin float-right" ng-if="currentPanel!=='Dashboard'">
-        Search
+        <li class="a-admin float-right" ng-show="currentPanel!=='Dashboard'">
+          <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
         </li>
       </ul>
     </div>
@@ -62,10 +64,12 @@
 
       <!--Filter table rests, cats, locs-->
 
-      <div ng-if="(currentPanel==='Restaurants' && currentObject==='') || (currentPanel==='Locations' && currentObject==='') || (currentPanel==='Categories' && currentObject==='')">
-        <img src="../images/ajax-loader.gif" ng-show="loading" />
+      <div >
+        <div class="admin-loader">
+          <img src="../images/ajax-loader.gif" ng-show="loading" />
+        </div>
 
-        <div class=" container-table" ng-show="loading || results" >
+        <div class=" container-table" ng-if="(currentPanel==='Restaurants' && currentObject==='') || (currentPanel==='Locations' && currentObject==='') || (currentPanel==='Categories' && currentObject==='')" ng-show="loading || results" >
           <table class="table table-bordered">
             <thead>
             <tr>
@@ -86,11 +90,33 @@
             </tbody>
           </table>
 
-
         </div>
-        <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter(bigCurrentPage)" ng-show="results"></ul>
+
+        <div class=" container-table" ng-if="currentPanel==='Users' && currentObject===''">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th class="col-xs-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  ng-repeat="row in filterResults">
+              <td>{{row.user_data.firstName}}</td>
+              <td>{{row.user_data.lastName}}</td>
+              <td>{{row.email}}</td>
+              <td class="icon-col">
+                <span class="glyphicon glyphicon-pencil table-icon"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
       </div>
+      <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ng-show="currentPanel!='Dashboard' && results && !currentObject"></ul>
 
 
       <!--Restaurant panel tabs-->
@@ -176,7 +202,7 @@
             <uib-tab index="1" heading="Menu">
               <div class="tab-pane-admin">
                 <div class="row admin-menu-dish-margin admin-menu-select " >
-                  <div class="col-xs-10 admin-menu-row">
+                  <div class="col-xs-12 col-sm-10 admin-menu-row">
                     <div class="btn-group">
                       <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
                       <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
@@ -184,7 +210,7 @@
                     </div>
                   </div>
 
-                  <div class="col-xs-2">
+                  <div class="col-xs-12 col-sm-2">
                     <button class="btn admin-menu-add" ng-click="addNewDish(radioModel)">Add new dish</button>
                   </div>
 
@@ -273,33 +299,12 @@
 
       <!------------User-------------->
 
-      <div class=" container-table" ng-if="currentPanel==='Users' && currentObject===''">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th class="col-xs-1"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  ng-repeat="row in filterResults">
-            <td>{{row.user_data.firstName}}</td>
-            <td>{{row.user_data.lastName}}</td>
-            <td>{{row.email}}</td>
-            <td class="icon-col">
-              <span class="glyphicon glyphicon-pencil table-icon"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+
 
       <!--Add user-->
 
       <div class="container card-admin-tabs " ng-if="currentPanel==='Users'  && currentObject==='Users'">
-        <form  ng-controller="RegisterController" name="registerForm" class="admin-add-user" ng-submit="registerSubmit(registerForm.$valid)" novalidate>
+        <form  ng-controller="RegisterController" name="registerForm" class="admin-add-user" ng-submit="addSubmit(registerForm.$valid)" novalidate>
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <h5>First Name</h5>
@@ -415,12 +420,13 @@
 
 
               <div ng-if="error" class="alert alert-danger">{{error}}</div>
+              <div ng-if="success" class="alert alert-success">{{success}}</div>
             </div>
 
             <div class="col-xs-12 col-sm-6 button-admin-add-user">
 
               <div class="col-xs-12 col-sm-6">
-                <button class="btn admin-menu-add btn-block" ng-click="$parent.changePanel('Users')">
+                <button class="btn admin-menu-add btn-block" ng-click="$parent.cancelAdd()">
                   Cancel
                 </button>
               </div>

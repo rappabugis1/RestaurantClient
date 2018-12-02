@@ -42,7 +42,8 @@ angular.module('clientApp')
           $scope.loading=false;
 
           if (result.status!==400) {
-              $location.path('/login');
+            $scope.registerForm.$setPristine(true);
+            $location.path('/login');
             }
             else {
               $scope.error = result.data;
@@ -51,5 +52,49 @@ angular.module('clientApp')
         );
       }
     };
+
+    $scope.$watch('email',function() {
+      $scope.success=null;
+    }, true);
+
+
+    //Admin panel user add
+    $scope.addSubmit = function (isValid) {
+
+      if (isValid) {
+        var payload = {
+          email: $scope.email,
+          firstName: $scope.firstName,
+          lastName: $scope.lastName,
+          phone: $scope.phone,
+          country: $scope.country.country_name,
+          city: $scope.city,
+          password: $scope.password
+        };
+
+        $scope.confirmPassword = null;
+        $scope.password = null;
+        $scope.loading=true;
+
+        AuthenticationService.Register(payload, function (result) {
+            $scope.loading=false;
+
+            if (result.status!==400) {
+              $scope.registerForm.$setPristine(true);
+              $scope.firstName=null;
+              $scope.lastName=null;
+              $scope.phone=null;
+              $scope.success="Registration successful!"
+            }
+            else {
+              $scope.error = result.data;
+            }
+          }
+        );
+      }
+    };
+
+
+
 
   });

@@ -25,30 +25,40 @@ angular.module('clientApp')
       $scope.loading=false;
     });
 
-    //Change panel
-    $scope.changePanel = function (nextPanel) {
-      $scope.currentPanel=nextPanel;
+
+    //User cancels the edit/add
+    $scope.cancelAdd=function () {
       $scope.currentObject= '';
-
-      //TODO stop this on add
-      if($scope.currentPanel!=='Dashboard' && $scope.currentObject===''){
-        $scope.filter(1);
-      }
-
-      $window.scrollTo(0,0);
     };
 
-    $scope.filter= function (page) {
+    //Change panel
+    $scope.changePanel = function (nextPanel) {
+      if($scope.currentPanel!==nextPanel){
+        $scope.currentPanel=nextPanel;
+        $scope.currentObject= '';
+        $scope.bigCurrentPage=1;
+
+        //TODO stop this on add
+        if($scope.currentPanel!=='Dashboard' && $scope.currentObject==='' ){
+          $scope.filter();
+        }
+
+        $window.scrollTo(0,0);
+      }
+    };
+
+    $scope.filter= function () {
 
       $scope.loading = true;
 
       //populate payload with data for search
       $scope.searchPayload = {
         itemsPerPage :9 ,
-        pageNumber: page,
+        pageNumber: $scope.bigCurrentPage,
         searchText: $scope.searchText
       };
 
+      //Depending on the current panel, filter
       FilterFactoryServis.getAdminFilter($scope.currentPanel,$scope.searchPayload, function (response) {
         if(response.data.numberOfPages!==0){
           switch ($scope.currentPanel) {
@@ -76,9 +86,14 @@ angular.module('clientApp')
       });
     };
 
+    //Set current add/edit object
     $scope.changeObject = function () {
       $scope.currentObject=$scope.currentPanel;
     };
+
+    $scope.search= function () {
+      $scope.filter();
+    }
 
   })
 
