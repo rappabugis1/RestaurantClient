@@ -240,3 +240,32 @@
 .fit-content{
   width: fit-content;
 }
+
+
+.mainAdminTabs>ul{
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  display: inline-block;
+  margin: 100px 0px 60px 0px;
+  width: 100%;
+  background-color: white;
+  padding: 15px 15px 15px 15px;
+  font-size: 16px;
+}
+
+.mainAdminTabs>ul>li>a{
+  border: none;
+}
+
+.mainAdminTabs>.nav-tabs > li.active > a, .mainAdminTabs>.nav-tabs > li.active > a:hover, .mainAdminTabs>.nav-tabs > li.active > a:focus
+{
+  border: none;
+}
+
+.mainAdminTabs>.nav > li > a:hover, .mainAdminTabs>.nav > li > a:focus{
+  background: white;
+
+}
+
+.admin-tab-name{
+  margin: 0px;
+}

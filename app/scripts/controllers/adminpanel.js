@@ -8,15 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminPanelController', function ($scope, $window, FilterFactoryServis, AdminCommonService) {
-
-
-
-    $scope.currentPanel = 'Dashboard';
-    $scope.currentObject= '';
-    $scope.maxSize = 5;
-    $scope.searchText="";
-    $scope.loading=true;
+  .controller('AdminPanelController', function ($scope, FilterFactoryServis, AdminCommonService) {
 
     //Get counters
 
@@ -26,26 +18,15 @@ angular.module('clientApp')
     });
 
 
-    //User cancels the edit/add
-    $scope.cancelAdd=function () {
-      $scope.currentObject= '';
-    };
 
-    //Change panel
-    $scope.changePanel = function (nextPanel) {
-      if($scope.currentPanel!==nextPanel){
-        $scope.currentPanel=nextPanel;
-        $scope.currentObject= '';
-        $scope.bigCurrentPage=1;
+  })
 
-        //TODO stop this on add
-        if($scope.currentPanel!=='Dashboard' && $scope.currentObject==='' ){
-          $scope.filter();
-        }
+  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis, $window) {
 
-        $window.scrollTo(0,0);
-      }
-    };
+    $scope.maxSize = 5;
+    $scope.searchText="";
+    $scope.bigCurrentPage=1;
+
 
     $scope.filter= function () {
 
@@ -58,48 +39,32 @@ angular.module('clientApp')
         searchText: $scope.searchText
       };
 
-      //Depending on the current panel, filter
-      FilterFactoryServis.getAdminFilter($scope.currentPanel,$scope.searchPayload, function (response) {
+      //Get categories from backend
+      FilterFactoryServis.getAdminFilter('Restaurants',$scope.searchPayload, function (response) {
+
         if(response.data.numberOfPages!==0){
-          switch ($scope.currentPanel) {
-            case 'Users':
-              $scope.filterResults= response.data.users;
-              break;
-            case 'Locations':
-              $scope.filterResults= response.data.locations;
-              break;
-            case 'Categories':
-              $scope.filterResults= response.data.categories;
-              break;
-            case 'Restaurants':
-              $scope.filterResults= response.data.restaurants;
-              break;
-          }
+
+          $scope.filterResults= response.data.restaurants;
           $scope.numPages = response.data.numberOfPages*9;
           $scope.results=true;
+
         } else {
+
           $scope.results=false;
+
         }
 
         $window.scrollTo(0,0);
         $scope.loading = false;
+
       });
+
     };
+    //Filter at the beginning
+    $scope.filter();
 
-    //Set current add/edit object
-    $scope.changeObject = function () {
-      $scope.currentObject=$scope.currentPanel;
-    };
 
-    $scope.search= function () {
-      $scope.filter();
-    }
-
-  })
-
-  .controller('AdminRestaurantPanelController', function ($scope) {
-
-    //Tables
+    //AddTables
 
     $scope.tablesList=
       [ {id: 'Select type of tables', label: 'Select type of tables', disabled : true},
@@ -166,4 +131,229 @@ angular.module('clientApp')
     //Dishes End
 
 
+  })
+
+  .controller('AdminLocationManipulationController', function ($scope, FilterFactoryServis, $window) {
+    $scope.maxSize = 5;
+    $scope.searchText="";
+    $scope.bigCurrentPage=1;
+
+
+    $scope.filter= function () {
+
+      $scope.loading = true;
+
+      //populate payload with data for search
+      $scope.searchPayload = {
+        itemsPerPage :9 ,
+        pageNumber: $scope.bigCurrentPage,
+        searchText: $scope.searchText
+      };
+
+      //Get categories from backend
+      FilterFactoryServis.getAdminFilter('Locations',$scope.searchPayload, function (response) {
+
+        if(response.data.numberOfPages!==0){
+
+          $scope.filterResults= response.data.locations;
+          $scope.numPages = response.data.numberOfPages*9;
+          $scope.results=true;
+
+        } else {
+
+          $scope.results=false;
+
+        }
+
+        $window.scrollTo(0,0);
+        $scope.loading = false;
+
+      });
+
+    };
+    //Filter at the beginning
+    $scope.filter();
+
+  })
+
+  .controller('AdminCategoryManipulationController', function ($scope, AdminCategoryService, FilterFactoryServis, $window){
+
+
+    $scope.maxSize = 5;
+    $scope.searchText="";
+    $scope.bigCurrentPage=1;
+
+
+    $scope.filter= function () {
+
+      $scope.loading = true;
+
+      //populate payload with data for search
+      $scope.searchPayload = {
+        itemsPerPage :9 ,
+        pageNumber: $scope.bigCurrentPage,
+        searchText: $scope.searchText
+      };
+
+      //Get categories from backend
+      FilterFactoryServis.getAdminFilter('Categories',$scope.searchPayload, function (response) {
+
+        if(response.data.numberOfPages!==0){
+
+          $scope.filterResults= response.data.categories;
+          $scope.numPages = response.data.numberOfPages*9;
+          $scope.results=true;
+
+        } else {
+
+          $scope.results=false;
+
+        }
+
+        $window.scrollTo(0,0);
+        $scope.loading = false;
+
+      });
+
+    };
+    //Filter at the beginning
+    $scope.filter();
+
+    //Change category tab view watcher
+
+    $scope.$watch('categoryName', function () {
+      $scope.success="";
+      $scope.error="";
+    });
+
+    $scope.view = false;
+
+    $scope.currentCategory=null;
+    $scope.categoryName ="";
+
+    // change view false shows table, true shows edit
+    $scope.changeView= function(changeType, cat){
+      $scope.view = true;
+      $scope.add=false;
+      $scope.edit=false;
+
+      $scope.currentCategory=null;
+      $scope.categoryName="";
+
+      if(changeType==='Edit') {
+        $scope.edit = true;
+        $scope.currentCategory=cat;
+        $scope.categoryName=cat.name;
+      }
+      else
+        $scope.add=true;
+    };
+
+    $scope.cancel=function(){
+      $scope.view=false;
+    };
+
+    $scope.changeCategory= function (changeType) {
+      $scope.success="";
+      $scope.error="";
+
+      switch (changeType) {
+        case 'Add':
+          if($scope.categoryName!==""){
+
+            AdminCategoryService.addCategory({name:$scope.categoryName}, function (response) {
+
+              if(response.status!==400){
+                $scope.success="Category added successfully.";
+              } else {
+                $scope.error=response.data;
+              }
+            })
+          }
+          break;
+
+        case 'Edit':
+          if($scope.categoryName!==$scope.currentCategory.name && $scope.categoryName!==""){
+            AdminCategoryService.editCategory({name:$scope.categoryName, id: $scope.currentCategory.id}, function (response) {
+
+              if(response.status!==400){
+                $scope.success="Category edited successfully.";
+                $scope.filter();
+              } else {
+                $scope.error=response.data;
+              }
+            })
+          } else {
+            $scope.error = "Category already has the same name!";
+          }
+          break;
+      }
+
+    };
+
+  })
+
+  .controller('AdminUserManipulationController', function ($scope, FilterFactoryServis, $window) {
+
+    $scope.maxSize = 5;
+    $scope.searchText="";
+    $scope.bigCurrentPage=1;
+
+
+    $scope.filter= function () {
+
+      $scope.loading = true;
+
+      //populate payload with data for search
+      $scope.searchPayload = {
+        itemsPerPage :9 ,
+        pageNumber: $scope.bigCurrentPage,
+        searchText: $scope.searchText
+      };
+
+      //Get categories from backend
+      FilterFactoryServis.getAdminFilter('Users',$scope.searchPayload, function (response) {
+
+        if(response.data.numberOfPages!==0){
+
+          $scope.filterResults= response.data.users;
+          $scope.numPages = response.data.numberOfPages*9;
+          $scope.results=true;
+
+        } else {
+
+          $scope.results=false;
+
+        }
+
+        $window.scrollTo(0,0);
+        $scope.loading = false;
+
+      });
+
+    };
+    //Filter at the beginning
+    $scope.filter();
+
+
+    //The manipulation part
+
+    $scope.view = false;
+    $scope.add=false;
+
+    // change view false shows table, true shows edit
+    $scope.changeView= function(changeType, user){
+      $scope.view = true;
+
+      if(changeType==='Add')
+        $scope.add=true;
+    };
+
+    $scope.cancel=function(){
+      $scope.filter();
+      $scope.view=false;
+
+    };
+
   });
+
