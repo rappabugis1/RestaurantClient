@@ -8,7 +8,7 @@
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-  .factory('adminlocations', function ($http) {
+  .factory('AdminLocationService', function ($http) {
 
     return {
       addLocation: function (payload, callback) {
@@ -18,7 +18,7 @@ angular.module('clientApp')
           })
           .catch(function onError(error) {
             if(error.status===400)
-              return error.data;
+              callback(error);
           })
       },
 
@@ -29,7 +29,7 @@ angular.module('clientApp')
           })
           .catch(function onError(error) {
             if(error.status===400)
-              return error.data;
+              callback(error);
           })
       },
 
@@ -40,7 +40,7 @@ angular.module('clientApp')
           })
           .catch(function onError(error) {
             if(error.status===400)
-              return error.data;
+              callback(error);
           })
       }
 

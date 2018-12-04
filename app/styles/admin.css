@@ -84,6 +84,7 @@
   background-color: white;
   border-style: solid;
   border-width: 1px;
+  border-bottom: 0px;
   border-color: #ddd;
 }
 
@@ -268,4 +269,17 @@
 
 .admin-tab-name{
   margin: 0px;
+}
+
+.admin-rest-form {
+  margin-top: 0px;
+
+  width: 100%;
+  background-color: white;
+  padding: 15px 15px 15px 15px;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  height: 120px;
+  border-color: #ddd;
+
 }

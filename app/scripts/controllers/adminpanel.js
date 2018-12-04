@@ -10,12 +10,17 @@
 angular.module('clientApp')
   .controller('AdminPanelController', function ($scope, FilterFactoryServis, AdminCommonService) {
 
+    $scope.activeTab=0;
     //Get counters
 
     AdminCommonService.getAdministrationCounters(function (response) {
       $scope.counters=response;
       $scope.loading=false;
     });
+
+    $scope.changeActive=function (index) {
+      $scope.activeTab=index;
+    };
 
 
 
@@ -131,9 +136,29 @@ angular.module('clientApp')
     //Dishes End
 
 
+    $scope.view = false;
+
+
+    // change view false shows table, true shows edit
+    $scope.changeView= function(changeType, restaurant){
+      $scope.view = true;
+      $scope.add=false;
+      $scope.edit=false;
+
+      if(changeType==='Edit') {
+        $scope.edit = true;
+      }
+      else
+        $scope.add=true;
+    };
+
+    $scope.cancel=function(){
+      $scope.view=false;
+    };
+
   })
 
-  .controller('AdminLocationManipulationController', function ($scope, FilterFactoryServis, $window) {
+  .controller('AdminLocationManipulationController', function ($scope, FilterFactoryServis, $window, AdminLocationService) {
     $scope.maxSize = 5;
     $scope.searchText="";
     $scope.bigCurrentPage=1;
@@ -173,6 +198,82 @@ angular.module('clientApp')
     };
     //Filter at the beginning
     $scope.filter();
+
+    //Change category tab view watcher
+
+    $scope.$watch('locationName', function () {
+      $scope.success="";
+      $scope.error="";
+    });
+
+    $scope.view = false;
+
+    $scope.currentCategory=null;
+    $scope.categoryName ="";
+
+    // change view false shows table, true shows edit
+    $scope.changeView= function(changeType, location){
+      $scope.view = true;
+      $scope.add=false;
+      $scope.edit=false;
+
+      $scope.currentLocation=null;
+      $scope.locationName="";
+      $scope.countryName="";
+
+
+      if(changeType==='Edit') {
+        $scope.edit = true;
+        $scope.currentLocation=location;
+        $scope.id=location.id;
+        $scope.locationName=location.name;
+        $scope.countryName=location.country;
+      }
+      else
+        $scope.add=true;
+    };
+
+    $scope.cancel=function(){
+      $scope.view=false;
+    };
+
+    $scope.changeLocation= function (changeType) {
+      $scope.success="";
+      $scope.error="";
+
+      switch (changeType) {
+        case 'Add':
+          if($scope.locationName!==""){
+
+            AdminLocationService.addLocation({name:$scope.locationName, country: $scope.countryName}, function (response) {
+
+              if(response.status!==400){
+                $scope.success="Location added successfully.";
+              } else {
+                $scope.error=response.data;
+              }
+            })
+          }
+          break;
+
+        case 'Edit':
+          if($scope.locationName!==$scope.currentLocation.name && $scope.locationName!==""){
+            AdminLocationService.editLocation({id: $scope.id,name:$scope.locationName, country: $scope.countryName}, function (response) {
+
+              if(response.status!==400){
+                $scope.success="Location edited successfully.";
+                $scope.filter();
+              } else {
+                $scope.error=response.data;
+              }
+            })
+          } else {
+            $scope.error = "Location already has the same name!";
+          }
+          break;
+      }
+
+    };
 
   })
 
@@ -293,7 +394,7 @@ angular.module('clientApp')
 
   })
 
-  .controller('AdminUserManipulationController', function ($scope, FilterFactoryServis, $window) {
+  .controller('AdminUserManipulationController', function ($scope, FilterFactoryServis, $window, $http, AuthenticationService, AdminUserService) {
 
     $scope.maxSize = 5;
     $scope.searchText="";
@@ -344,8 +445,28 @@ angular.module('clientApp')
     // change view false shows table, true shows edit
     $scope.changeView= function(changeType, user){
       $scope.view = true;
+      $scope.add=false;
+      $scope.edit=false;
 
-      if(changeType==='Add')
+      $scope.currentUser=null;
+      $scope.email = null;
+      $scope.firstName=null;
+      $scope.lastName=null;
+      $scope.phone = null;
+      $scope.id=null;
+
+      if(changeType==='Edit') {
+
+        //TODO LOCATION
+        $scope.edit = true;
+        $scope.currentUser=user;
+        $scope.email = user.email;
+        $scope.firstName=user.user_data.firstName;
+        $scope.lastName=user.user_data.lastName;
+        $scope.phone = user.user_data.phone;
+        $scope.id=user.id;
+      }
+      else
         $scope.add=true;
     };
 
@@ -354,6 +475,69 @@ angular.module('clientApp')
       $scope.view=false;
 
     };
+
+    $scope.$watch('email',function() {
+      $scope.success=null;
+      $scope.error=null;
+
+    }, true);
+
+    //Admin panel user add
+    $scope.addSubmit = function (isValid) {
+
+      if (isValid) {
+        var payload = {
+          email: $scope.email,
+          firstName: $scope.firstName,
+          lastName: $scope.lastName,
+          phone: $scope.phone,
+          country: $scope.country.country_name,
+          city: $scope.city,
+          password: $scope.password
+        };
+
+        $scope.confirmPassword = null;
+        $scope.password = null;
+        $scope.loading=true;
+
+        if($scope.add)
+        AuthenticationService.Register(payload, function (result) {
+            $scope.loading=false;
+
+            if (result.status!==400) {
+              $scope.registerForm.$setPristine(true);
+              $scope.firstName=null;
+              $scope.lastName=null;
+              $scope.phone=null;
+              $scope.success="Registration successful!"
+              $scope.filter();
+
+            }
+            else {
+              $scope.error = result.data;
+            }
+          }
+        );
+        else {
+          payload.id=$scope.id;
+          AdminUserService.editUser(payload, function (result) {
+            $scope.loading=false;
+            if (result.status!==400) {
+              $scope.success="User updated successfully successful!"
+            }
+            else {
+              $scope.error = result.data;
+            }
+          });
+        }
+      }
+    };
+
+    $http.get("jsonexp/locations.json").then(
+      function (response) {
+        $scope.locations = response.data;
+      }
+    );
 
   });
 

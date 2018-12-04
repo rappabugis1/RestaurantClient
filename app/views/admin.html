@@ -2,17 +2,17 @@
 
   <div class="container text-center container-admin">
 
-    <uib-tabset class="mainAdminTabs">
+    <uib-tabset class="mainAdminTabs" active="activeTab">
 
-      <uib-tab heading="Dashboard">
-
+      <uib-tab index="0" heading="Dashboard">
+        {{active}}
         <div class="row">
           <div class="col-xs-12 col-sm-4">
             <div class="admin-dash-card">
               <img src="../images/ajax-loader.gif" ng-show="loading" />
               <h2>{{counters.restaurantsNumber}}</h2>
               <h5>Restaurants</h5>
-              <button class="btn btn-block btn-home ">Add a Restaurant</button>
+              <button class="btn btn-block btn-home " ng-click="changeActive(1)">Manage Restaurants</button>
             </div>
           </div>
           <div class="col-xs-12 col-sm-4">
@@ -20,7 +20,7 @@
               <img src="../images/ajax-loader.gif" ng-show="loading" />
               <h2>{{counters.locationsNumber}}</h2>
               <h5>Locations</h5>
-              <button class="btn btn-block btn-home ">Add a Location</button>
+              <button class="btn btn-block btn-home " ng-click="changeActive(2)">Manage Locations</button>
             </div>
           </div>
           <div class="col-xs-12 col-sm-4">
@@ -28,7 +28,7 @@
               <img src="../images/ajax-loader.gif" ng-show="loading" />
               <h2>{{counters.usersNumber}}</h2>
               <h5>Users</h5>
-              <button class="btn btn-block btn-home ">Add a User</button>
+              <button class="btn btn-block btn-home " ng-click="changeActive(4)">Manage Users</button>
             </div>
           </div>
 
@@ -36,7 +36,8 @@
 
       </uib-tab>
 
-      <uib-tab heading="Restaurants">
+      <uib-tab index="1" heading="Restaurants">
+
 
         <div ng-controller="AdminRestaurantManipulationController">
 
@@ -82,174 +83,201 @@
 
           </div>
 
-        </div>
+          <div  ng-show="view">
+            <form name="restaurantForm" class="admin-add-rest-form" novalidate  >
+              <uib-tabset active="activeForm">
 
-        <div>
-          <form name="outerForm" class="admin-add-rest-form" novalidate ng-controller="AdminRestaurantManipulationController" ng-if=" currentObject==='Restaurants'">
-            <uib-tabset active="activeForm">
+                <!--Basic details-->
 
-              <!--Basic details-->
-
-              <uib-tab index="0" heading="Basic details">
-                <div class="tab-pane-admin">
-                  <ng-form name="nestedForm">
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-logo">
-                        <div class="form-label">Add logo</div>
-                        <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="imageLogoSrc">
-                        <label for="logoSrc" class="uploadlogo">
-                          <img class="uploadcloud" src="../images/upload-cloud.png">
-                          Upload Logo
-                        </label>
-
-                      </div>
-                      <div class="col-xs-12 col-sm-6">
-                        <div class="form-label">Add cover</div>
-
-                        <input type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="imageLogoSrc">
-                        <label for="logoSrc" class="uploadcover">
-                          <img class="uploadcloud " src="../images/upload-cloud.png">
-                          Upload Cover Photo
-                        </label>
-
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6">
-                        <div class="form-label">Name</div>
-                        <input name="restaurantName"
-                               class="login-form-control input-lg input-admin-forms input-admin-forms "
-                               type="text"
-                               id="restaurantName"
-                               placeholder="Restaurant name"
-                               ng-model="restaurantName"
-                               required="required">
-
-                      </div>
-                      <div class="col-xs-12 col-sm-6">
-                        <div class="col-xs-12 col-sm-6  col-inside">
-                          <div class="form-label">Country</div>
+                <uib-tab index="0" heading="Basic details">
+                  <div class="tab-pane-admin">
+                    <ng-form name="nestedForm">
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-logo">
+                          <div class="form-label">Add logo</div>
+                          <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="imageLogoSrc">
+                          <label for="logoSrc" class="uploadlogo">
+                            <img class="uploadcloud" src="../images/upload-cloud.png">
+                            Upload Logo
+                          </label>
 
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-inside">
-                          <div class="form-label">Location</div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Add cover</div>
+
+                          <input type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="imageLogoSrc">
+                          <label for="logoSrc" class="uploadcover">
+                            <img class="uploadcloud " src="../images/upload-cloud.png">
+                            Upload Cover Photo
+                          </label>
 
                         </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Name</div>
+                          <input name="restaurantName"
+                                 class="login-form-control input-lg input-admin-forms input-admin-forms "
+                                 type="text"
+                                 id="restaurantName"
+                                 placeholder="Restaurant name"
+                                 ng-model="restaurantName"
+                                 required="required">
 
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="col-xs-12 col-sm-6  col-inside">
+                            <div class="form-label">Country</div>
+
+                          </div>
+                          <div class="col-xs-12 col-sm-6 col-inside">
+                            <div class="form-label">Location</div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 ">
+                          <div class="form-label">Category</div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Description</div>
+                          <textarea name="resDescription" rows="5"
+                                    class="login-form-control input-lg "
+                                    type="text"
+                                    id="resDescription"
+                                    placeholder="Enter a description"
+                                    ng-model="resDescription"
+                                    required="required"
+                          ></textarea>
+                        </div>
+                      </div>
+
+                    </ng-form>
+                  </div>
+
+                </uib-tab>
+
+                <!--Menu-->
+
+                <uib-tab index="1" heading="Menu">
+                  <div class="tab-pane-admin">
+                    <div class="row admin-menu-dish-margin admin-menu-select " >
+                      <div class="col-xs-12 col-sm-10 admin-menu-row">
+                        <div class="btn-group">
+                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
+                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
+                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Dinner'">Dinner</label>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-2">
+                        <button class="btn admin-menu-add" ng-click="addNewDish(radioModel)">Add new dish</button>
+                      </div>
+
+                    </div>
+
+
+                    <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes | filter:radioModel:dish.menuType">
+                      <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                        {{$index+1}}.
+                      </div>
+                      <div class="col-xs-12 col-sm-5">
+                        <input
+                          type="text"
+                          class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                          placeholder="Name"
+                          ng-model="dish.name">
+
+                        <input
+                          type="text"
+                          class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                          placeholder="Description"
+                          ng-model="dish.description">
+                      </div>
+
+                      <div class="col-xs-12 col-sm-2">
+                        <input
+                          type="number"
+                          class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                          min=1
+                          placeholder="Price"
+                          ng-model="dish.price">
+                      </div>
+
+                      <div class="col-xs-12 col-sm-1">
+                        <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="removeDish(dishes.indexOf(dish))"></div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6 ">
-                        <div class="form-label">Category</div>
 
+                  </div>
+                </uib-tab>
+
+                <!--Tables-->
+
+                <uib-tab index="2" heading="Tables">
+                  <div class="tab-pane-admin">
+                    <div class="row admin-menu-dish-margin admin-menu-select " >
+                      <button class="btn admin-menu-add float-right" ng-click="addNewTables()" ng-disabled="tablesPayload.length===10">Add new table</button>
+                    </div>
+                    <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in tablesPayload">
+                      <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                        {{$index+1}}.
                       </div>
-                      <div class="col-xs-12 col-sm-6">
-                        <div class="form-label">Description</div>
-                        <textarea name="resDescription" rows="5"
-                                  class="login-form-control input-lg "
-                                  type="text"
-                                  id="resDescription"
-                                  placeholder="Enter a description"
-                                  ng-model="resDescription"
-                                  required="required"
-                        ></textarea>
+                      <div class="col-xs-12 col-sm-5" >
+                        <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList" ng-model="tables.tableType" ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)" class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin">
+                        </select>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-2">
+                        <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tables.amount">
+                      </div>
+
+                      <div class="col-xs-12 col-sm-1">
+                        <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(tablesPayload.indexOf(tables))"></div>
                       </div>
                     </div>
+                  </div>
 
-                  </ng-form>
+                </uib-tab>
+              </uib-tabset>
+
+              <div class="admin-rest-form">
+
+                <div class="col-sm-offset-6 col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="restaurantForm.$invalid">
+                      Save Restaurant
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
                 </div>
 
-              </uib-tab>
-
-              <!--Menu-->
-
-              <uib-tab index="1" heading="Menu">
-                <div class="tab-pane-admin">
-                  <div class="row admin-menu-dish-margin admin-menu-select " >
-                    <div class="col-xs-12 col-sm-10 admin-menu-row">
-                      <div class="btn-group">
-                        <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
-                        <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
-                        <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Dinner'">Dinner</label>
-                      </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-2">
-                      <button class="btn admin-menu-add" ng-click="addNewDish(radioModel)">Add new dish</button>
-                    </div>
-
-                  </div>
+              </div>
+            </form>
 
 
-                  <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes | filter:radioModel:dish.menuType">
-                    <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
-                      {{$index+1}}.
-                    </div>
-                    <div class="col-xs-12 col-sm-5">
-                      <input
-                        type="text"
-                        class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                        placeholder="Name"
-                        ng-model="dish.name">
+          </div>
 
-                      <input
-                        type="text"
-                        class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                        placeholder="Description"
-                        ng-model="dish.description">
-                    </div>
-
-                    <div class="col-xs-12 col-sm-2">
-                      <input
-                        type="number"
-                        class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                        min=1
-                        placeholder="Price"
-                        ng-model="dish.price">
-                    </div>
-
-                    <div class="col-xs-12 col-sm-1">
-                      <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="removeDish(dishes.indexOf(dish))"></div>
-                    </div>
-                  </div>
-
-                </div>
-              </uib-tab>
-
-              <!--Tables-->
-
-              <uib-tab index="2" heading="Tables">
-                <div class="tab-pane-admin">
-                  <div class="row admin-menu-dish-margin admin-menu-select " >
-                    <button class="btn admin-menu-add float-right" ng-click="addNewTables()" ng-disabled="tablesPayload.length===10">Add new table</button>
-                  </div>
-                  <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in tablesPayload">
-                    <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
-                      {{$index+1}}.
-                    </div>
-                    <div class="col-xs-12 col-sm-5" >
-                      <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList" ng-model="tables.tableType" ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)" class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin">
-                      </select>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-2">
-                      <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tables.amount">
-                    </div>
-
-                    <div class="col-xs-12 col-sm-1">
-                      <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(tablesPayload.indexOf(tables))"></div>
-                    </div>
-                  </div>
-                </div>
-
-              </uib-tab>
-            </uib-tabset>
-          </form>
         </div>
+
+
 
       </uib-tab>
 
-      <uib-tab heading="Locations" >
+      <uib-tab index="2" heading="Locations" >
 
         <div ng-controller="AdminLocationManipulationController">
 
@@ -274,14 +302,15 @@
               <table class="table table-bordered">
                 <thead>
                 <tr>
-                  <th>Name</th>
+                  <th class="col-xs-5">Name</th>
+                  <th class="col-xs-5">Country</th>
                   <th class="col-xs-1"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="row in filterResults">
                   <td>{{row.name}}</td>
-
+                  <td>{{row.country}}</td>
                   <td class="icon-col">
                     <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
                   </td>
@@ -295,11 +324,82 @@
 
           </div>
 
+          <div class="container card-admin-tabs " ng-show="view">
+
+            <!--add-->
+            <form name="LocationAddForm" class="admin-add-user" ng-show="add===true" ng-submit="changeLocation('Add')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="locationName" class="login-form-control input-lg input-admin-forms" placeholder="New Location Name" required>
+                    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="countryName" class="login-form-control input-lg input-admin-forms" placeholder="Existing or New Country Name" required>
+                  </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="LocationAddForm.$invalid">
+                      Create Location
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!--edit-->
+            <form name="LocationEditForm" class="admin-add-user" ng-show="edit===true" ng-submit="changeLocation('Edit')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="locationName" class="login-form-control input-lg input-admin-forms" placeholder="New Location Name" required>
+                    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="countryName" class="login-form-control input-lg input-admin-forms" placeholder="Existing or New Country Name" required>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="LocationEditForm.$invalid">
+                      Save Location
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
         </div>
 
       </uib-tab>
 
-      <uib-tab heading="Categories" >
+      <uib-tab index="3" heading="Categories" >
 
         <div ng-controller="AdminCategoryManipulationController as $cat">
 
@@ -352,7 +452,7 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
 
-                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" required>
+                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" placeholder="New Category Name" required>
                   <div ng-if="error" class="alert alert-danger">{{error}}</div>
                   <div ng-if="success" class="alert alert-success">{{success}}</div>
                 </div>
@@ -381,7 +481,7 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
 
-                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" required>
+                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" placeholder="Edit Category Name" required>
                   <div ng-if="error" class="alert alert-danger">{{error}}</div>
                   <div ng-if="success" class="alert alert-success">{{success}}</div>
                 </div>
@@ -411,7 +511,7 @@
 
       </uib-tab>
 
-      <uib-tab heading="Users">
+      <uib-tab index="4" heading="Users">
 
         <div ng-controller="AdminUserManipulationController">
 
@@ -448,7 +548,7 @@
                   <td>{{row.user_data.lastName}}</td>
                   <td>{{row.email}}</td>
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
                   </td>
                 </tr>
 
@@ -460,8 +560,8 @@
 
           </div>
 
-          <div class="container card-admin-tabs "  ng-show="view && add===true">
-            <form  ng-controller="RegisterController" name="registerForm" class="admin-add-user" ng-submit="addSubmit(registerForm.$valid)" novalidate>
+          <div class="container card-admin-tabs "  ng-show="view">
+            <form  name="registerForm" class="admin-add-user" ng-submit="addSubmit(registerForm.$valid)" novalidate>
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
                   <h5>First Name</h5>
@@ -583,15 +683,15 @@
                 <div class="col-xs-12 col-sm-6 button-admin-add-user">
 
                   <div class="col-xs-12 col-sm-6">
-                    <button class="btn admin-menu-add btn-block" type="button" ng-click="$parent.cancel()">
-                      Cancel
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
                     </button>
                   </div>
                   <div class="col-xs-12 col-sm-6">
                     <button type="submit"
                             class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
                             ng-disabled="registerForm.$invalid">
-                      Create User
+                      Save User
                     </button>
                     <div>
                       <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
@@ -612,66 +712,6 @@
 
     </uib-tabset >
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--
-    <div class="card-admin-tabs">
-
-      <ul class="list-inline text-left admin-tabs">
-        <li   class="a-admin">
-          <a ng-click="changePanel('Dashboard')" ng-class="{'admin-active' : currentPanel === 'Dashboard'}" >Dashboard</a>
-        </li>
-        <li class="a-admin">
-          <a ng-click="changePanel('Restaurants')" ng-class="{'admin-active' : currentPanel === 'Restaurants'}">Restaurants</a>
-        </li>
-        <li class="a-admin">
-          <a ng-click="changePanel('Locations')" ng-class="{'admin-active' : currentPanel === 'Locations'}">Locations</a>
-        </li>
-        <li class="a-admin">
-          <a ng-click="changePanel('Categories')" ng-class="{'admin-active' : currentPanel === 'Categories'}">Categories</a>
-        </li>
-        <li class="a-admin">
-          <a ng-click="changePanel('Users')" ng-class="{'admin-active' : currentPanel === 'Users'}">Users</a>
-        </li>
-        <li class="a-admin float-right"  ng-if="currentPanel!=='Dashboard'">
-          <button class="btn btn-block admin-add-button" ng-click="changeObject('Add')">Add {{currentPanel}}</button>
-        </li>
-        <li class="a-admin float-right" ng-show="currentPanel!=='Dashboard'">
-          <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
-        </li>
-      </ul>
-    </div>
-
--->
 
   </div>
 </body>
