@@ -41,6 +41,16 @@ angular.module('clientApp')
             if(error.status===400)
               callback(error);
           })
+      },
+      getAllCategories: function (callback) {
+        $http.get('/app/getAllCategories')
+          .then(function onSuccess(response) {
+            callback(response);
+          })
+          .catch(function onError(error) {
+            if(error.status===400)
+              callback(error);
+          })
       }
 
       //TODO delete

@@ -42,6 +42,17 @@ angular.module('clientApp')
             if(error.status===400)
               callback(error);
           })
+      },
+
+      getLocationsForSelect : function (callback) {
+        $http.get('/app/getLocationsForSelect')
+          .then(function onSuccess(response) {
+            callback(response);
+          })
+          .catch(function onError(error) {
+            if(error.status===400)
+              callback(error);
+          })
       }
 
       //TODO delete

@@ -8,14 +8,14 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RegisterController', function ($scope, $http, $location, AuthenticationService) {
+  .controller('RegisterController', function ($scope, $http, $location, AuthenticationService, AdminLocationService) {
 
-
-    $http.get("jsonexp/locations.json").then(
-      function (response) {
+    AdminLocationService.getLocationsForSelect(function (response) {
+      if(response.status!==400){
         $scope.locations = response.data;
+
       }
-    );
+    });
 
     $scope.$watchGroup(['email'] ,function () {
       $scope.error=null;

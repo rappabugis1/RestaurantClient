@@ -283,3 +283,40 @@
   border-color: #ddd;
 
 }
+
+
+.uploadedImage{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+}
+
+.categories-add-restaurant-panel{
+  overflow: auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+  padding: 5px 5px 5px 5px;
+  width: 100%;
+  min-height: 50px;
+}
+
+.btn-added-category{
+  width: fit-content;
+  background-color: coral;
+  color: white;
+  opacity: 0.8;
+  margin: 5px 0 5px 0;
+}
+
+
+.admin-add-categories-select{
+  background-color: white;
+  height: 30px;
+  width: 100%;
+}
+
+.no-padding{
+  padding:0px;
+}
