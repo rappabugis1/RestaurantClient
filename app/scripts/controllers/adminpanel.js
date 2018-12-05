@@ -218,9 +218,6 @@ angular.module('clientApp')
         click: function (map, event,args) {
                   $scope.marker.coordinates.latitude=args[0].latLng.lat();
                   $scope.marker.coordinates.longitude=args[0].latLng.lng();
-
-          $log.info(map);
-
         }
         }
     };
