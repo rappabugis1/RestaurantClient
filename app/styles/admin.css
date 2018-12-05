@@ -320,3 +320,9 @@
 .no-padding{
   padding:0px;
 }
+
+.admin-map{
+  width: calc(100% - 30px);
+  margin-top: -14px;
+  padding-left: 30px;
+}

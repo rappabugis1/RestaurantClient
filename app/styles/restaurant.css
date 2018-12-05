@@ -75,12 +75,11 @@
   box-shadow:  0 0 4px coral;
 }
 
-.map {
+.angular-google-map-container {
   height: 250px;
   margin: 0 -30px 30px -30px;
   margin-top: 24px;
   width: calc(100% + 60px);
-
 }
 
 hr {

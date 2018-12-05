@@ -32,31 +32,7 @@ angular.module('clientApp')
         anchorSmoothScroll.scrollTo(anchor);
     };
 
-    $scope.initialize = function (a, b) {
-      $scope.mapOptions = {
-        zoom: 15,
-        center: new google.maps.LatLng(a, b)
-      };
-      $scope.map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions);
-    };
-
-    $scope.loadScript = function (a, b) {
-
-      if (window.google) {
-        setTimeout(function () {
-          $scope.initialize(a, b);
-        }, 500);
-      } else {
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAy1-kceVQSwDE2b8zTxJhkQSJ2UAXKFek';
-        document.body.appendChild(script);
-        setTimeout(function () {
-          $scope.initialize(a, b);
-        }, 500);
-      }
-
-    };
+    //map
 
 
     $scope.range = function (count) {
@@ -72,7 +48,8 @@ angular.module('clientApp')
 
     RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function (response) {
       $scope.restaurant = response.data;
-      $scope.loadScript($scope.restaurant.latitude, $scope.restaurant.longitude);
+      $scope.map = { center: { latitude: $scope.restaurant.latitude, longitude: $scope.restaurant.longitude }, zoom: 8 };
+      $scope.marker = {coordinates: {latitude: $scope.restaurant.latitude, longitude: $scope.restaurant.longitude}};
     });
 
   })

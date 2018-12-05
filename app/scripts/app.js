@@ -17,9 +17,17 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngStorage',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'uiGmapgoogle-maps'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
+
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAy1-kceVQSwDE2b8zTxJhkQSJ2UAXKFek',
+      v: '3.20',
+      libraries: 'weather,geometry,visualization'
+    });
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/home.html',

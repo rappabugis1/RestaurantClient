@@ -130,7 +130,18 @@
 
       <div id="About" class="container-card">
         <h5 class="restaurant-h5">About {{restaurant.restaurantName}}</h5>
-        <div id="map" class="map"></div>
+
+
+
+        <!--map-->
+
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+          <ui-gmap-marker
+            idKey="1"
+            coords= 'marker.coordinates'>
+          </ui-gmap-marker>
+        </ui-gmap-google-map>
+
         <h6 class="desc restaurant-h6">Description</h6>
         <p class="desc-p restaurant-p">
           {{restaurant.description}}

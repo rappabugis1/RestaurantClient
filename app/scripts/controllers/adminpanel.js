@@ -181,6 +181,7 @@ angular.module('clientApp')
     });
 
     //Locations
+
     AdminLocationService.getLocationsForSelect(function (response) {
       if(response.status!==400){
         $scope.locations = response.data;
@@ -201,12 +202,33 @@ angular.module('clientApp')
     $scope.pickCategory= function(category){
       if($scope.pickedCategories.indexOf(category.name)===-1)
         $scope.pickedCategories.push(category.name);
-
-
     };
+
     $scope.deleteCategory = function (index) {
       $scope.pickedCategories.splice(index,1);
     };
+
+
+    //Map
+
+    $scope.map= {center:{latitude: 43.85626, longitude: 18.41308},  zoom: 8};
+    $scope.marker = {
+      coordinates:{latitude: 43.85626, longitude: 18.41308},
+      events :{
+        click: function (map, event,args) {
+                  $scope.marker.coordinates.latitude=args[0].latLng.lat();
+                  $scope.marker.coordinates.longitude=args[0].latLng.lng();
+
+          $log.info(map);
+
+        }
+        }
+    };
+
+
+
+
+
 
   })
 
