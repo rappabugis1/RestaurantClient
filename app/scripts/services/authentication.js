@@ -13,7 +13,7 @@ angular.module('clientApp')
     var service = {};
 
     function Login(username, password, callback) {
-      $http.post('https://ridvansrestaurantserver.herokuapp.com/app/login', {email: username, password: password})
+      $http.post('/app/login', {email: username, password: password})
         .then(function onSucces(response) {
           // login successful if there's a token in the response
 
@@ -41,7 +41,7 @@ angular.module('clientApp')
     }
 
     function Register(payload, callback) {
-      $http.post('https://ridvansrestaurantserver.herokuapp.com/app/register', payload)
+      $http.post('/app/register', payload)
         .then(function onSucces(response) {
 
           callback(response.data);

@@ -23,13 +23,9 @@
                 <input type="time" class="form-control home-form-control" ng-model="selectedTime"  step="900" min="{{minTime | date:'HH:mm'}}" max="22:00" value="{{selectedTime| date:'HH:mm'}}"  required>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-2">
-                <select class="custom-select form-control  home-form-control" ng-model="selectedLength" ng-options="minutes for minutes in numberMinutes" required>
-                  <option value="" selected disabled >Duration (minutes)</option>
-                </select>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-5 col-submit">
                 <button type="submit" class="btn btn-home btn-block btn-primary form-btn">Find a table</button>
               </div>
+
             </div>
         </form>
       </div>
