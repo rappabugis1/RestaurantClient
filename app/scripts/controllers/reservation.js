@@ -94,7 +94,7 @@ angular.module('clientApp')
         reservationDate: $scope.selectedDate.toLocaleDateString("en-GB"),
         reservationHour: $scope.selectedTime.getHours()+":"+ $scope.selectedTime.getMinutes(),
         idRestaurant: JSON.parse(SessionStorageService.get("restaurantId")).id,
-        lengthOfStay : Number($scope.selectedLength.toString().substring(0,3))
+        dayName : (new Date($scope.selectedDate)).toLocaleDateString('en-US', { weekday: 'long' })
       };
 
       ReservationService.checkReservationAvailability($scope.reservationCheckPayload, function(result){
@@ -153,7 +153,7 @@ angular.module('clientApp')
         persons: $scope.selectedNumber,
         reservationDate: $scope.selectedDate.toLocaleDateString("en-GB"),
         reservationHour: $scope.selectedTime.getHours()+":"+ $scope.selectedTime.getMinutes(),
-        lengthOfStay : Number($scope.selectedLength.toString().substring(0,3))
+        dayName : (new Date($scope.selectedDate)).toLocaleDateString('en-US', { weekday: 'long' })
       };
 
       $scope.filterPayload = {
