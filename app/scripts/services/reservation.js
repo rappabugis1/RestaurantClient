@@ -11,7 +11,7 @@ angular.module('clientApp')
   .factory('ReservationService', function ($http) {
     return {
       checkReservationAvailability : function (payload, callback) {
-        $http.post('/app/checkReservationAvailability', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/checkReservationAvailability', payload)
           .then(function onSuccess(response) {
 
             //If succesfull return data
@@ -25,7 +25,7 @@ angular.module('clientApp')
       },
 
       makeTemporaryReservation : function (payload, callback) {
-        $http.post('/app/makeReservation', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/makeReservation', payload)
           .then(function onSuccess(response) {
 
             //If succesfull return data
@@ -39,7 +39,7 @@ angular.module('clientApp')
       },
 
       deleteTemporaryReservation : function (payload, callback) {
-        $http.post('/app/deleteReservation', {idReservation: payload})
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/deleteReservation', {idReservation: payload})
           .then(function onSuccess(response) {
 
             //If succesfull return data
@@ -53,7 +53,7 @@ angular.module('clientApp')
       },
 
       updateToFixed : function (payload, callback) {
-        $http.post('/app/setReservationToFixed', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/setReservationToFixed', payload)
           .then(function onSuccess(response) {
 
             //If succesfull return data
@@ -67,7 +67,7 @@ angular.module('clientApp')
       },
 
       getUserReservations : function (callback) {
-        $http.get('/app/getListOfReservationsForUser')
+        $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getListOfReservationsForUser')
           .then(function onSuccess(response) {
             callback(response);
           })

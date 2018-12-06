@@ -14,23 +14,23 @@ angular.module('clientApp')
     // Public API here
     return {
       getMenu: function (menu, id) {
-        return $http.post('/app/getRestaurantMenu', {idRestaurant: id, type: menu});
+        return $http.post('https://ridvansrestaurantserver.herokuapp.com/app/getRestaurantMenu', {idRestaurant: id, type: menu});
       },
 
       getRandomRestaurants: function () {
-        return $http.get('/app/getRandomRestaurants');
+        return $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getRandomRestaurants');
       },
 
       getRestaurantLocations: function () {
-        return $http.get('/app/getRestaurantLocations');
+        return $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getRestaurantLocations');
       },
 
       getRestaurantDetails: function (id) {
-        return $http.post('/app/getRestaurantDetails', {Id: id});
+        return $http.post('https://ridvansrestaurantserver.herokuapp.com/app/getRestaurantDetails', {Id: id});
       },
 
       insertComment: function (payload) {
-        return $http.post('/app/insertComment', {
+        return $http.post('https://ridvansrestaurantserver.herokuapp.com/app/insertComment', {
           mark: payload.mark,
           comment: payload.comment,
           idUser: payload.idUser,
@@ -39,7 +39,7 @@ angular.module('clientApp')
       },
 
       getAllRestaurantComments : function (id, callback) {
-        $http.post('/app/getAllRestaurantComments', {idRestaurant : id})
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/getAllRestaurantComments', {idRestaurant : id})
           .then(function onSucces(response) {
 
           //If succesfull return data
