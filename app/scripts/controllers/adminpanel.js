@@ -22,11 +22,11 @@ angular.module('clientApp')
       $scope.activeTab=index;
     };
 
-
+$scope.imageParent="parent";
 
   })
 
-  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis, $window,$log, fileReader, AdminLocationService, AdminCategoryService) {
+  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis, $window,$log, fileReader, AdminLocationService, AdminCategoryService, FirestoreService)  {
 
     $scope.maxSize = 5;
     $scope.searchText="";
@@ -68,6 +68,22 @@ angular.module('clientApp')
     //Filter at the beginning
     $scope.filter();
 
+    //Restaurant payloads
+
+    $scope.pickedCatPayload=[];
+    $scope.tablesPayload = [];
+    $scope.dishes = [];
+    $scope.reservationLengths =[];
+
+    //imagesurl
+    $scope.imageLogoUrl = "";
+    $scope.imageCoverUrl = "";
+
+
+
+
+    //Price Range
+    $scope.priceRanges = ['Low', 'Lower Medium', 'Medium', 'Upper Medium', 'High'];
 
     //AddTables
 
@@ -84,7 +100,6 @@ angular.module('clientApp')
         { id: 'Tables for nine', label: 'Tables for nine'},
         { id: 'Tables for ten', label: 'Tables for ten'}];
 
-    $scope.tablesPayload = [];
 
 
     $scope.addNewTables = function () {
@@ -128,7 +143,6 @@ angular.module('clientApp')
 
     //Dishes
 
-    $scope.dishes = [];
 
     $scope.radioModel = 'Breakfast';
 
@@ -169,16 +183,7 @@ angular.module('clientApp')
     };
 
 
-    //Basic info
 
-      //Upload images
-
-    $scope.imageLogoSrc = "";
-    $scope.imageCoverSrc = "";
-
-    $scope.$on("fileProgress", function(e, progress) {
-      $scope.progress = progress.loaded / progress.total;
-    });
 
     //Locations
 
@@ -200,12 +205,16 @@ angular.module('clientApp')
     });
 
     $scope.pickCategory= function(category){
-      if($scope.pickedCategories.indexOf(category.name)===-1)
+      if($scope.pickedCategories.indexOf(category.name)===-1) {
         $scope.pickedCategories.push(category.name);
+        $scope.pickedCatPayload.push(category.id);
+      }
     };
 
     $scope.deleteCategory = function (index) {
       $scope.pickedCategories.splice(index,1);
+      $scope.pickedCatPayload.splice(index,1);
+
     };
 
 
@@ -222,10 +231,66 @@ angular.module('clientApp')
         }
     };
 
+    //Reservation lengths
+
+
+    $scope.addLength = function () {
+      $scope.reservationLengths.push({guestNumber: "", workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
+    };
+
+    $scope.removeLength = function (index) {
+      $scope.reservationLengths.splice(index, 1);
+    };
+
+
+    //Image Upload
 
 
 
 
+
+    var rest = this;
+    rest.imageLogoSrc="";
+    rest.imageCoverSrc="";
+
+    $scope.uploadImages = function () {
+      rest.addingRestLoader = true;
+
+      FirestoreService.uploadImage(rest.imageLogoSrc, function (downloadUrl) {
+        $scope.imageLogoUrl=downloadUrl;
+        rest.addingRestLoader = false;
+
+      });
+
+      rest.addingRestLoader = true;
+
+      FirestoreService.uploadImage(rest.imageCoverSrc, function (downloadUrl) {
+        $scope.imageCoverUrl=downloadUrl;
+        rest.addingRestLoader=false;
+      });
+
+    };
+
+    //Images
+
+    $scope.$on("fileProgress", function(e, progress) {
+      $scope.progress = progress.loaded / progress.total;
+    });
+
+    //Basic info
+
+
+    $scope.basicInfoPayload = {
+      longitude: $scope.marker.coordinates.longitude,
+      latitude: $scope.marker.coordinates.latitude,
+      restaurantName : $scope.restaurantName,
+      priceRange: $scope.priceRanges.indexOf($scope.priceRange),
+      location: "1",
+      description: $scope.resDescription,
+      imageFileName: $scope.imageLogoUrl,
+      coverFileName: $scope.imageCoverUrl,
+      categories: $scope.pickedCatPayload
+    };
 
   })
 
@@ -563,7 +628,7 @@ angular.module('clientApp')
           lastName: $scope.lastName,
           phone: $scope.phone,
           country: $scope.country.country_name,
-          city: $scope.city,
+          city: $scope.city.name,
           password: $scope.password
         };
 
@@ -580,7 +645,7 @@ angular.module('clientApp')
               $scope.firstName=null;
               $scope.lastName=null;
               $scope.phone=null;
-              $scope.success="Registration successful!"
+              $scope.success="Registration successful!";
               $scope.filter();
 
             }
@@ -618,12 +683,15 @@ angular.module('clientApp')
       scope: {
         ngModel: '='
       },
-      link: function($scope, el) {
+      link: function(scope, el) {
+
         function getFile(file) {
-          fileReader.readAsDataUrl(file, $scope)
+          fileReader.readAsDataUrl(file, scope)
             .then(function(result) {
               $timeout(function() {
-                $scope.ngModel = result;
+                scope.$apply(function () {
+                  scope.ngModel = result;
+                });
               });
             });
         }

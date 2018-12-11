@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'ngStorage',
     'ui.bootstrap',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'firebase'
   ])
   .config(function ($routeProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
 
@@ -27,6 +28,20 @@ angular
       v: '3.20',
       libraries: 'weather,geometry,visualization'
     });
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDwXLLEIbSlRegHgiUVFy85G-Plk3sBhO4",
+      authDomain: "abhrestaurant.firebaseapp.com",
+      databaseURL: "https://abhrestaurant.firebaseio.com",
+      projectId: "abhrestaurant",
+      storageBucket: "abhrestaurant.appspot.com",
+      messagingSenderId: "44801156935"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+
 
     $routeProvider
       .when('/', {

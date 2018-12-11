@@ -326,3 +326,27 @@
   margin-top: -14px;
   padding-left: 30px;
 }
+
+.form-label-exp{
+  color: dimgray;
+  text-align: left;
+}
+
+.hr-admin{
+  margin: 15px 0 30px 0;
+}
+
+.admin-length-days {
+  padding: 15px 0 0 90px;
+
+}
+
+.reservation-lenght-row{
+  margin-top: 80px;
+
+}
+
+.day-p{
+margin-top: 15px;
+  margin-bottom: 0px!important;
+}

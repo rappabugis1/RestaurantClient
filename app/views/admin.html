@@ -39,7 +39,7 @@
       <uib-tab index="1" heading="Restaurants">
 
 
-        <div ng-controller="AdminRestaurantManipulationController">
+        <div ng-controller="AdminRestaurantManipulationController as rest">
 
           <div ng-show="!view" >
             <div class="card-admin-tabs">
@@ -91,19 +91,18 @@
 
                 <uib-tab index="0" heading="Basic details">
 
-
                   <div class="tab-pane-admin">
                     <ng-form name="nestedForm">
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 col-logo">
                           <div class="form-label">Add logo/profile</div>
-                          <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="imageLogoSrc">
-                          <label for="logoSrc" class="uploadlogo" ng-show="!imageLogoSrc">
+                          <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="rest.imageLogoSrc">
+                          <label for="logoSrc" class="uploadlogo" ng-show="!rest.imageLogoSrc">
                             <img class="uploadcloud" src="../images/upload-cloud.png">
                             Upload Logo/Profile
                           </label>
-                          <label for="logoSrc" class="uploadlogo" ng-show="imageLogoSrc">
-                            <img class="uploadedImage" ng-src="{{imageLogoSrc}}">
+                          <label for="logoSrc" class="uploadlogo" ng-show="rest.imageLogoSrc">
+                            <img class="uploadedImage" ng-src="{{rest.imageLogoSrc}}">
                           </label>
 
                         </div>
@@ -148,7 +147,7 @@
                             <div class="form-label">Location</div>
                             <select class=" login-form-control input-lg input-admin-forms"
                                     ng-model="city"
-                                    ng-options="d.valueOf() for d in country.city_names"
+                                    ng-options="d.name.valueOf() for d in country.city_names"
                                     required="required">
                               <option value="" disabled selected>City</option>
                             </select>
@@ -206,13 +205,8 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                           <div class="form-label">Price Range</div>
-                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="priceRange"  >
+                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="priceRange"  ng-options="price for price in priceRanges" >
                             <option value="" disabled selected>Price Range</option>
-                            <option value="1" >Low</option>
-                            <option value="2" >Lower Medium</option>
-                            <option value="3" >Medium</option>
-                            <option value="4" >Upper Medium</option>
-                            <option value="5" >High</option>
 
                           </select>
 
@@ -317,6 +311,159 @@
 
                 </uib-tab>
 
+                <!--Reservations-->
+
+                <uib-tab index="3" heading="Reservations">
+                  <div class="tab-pane-admin">
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 hr-admin">
+                        <div class="form-label">Choose default length of reservation </div>
+                        <p class="form-label-exp">This will be the length for each group of people (in minutes, step 15 minutes) if not chosen otherwise</p>
+
+                        <input name="defaultStay"
+                               class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                               type="number"
+                               id="defaultStay"
+                               placeholder="Default Length"
+                               ng-model="defaultLength"
+                               required="required"
+                               min="15"
+                               max="720"
+                               step="15">
+                      </div>
+                    </div>
+
+
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-label">Or choose length for a specific group (in minutes)</div>
+
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                        <button class="btn admin-menu-add float-right" ng-click="addLength()">Add new group</button>
+                      </div>
+                    </div>
+
+                    <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="length in reservationLengths">
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                          {{$index+1}}.
+                        </div>
+                        <div class="col-xs-12 col-sm-3" >
+                          <input name="guestNumber"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin "
+                                 type="number"
+                                 id="guestNumber"
+                                 placeholder="Number of Guests"
+                                 ng-model="length.guestNumber"
+                                 required="required"
+                                 min="1"
+                                 max="16"
+                                 step="1">
+                        </div>
+
+                        <div class="col-xs-12 col-sm-1">
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index)"></div>
+                        </div>
+                      </div>
+
+
+                      <div class="row admin-length-days">
+                        <div class="col-xs-12 col-sm-4">
+                          <p class="form-label-exp length">Monday - Friday</p>
+
+                          <p class="day-p">In the Morning</p>
+
+                          <input name="morningWork"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="morningWork"
+                                 placeholder="Average meal length"
+                                 ng-model="length.workday.morning"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+
+                          <p class="day-p">Noon till Evening</p>
+
+                          <input name="dayWork"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="dayWork"
+                                 placeholder="Average meal length"
+                                 ng-model="length.workday.day"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+
+                          <p class="day-p">Evening</p>
+
+                          <input name="eveningWork"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="eveningWork"
+                                 placeholder="Average meal length"
+                                 ng-model="length.workday.evening"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+
+                        </div>
+                        <div class="col-xs-12 col-sm-offset-2 col-sm-4">
+                          <p class="form-label-exp length">Saturday, Sunday</p>
+
+                          <p class="day-p">In the Morning</p>
+
+                          <input name="morningWeek"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="morningWeek"
+                                 placeholder="Average meal length"
+                                 ng-model="length.weekend.morning"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+
+                          <p class="day-p">Noon till Evening</p>
+
+                          <input name="dayWeek"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="dayWeek"
+                                 placeholder="Average meal length"
+                                 ng-model="length.weekend.day"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+
+                          <p class="day-p">Evening</p>
+
+                          <input name="eveningWeek"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="eveningWeek"
+                                 placeholder="Average meal length"
+                                 ng-model="length.weekend.evening"
+                                 required="required"
+                                 min="15"
+                                 max="245"
+                                 step="15">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </uib-tab>
+
               </uib-tabset>
 
               <div class="admin-rest-form">
@@ -358,7 +505,6 @@
 
           <div ng-show="!view" >
             <div class="card-admin-tabs">
-
               <ul class="list-inline text-left admin-tabs">
                 <li   >
                   <h5  class="admin-tab-name">Locations :</h5>
@@ -711,7 +857,7 @@
 
                       <select class=" login-form-control input-lg input-admin-forms"
                               ng-model="city"
-                              ng-options="d.valueOf() for d in country.city_names"
+                              ng-options="d.name.valueOf() for d in country.city_names"
                               required="required">
                         <option value="" disabled selected>City</option>
                       </select>

@@ -30,7 +30,7 @@ angular.module('clientApp')
           lastName: $scope.lastName,
           phone: $scope.phone,
           country: $scope.country.country_name,
-          city: $scope.city,
+          city: $scope.city.name,
           password: $scope.password
         };
 
