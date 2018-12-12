@@ -69,41 +69,39 @@ angular.module('clientApp')
     //Filter at the beginning
     $scope.filter();
 
-    //Restaurant payloads
-
-    $scope.pickedCatPayload=[];
-    $scope.tablesPayload = [];
-    $scope.reservationLengths =[];
-
-    //imagesurl
-    $scope.imageLogoUrl = "";
-    $scope.imageCoverUrl = "";
-
-
-
 
     //Price Range
     $scope.priceRanges = ['Low', 'Lower Medium', 'Medium', 'Upper Medium', 'High'];
 
-    //AddTables
+    //Tables
+
+    $scope.tablesPayload = {
+      addQueue: [],
+      editQueue: [],
+      deleteQueue: [],
+      restaurantId: ""
+    };
+
+    $scope.newTables = [];
+
 
     $scope.tablesList=
-      [ {id: 'Select type of tables', label: 'Select type of tables', disabled : true},
-        { id: 'Tables for one', label: 'Tables for one' },
-        { id: 'Tables for two', label: 'Tables for two' },
-        { id: 'Tables for three', label: 'Tables for three'},
-        { id: 'Tables for four', label: 'Tables for four'},
-        { id: 'Tables for five', label: 'Tables for five'},
-        { id: 'Tables for six', label: 'Tables for six'},
-        { id: 'Tables for seven', label: 'Tables for seven'},
-        { id: 'Tables for eight', label: 'Tables for eight'},
-        { id: 'Tables for nine', label: 'Tables for nine'},
-        { id: 'Tables for ten', label: 'Tables for ten'}];
+      [ {id: 'Select type of tables', label: 'Select type of tables' , numberGuests: 1,disabled : true},
+        { id: 'Tables for one', label: 'Tables for one', numberGuests: 1 },
+        { id: 'Tables for two', label: 'Tables for two', numberGuests: 2 },
+        { id: 'Tables for three', label: 'Tables for three', numberGuests: 3},
+        { id: 'Tables for four', label: 'Tables for four', numberGuests: 4},
+        { id: 'Tables for five', label: 'Tables for five', numberGuests: 5},
+        { id: 'Tables for six', label: 'Tables for six', numberGuests: 6},
+        { id: 'Tables for seven', label: 'Tables for seven', numberGuests: 7},
+        { id: 'Tables for eight', label: 'Tables for eight', numberGuests: 8},
+        { id: 'Tables for nine', label: 'Tables for nine', numberGuests: 9},
+        { id: 'Tables for ten', label: 'Tables for ten', numberGuests: 10}];
 
 
 
     $scope.addNewTables = function () {
-      $scope.tablesPayload.push({tableType: $scope.tablesList[0].label, amount: ""});
+      $scope.newTables.push({tableType: $scope.tablesList[0].label, amount: ""});
     };
 
     //add three place holders tables
@@ -111,13 +109,11 @@ angular.module('clientApp')
     $scope.addNewTables();
     $scope.addNewTables();
 
-
-
     $scope.removeTables = function(index, type) {
 
       $scope.changeDisabled(type, false);
 
-      $scope.tablesPayload.splice(index,1);
+      $scope.newTables.splice(index,1);
 
     };
 
@@ -219,6 +215,8 @@ angular.module('clientApp')
 
     //Categories
 
+    $scope.pickedCatPayload=[];
+
     $scope.pickedCategories= [];
 
     AdminCategoryService.getAllCategories(function (response) {
@@ -256,21 +254,38 @@ angular.module('clientApp')
 
     //Reservation lengths
 
+    $scope.reservationLengthsPayload= {
+      addQueue: [],
+      editQueue: [],
+      deleteQueue: [],
+      restaurantId: ""
+    };
+
+    $scope.reservationLengths =[];
 
     $scope.addLength = function () {
       $scope.reservationLengths.push({guestNumber: "", workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
     };
 
     $scope.removeLength = function (index) {
+      //Add id to delete que
+      if($scope.reservationLengths[index].id){
+        $scope.reservationLengthsPayload.deleteQueue.push($scope.reservationLengths[index].id);
+      }
+
       $scope.reservationLengths.splice(index, 1);
     };
 
 
-    //Image Upload
+    //Images
+
+
+    //imagesurl
+    $scope.imageLogoUrl = "";
+    $scope.imageCoverUrl = "";
+
     rest.imageLogoSrc="";
     rest.imageCoverSrc="";
-
-    //Images
 
     $scope.$on("fileProgress", function(e, progress) {
       $scope.progress = progress.loaded / progress.total;
@@ -358,11 +373,41 @@ angular.module('clientApp')
               $scope.dishesPayload.restaurantId=response.data.id;
 
               //then => save menu
-              RestaurantService.restaurantMenuItems($scope.dishesPayload, function (response) {
+              RestaurantService.restaurantMenuItems($scope.dishesPayload, function () {
 
                 $scope.progress=70;
                 $scope.currentTask="Adding tables...";
+
+                $scope.newTables.forEach(function (value) {
+                  $scope.tablesList.forEach(function (tableInfo) {
+                    if(tableInfo.label===value.tableType)
+                      $scope.tablesPayload.addQueue.push({tableType: tableInfo.numberGuests, amount: value.amount});
+                  });
+                });
+
+                $scope.tablesPayload.restaurantId=$scope.dishesPayload.restaurantId;
+
+                RestaurantService.restaurantTables($scope.tablesPayload, function () {
+
+                  $scope.progress=80;
+                  $scope.currentTask="Adding reservation lengths...";
+
+                  $scope.reservationLengths.forEach(function (groupLength) {
+                    if(!groupLength.index)
+                      $scope.reservationLengthsPayload.addQueue.push(groupLength);
+                  });
+
+                  $scope.reservationLengthsPayload.restaurantId=$scope.dishesPayload.restaurantId;
+
+                  RestaurantService.restaurantReservationLengths($scope.reservationLengthsPayload, function () {
+                    $scope.progress=100;
+                    $scope.currentTask="Finalising...";
+                    $scope.success="Restaurant saved successfully.";
+                  });
+                });
+
               });
+
             });
 
           });

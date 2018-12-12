@@ -331,10 +331,10 @@
                     <ng-form name="tablesForm">
 
                       <div class="row admin-menu-dish-margin admin-menu-select " >
-                        <button class="btn admin-menu-add float-right" type="button" ng-click="addNewTables()" ng-disabled="tablesPayload.length===10">Add new table</button>
+                        <button class="btn admin-menu-add float-right" type="button" ng-click="addNewTables()" ng-disabled="newTables.length===10">Add new table</button>
                       </div>
 
-                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in tablesPayload">
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in newTables">
                         <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
                           {{$index+1}}.
                         </div>
@@ -356,7 +356,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-1">
-                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(tablesPayload.indexOf(tables))"></div>
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(newTables.indexOf(tables))"></div>
                         </div>
                       </div>
 
@@ -537,7 +537,7 @@
               </uib-tabset>
 
               <div class="admin-rest-form">
-                <uib-progressbar class="progress-striped active" max="100" value="progress" type="danger" ng-show="progress">{{currentTask}}</uib-progressbar>
+                <uib-progressbar class="progress-striped active" max="100" value="progress" type="danger" ng-show="progress && progress!==100">{{currentTask}}</uib-progressbar>
 
                 <div class="col-sm-offset-6 col-xs-12 col-sm-6">
                   <div class="col-xs-12 col-sm-6">
@@ -553,13 +553,13 @@
                             >
                       Save Restaurant
                     </button>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+
 
                     <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
 
                   </div>
 
-
-                  {{basicInfoPayload}}
                 </div>
 
               </div>

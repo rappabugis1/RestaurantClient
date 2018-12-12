@@ -68,6 +68,18 @@ angular.module('clientApp')
         $http.get('/app/admin/getAllDishTypes'). then (function (response) {
           callback(response);
         });
+      },
+
+      restaurantTables : function (payload, callback) {
+        $http.post('/app/admin/adminRestaurantTables', payload) .then(function (response) {
+          callback(response);
+        });
+      },
+
+      restaurantReservationLengths : function (payload, callback) {
+        $http.post('app/admin/adminRestaurantReservationLengths', payload) .then(function (response) {
+          callback(response);
+        })
       }
 
     };
