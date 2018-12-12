@@ -11,6 +11,8 @@ angular.module('clientApp')
   .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService, $uibModalStack, $location, anchorSmoothScroll) {
     SessionStorageService.delete("reservationStartTime");
 
+
+
     //Get comments
 
     RestaurantService.getAllRestaurantComments(JSON.parse(SessionStorageService.get("restaurantId")).id, function (response) {
@@ -45,6 +47,7 @@ angular.module('clientApp')
 
       return ratings;
     };
+
 
     RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function (response) {
       $scope.restaurant = response.data;

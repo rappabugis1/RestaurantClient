@@ -73,7 +73,6 @@ angular.module('clientApp')
 
     $scope.pickedCatPayload=[];
     $scope.tablesPayload = [];
-    $scope.dishes = [];
     $scope.reservationLengths =[];
 
     //imagesurl
@@ -144,6 +143,18 @@ angular.module('clientApp')
 
     //Dishes
 
+    RestaurantService.getDishTypes(function (response) {
+      $scope.dishTypes= response.data;
+    });
+
+    $scope.dishesPayload = {
+      addQueue: [],
+      editQueue: [],
+      deleteQueue: [],
+      restaurantId: ""
+    };
+
+    $scope.dishes=[];
 
     $scope.radioModel = 'Breakfast';
 
@@ -152,7 +163,18 @@ angular.module('clientApp')
     };
 
     $scope.removeDish = function(index) {
+
+      //If deleted dish has an id, put it in delete queue
+      if($scope.dishes[index].id)
+        $scope.dishesPayload.deleteQueue.push($scope.dishes[index].id);
+
       $scope.dishes.splice(index,1);
+    };
+
+    $scope.editDish = function(index){
+      //if dish has id and not in queue, put it in edit queue
+      if($scope.dishes[index].id && $scope.dishesPayload.editQueue.indexOf($scope.dishes[index]))
+        $scope.dishesPayload.editQueue.push($scope.dishes[index]);
     };
 
     //Add three placeholder dishes
@@ -297,11 +319,13 @@ angular.module('clientApp')
         $scope.progress=15;
         $scope.currentTask="Uploading images...";
 
+        //upload logo
         FirestoreService.uploadImage(rest.imageLogoSrc, function (downloadUrl) {
           $scope.imageLogoUrl=downloadUrl;
 
           $scope.progress=30;
 
+          //then => upload cover
           FirestoreService.uploadImage(rest.imageCoverSrc, function (downloadUrl) {
             $scope.imageCoverUrl=downloadUrl;
 
@@ -321,9 +345,24 @@ angular.module('clientApp')
               defaultStay: $scope.defaultLength
             };
 
+            //then => save rest
             RestaurantService.adminAddRestaurant($scope.basicInfoPayload, function (response) {
               $scope.progress=60;
               $scope.currentTask="Adding menu...";
+
+              //Add NEW dishes to payload
+              $scope.dishes.forEach(function (value) {
+                $scope.dishesPayload.addQueue.push(value);
+              });
+
+              $scope.dishesPayload.restaurantId=response.data.id;
+
+              //then => save menu
+              RestaurantService.restaurantMenuItems($scope.dishesPayload, function (response) {
+
+                $scope.progress=70;
+                $scope.currentTask="Adding tables...";
+              });
             });
 
           });

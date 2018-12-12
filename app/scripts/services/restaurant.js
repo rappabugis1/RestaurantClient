@@ -56,6 +56,18 @@ angular.module('clientApp')
         $http.post('/app/admin/addRestaurant', payload) .then( function onSucces(response){
           callback(response);
         });
+      },
+
+      restaurantMenuItems : function (payload, callback) {
+        $http.post('/app/admin/adminMenuItems', payload). then(function onSucces(response){
+          callback(response);
+        });
+      },
+
+      getDishTypes : function (callback){
+        $http.get('/app/admin/getAllDishTypes'). then (function (response) {
+          callback(response);
+        });
       }
 
     };

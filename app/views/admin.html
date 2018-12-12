@@ -289,10 +289,13 @@
 
                         <div class="col-xs-12 col-sm-2">
                           <select class="custom-select login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                  name="dishType_{{$index}}"
                                   ng-model="dish.dishType"
+                                  required="required"
                                   ng-options="dishType for dishType in dishTypes"
+                                  ng-class="{'error-form' :  menuForm['dishType_' + $index].$error.required && submited}"
+
                           >
-                            <option value="" disabled selected>Dish Type</option>
                           </select>
                         </div>
 
