@@ -50,6 +50,12 @@ angular.module('clientApp')
               callback(error.data);
             }
           });
+      },
+
+      adminAddRestaurant : function (payload, callback) {
+        $http.post('/app/admin/addRestaurant', payload) .then( function onSucces(response){
+          callback(response);
+        });
       }
 
     };

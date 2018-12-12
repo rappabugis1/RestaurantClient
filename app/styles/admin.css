@@ -350,3 +350,14 @@
 margin-top: 15px;
   margin-bottom: 0px!important;
 }
+
+.error-form{
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: indianred;
+}
+
+.error-sign{
+  margin-left: 50px;
+  margin-right: 6px;
+}

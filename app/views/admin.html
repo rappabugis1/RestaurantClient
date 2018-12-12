@@ -38,7 +38,6 @@
 
       <uib-tab index="1" heading="Restaurants">
 
-
         <div ng-controller="AdminRestaurantManipulationController as rest">
 
           <div ng-show="!view" >
@@ -84,7 +83,8 @@
           </div>
 
           <div  ng-show="view">
-            <form name="restaurantForm" class="admin-add-rest-form" novalidate  >
+            <form name="restaurantForm" class="admin-add-rest-form" ng-submit="addRestaurant(restaurantForm.$valid)" novalidate>
+
               <uib-tabset active="activeForm">
 
                 <!--Basic details-->
@@ -92,12 +92,19 @@
                 <uib-tab index="0" heading="Basic details">
 
                   <div class="tab-pane-admin">
-                    <ng-form name="nestedForm">
+
+                    <ng-form name="basicDetailsForm">
+
                       <div class="row">
+
                         <div class="col-xs-12 col-sm-6 col-logo">
+
                           <div class="form-label">Add logo/profile</div>
-                          <input type="file" ng-file-select="onFileSelect($files)" id="logoSrc" class="inputfile" ng-model="rest.imageLogoSrc">
-                          <label for="logoSrc" class="uploadlogo" ng-show="!rest.imageLogoSrc">
+
+                          <input required="required" type="file" ng-file-select="onFileSelect($files)" id="logoSrc" name="logoSrc" class="inputfile" ng-model="rest.imageLogoSrc">
+
+                          <label for="logoSrc" class="uploadlogo" ng-show="!rest.imageLogoSrc"
+                                 ng-class="{'error-form' : rest.logoInv}">
                             <img class="uploadcloud" src="../images/upload-cloud.png">
                             Upload Logo/Profile
                           </label>
@@ -106,31 +113,37 @@
                           </label>
 
                         </div>
+
                         <div class="col-xs-12 col-sm-6">
                           <div class="form-label">Add cover</div>
 
-                          <input type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="imageCoverSrc">
-                          <label for="coverSrc" class="uploadcover" ng-show="!imageCoverSrc">
-                            <img class="uploadcloud " src="../images/upload-cloud.png" ng-src="{{imageCoverSrc}}" >
+                          <input required  type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="rest.imageCoverSrc">
+                          <label for="coverSrc" class="uploadcover" ng-show="!rest.imageCoverSrc"
+                                 ng-class="{'error-form' : rest.coverInv}">
+                            <img class="uploadcloud " src="../images/upload-cloud.png" ng-src="{{rest.imageCoverSrc}}">
                             Upload Cover Photo
                           </label>
-                          <label for="coverSrc" class="uploadcover" ng-show="imageCoverSrc">
-                            <img class="uploadedImage" ng-src="{{imageCoverSrc}}">
+                          <label for="coverSrc" class="uploadcover" ng-show="rest.imageCoverSrc">
+                            <img class="uploadedImage" ng-src="{{rest.imageCoverSrc}}">
                           </label>
 
 
                         </div>
                       </div>
+
                       <div class="row">
                         <div class="col-xs-12 col-sm-6">
                           <div class="form-label">Name</div>
+
                           <input name="restaurantName"
                                  class="login-form-control input-lg input-admin-forms input-admin-forms "
                                  type="text"
                                  id="restaurantName"
                                  placeholder="Restaurant name"
-                                 ng-model="restaurantName"
-                                 required="required">
+                                 ng-model="rest.restaurantName"
+                                 required="required"
+                                 ng-class="{'error-form' :  basicDetailsForm.restaurantName.$error.required && submited}"
+                          >
 
                         </div>
                         <div class="col-xs-12 col-sm-6">
@@ -139,26 +152,33 @@
                             <select class="custom-select login-form-control input-lg input-admin-forms"
                                     ng-model="country"
                                     ng-options="c.country_name for c in locations"
-                                    required="required">
+                                    required="required"
+                                    ng-class="{'error-form' : rest.restLocInv}"
+                            >
                               <option value="" disabled selected>Country</option>
                             </select>
                           </div>
                           <div class="col-xs-12 col-sm-6 col-inside">
                             <div class="form-label">Location</div>
                             <select class=" login-form-control input-lg input-admin-forms"
-                                    ng-model="city"
+                                    ng-model="rest.city"
                                     ng-options="d.name.valueOf() for d in country.city_names"
-                                    required="required">
+                                    required="required"
+                                    ng-class="{'error-form' : rest.restLocInv}"
+                                    ng-change="changeLoc()"
+                            >
                               <option value="" disabled selected>City</option>
                             </select>
                           </div>
 
                         </div>
                       </div>
+
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 ">
                           <div class="form-label">Categories</div>
-                          <div class="categories-add-restaurant-panel">
+                          <div class="categories-add-restaurant-panel" ng-class="{'error-form' : rest.restCatInv}"
+                          >
                             <ul class="list-inline text-left">
                               <li  ng-repeat="category in pickedCategories">
                                 <button class="btn btn-added-category" ng-click="deleteCategory($index)">
@@ -169,7 +189,7 @@
 
                           </div>
                           <div class="col-xs-12 col-sm-offset-9 col-sm-3 no-padding">
-                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); ">
+                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv}">
                               <option value="" disabled selected>Categories</option>
                             </select>
                           </div>
@@ -183,8 +203,9 @@
                                     type="text"
                                     id="resDescription"
                                     placeholder="Enter a description"
-                                    ng-model="resDescription"
+                                    ng-model="rest.resDescription"
                                     required="required"
+                                    ng-class="{'error-form' :  basicDetailsForm.resDescription.$error.required && submited}"
                           ></textarea>
                         </div>
                       </div>
@@ -205,7 +226,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                           <div class="form-label">Price Range</div>
-                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="priceRange"  ng-options="price for price in priceRanges" >
+                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="rest.priceRange"  ng-options="price for price in priceRanges" ng-change="changePrice()" ng-class="{'error-form' : rest.restPriceInv}">
                             <option value="" disabled selected>Price Range</option>
 
                           </select>
@@ -214,6 +235,7 @@
                       </div>
 
                     </ng-form>
+
                   </div>
 
                 </uib-tab>
@@ -221,92 +243,122 @@
                 <!--Menu-->
 
                 <uib-tab index="1" heading="Menu">
+
                   <div class="tab-pane-admin">
-                    <div class="row admin-menu-dish-margin admin-menu-select " >
-                      <div class="col-xs-12 col-sm-10 admin-menu-row">
-                        <div class="btn-group">
-                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
-                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
-                          <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Dinner'">Dinner</label>
+
+                    <ng-form name = "menuForm">
+
+                      <div class="row admin-menu-dish-margin admin-menu-select " >
+
+                        <div class="col-xs-12 col-sm-10 admin-menu-row">
+                          <div class="btn-group">
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Dinner'">Dinner</label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <button class="btn admin-menu-add" type="button" ng-click="addNewDish(radioModel)">Add new dish</button>
+                        </div>
+
+                      </div>
+
+
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes | filter:radioModel:dish.menuType">
+                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                          {{$index+1}}.
+                        </div>
+                        <div class="col-xs-12 col-sm-5">
+                          <input
+                            type="text"
+                            class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                            placeholder="Name"
+                            ng-model="dish.name"
+                            required="required"
+                            name="dishName_{{$index}}"
+                            ng-class="{'error-form' :  menuForm['dishName_' + $index].$error.required && submited}"
+                          >
+
+                          <input
+                            type="text"
+                            class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                            placeholder="Description"
+                            ng-model="dish.description">
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <select class="custom-select login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                  ng-model="dish.dishType"
+                                  ng-options="dishType for dishType in dishTypes"
+                          >
+                            <option value="" disabled selected>Dish Type</option>
+                          </select>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-2">
+                          <input
+                            type="number"
+                            class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                            min=1
+                            placeholder="Price"
+                            ng-model="dish.price"required="required"
+                            name="dishPrice_{{$index}}"
+                            ng-class="{'error-form' :  menuForm['dishPrice_' + $index].$error.required && submited}"
+                          >
+                        </div>
+
+                        <div class="col-xs-12 col-sm-1">
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="removeDish(dishes.indexOf(dish))"></div>
                         </div>
                       </div>
 
-                      <div class="col-xs-12 col-sm-2">
-                        <button class="btn admin-menu-add" ng-click="addNewDish(radioModel)">Add new dish</button>
-                      </div>
-
-                    </div>
-
-
-                    <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes | filter:radioModel:dish.menuType">
-                      <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
-                        {{$index+1}}.
-                      </div>
-                      <div class="col-xs-12 col-sm-5">
-                        <input
-                          type="text"
-                          class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                          placeholder="Name"
-                          ng-model="dish.name">
-
-                        <input
-                          type="text"
-                          class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                          placeholder="Description"
-                          ng-model="dish.description">
-                      </div>
-
-                      <div class="col-xs-12 col-sm-2">
-                        <select class="custom-select login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                                ng-model="dish.dishType"
-                                ng-options="dishType for dishType in dishTypes"
-                                required="required">
-                          <option value="" disabled selected>Dish Type</option>
-                        </select>
-                      </div>
-
-
-                      <div class="col-xs-12 col-sm-2">
-                        <input
-                          type="number"
-                          class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                          min=1
-                          placeholder="Price"
-                          ng-model="dish.price">
-                      </div>
-
-                      <div class="col-xs-12 col-sm-1">
-                        <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="removeDish(dishes.indexOf(dish))"></div>
-                      </div>
-                    </div>
+                    </ng-form>
 
                   </div>
+
                 </uib-tab>
 
                 <!--Tables-->
 
                 <uib-tab index="2" heading="Tables">
                   <div class="tab-pane-admin">
-                    <div class="row admin-menu-dish-margin admin-menu-select " >
-                      <button class="btn admin-menu-add float-right" ng-click="addNewTables()" ng-disabled="tablesPayload.length===10">Add new table</button>
-                    </div>
-                    <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in tablesPayload">
-                      <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
-                        {{$index+1}}.
-                      </div>
-                      <div class="col-xs-12 col-sm-5" >
-                        <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList" ng-model="tables.tableType" ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)" class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin">
-                        </select>
+
+                    <ng-form name="tablesForm">
+
+                      <div class="row admin-menu-dish-margin admin-menu-select " >
+                        <button class="btn admin-menu-add float-right" type="button" ng-click="addNewTables()" ng-disabled="tablesPayload.length===10">Add new table</button>
                       </div>
 
-                      <div class="col-xs-12 col-sm-2">
-                        <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tables.amount">
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in tablesPayload">
+                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                          {{$index+1}}.
+                        </div>
+                        <div class="col-xs-12 col-sm-5" >
+                          <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList" ng-model="tables.tableType" ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)"
+                                  class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                  name="table_{{$index}}"
+                                  ng-class="{'error-form' :  submited && tablesForm['table_' + $index].$modelValue=='Select type of tables'}"
+                          >
+                          </select>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tables.amount"
+                                 required="required"
+                                 name="tableNumber_{{$index}}"
+                                 ng-class="{'error-form' :  tablesForm['tableNumber_' + $index].$error.required && submited}"
+                          >
+                        </div>
+
+                        <div class="col-xs-12 col-sm-1">
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(tablesPayload.indexOf(tables))"></div>
+                        </div>
                       </div>
 
-                      <div class="col-xs-12 col-sm-1">
-                        <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(tablesPayload.indexOf(tables))"></div>
-                      </div>
-                    </div>
+                    </ng-form>
+
                   </div>
 
                 </uib-tab>
@@ -316,149 +368,164 @@
                 <uib-tab index="3" heading="Reservations">
                   <div class="tab-pane-admin">
 
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6 hr-admin">
-                        <div class="form-label">Choose default length of reservation </div>
-                        <p class="form-label-exp">This will be the length for each group of people (in minutes, step 15 minutes) if not chosen otherwise</p>
+                    <ng-form name = "reservationsForm">
 
-                        <input name="defaultStay"
-                               class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                               type="number"
-                               id="defaultStay"
-                               placeholder="Default Length"
-                               ng-model="defaultLength"
-                               required="required"
-                               min="15"
-                               max="720"
-                               step="15">
-                      </div>
-                    </div>
-
-
-                    <hr>
-
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6">
-                        <div class="form-label">Or choose length for a specific group (in minutes)</div>
-
-                      </div>
-                      <div class="col-xs-12 col-sm-6">
-                        <button class="btn admin-menu-add float-right" ng-click="addLength()">Add new group</button>
-                      </div>
-                    </div>
-
-                    <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="length in reservationLengths">
                       <div class="row">
-                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
-                          {{$index+1}}.
-                        </div>
-                        <div class="col-xs-12 col-sm-3" >
-                          <input name="guestNumber"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin "
-                                 type="number"
-                                 id="guestNumber"
-                                 placeholder="Number of Guests"
-                                 ng-model="length.guestNumber"
-                                 required="required"
-                                 min="1"
-                                 max="16"
-                                 step="1">
-                        </div>
+                        <div class="col-xs-12 col-sm-6 hr-admin">
+                          <div class="form-label">Choose default length of reservation </div>
+                          <p class="form-label-exp">This will be the length for each group of people (in minutes, step 15 minutes) if not chosen otherwise</p>
 
-                        <div class="col-xs-12 col-sm-1">
-                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index)"></div>
-                        </div>
-                      </div>
-
-
-                      <div class="row admin-length-days">
-                        <div class="col-xs-12 col-sm-4">
-                          <p class="form-label-exp length">Monday - Friday</p>
-
-                          <p class="day-p">In the Morning</p>
-
-                          <input name="morningWork"
+                          <input name="defaultStay"
                                  class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
                                  type="number"
-                                 id="morningWork"
-                                 placeholder="Average meal length"
-                                 ng-model="length.workday.morning"
+                                 id="defaultStay"
+                                 placeholder="Default Length"
+                                 ng-model="defaultLength"
                                  required="required"
+                                 ng-class="{'error-form' : submited && reservationsForm.defaultStay.$error.required}"
                                  min="15"
-                                 max="245"
-                                 step="15">
-
-                          <p class="day-p">Noon till Evening</p>
-
-                          <input name="dayWork"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                                 type="number"
-                                 id="dayWork"
-                                 placeholder="Average meal length"
-                                 ng-model="length.workday.day"
-                                 required="required"
-                                 min="15"
-                                 max="245"
-                                 step="15">
-
-                          <p class="day-p">Evening</p>
-
-                          <input name="eveningWork"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                                 type="number"
-                                 id="eveningWork"
-                                 placeholder="Average meal length"
-                                 ng-model="length.workday.evening"
-                                 required="required"
-                                 min="15"
-                                 max="245"
-                                 step="15">
-
-                        </div>
-                        <div class="col-xs-12 col-sm-offset-2 col-sm-4">
-                          <p class="form-label-exp length">Saturday, Sunday</p>
-
-                          <p class="day-p">In the Morning</p>
-
-                          <input name="morningWeek"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                                 type="number"
-                                 id="morningWeek"
-                                 placeholder="Average meal length"
-                                 ng-model="length.weekend.morning"
-                                 required="required"
-                                 min="15"
-                                 max="245"
-                                 step="15">
-
-                          <p class="day-p">Noon till Evening</p>
-
-                          <input name="dayWeek"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                                 type="number"
-                                 id="dayWeek"
-                                 placeholder="Average meal length"
-                                 ng-model="length.weekend.day"
-                                 required="required"
-                                 min="15"
-                                 max="245"
-                                 step="15">
-
-                          <p class="day-p">Evening</p>
-
-                          <input name="eveningWeek"
-                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
-                                 type="number"
-                                 id="eveningWeek"
-                                 placeholder="Average meal length"
-                                 ng-model="length.weekend.evening"
-                                 required="required"
-                                 min="15"
-                                 max="245"
+                                 max="720"
                                  step="15">
                         </div>
                       </div>
-                    </div>
+
+
+                      <hr>
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Or choose length for a specific group (in minutes)</div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <button class="btn admin-menu-add float-right" type="button" ng-click="addLength()">Add new group</button>
+                        </div>
+                      </div>
+
+                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="length in reservationLengths">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                            {{$index+1}}.
+                          </div>
+                          <div class="col-xs-12 col-sm-3" >
+                            <input name="guestNumber_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin "
+                                   type="number"
+                                   id="guestNumber"
+                                   placeholder="Number of Guests"
+                                   ng-model="length.guestNumber"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['guestNumber_' + $index].$error.required}"
+                                   min="1"
+                                   max="16"
+                                   step="1">
+                          </div>
+
+                          <div class="col-xs-12 col-sm-1">
+                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index)"></div>
+                          </div>
+                        </div>
+
+
+                        <div class="row admin-length-days">
+                          <div class="col-xs-12 col-sm-4">
+                            <p class="form-label-exp length">Monday - Friday</p>
+
+                            <p class="day-p">In the Morning</p>
+
+                            <input name="morningWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="length.workday.morning"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Noon till Evening</p>
+
+                            <input name="dayWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="length.workday.day"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
+
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Evening</p>
+
+                            <input name="eveningWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="length.workday.evening"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['eveningWork_' + $index].$error.required}"
+
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                          </div>
+                          <div class="col-xs-12 col-sm-offset-2 col-sm-4">
+                            <p class="form-label-exp length">Saturday, Sunday</p>
+
+                            <p class="day-p">In the Morning</p>
+
+                            <input name="morningWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="morningWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="length.weekend.morning"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWeek_' + $index].$error.required}"
+
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Noon till Evening</p>
+
+                            <input name="dayWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="dayWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="length.weekend.day"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['dayWeek_' + $index].$error.required}"
+
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Evening</p>
+
+                            <input name="eveningWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="eveningWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="length.weekend.evening"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['eveningWeek_' + $index].$error.required}"
+
+                                   min="15"
+                                   max="245"
+                                   step="15">
+                          </div>
+                        </div>
+                      </div>
+
+                    </ng-form>
+
 
                   </div>
 
@@ -467,6 +534,7 @@
               </uib-tabset>
 
               <div class="admin-rest-form">
+                <uib-progressbar class="progress-striped active" max="100" value="progress" type="danger" ng-show="progress">{{currentTask}}</uib-progressbar>
 
                 <div class="col-sm-offset-6 col-xs-12 col-sm-6">
                   <div class="col-xs-12 col-sm-6">
@@ -478,16 +546,21 @@
                   <div class="col-xs-12 col-sm-6">
                     <button type="submit"
                             class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
-                            ng-disabled="restaurantForm.$invalid">
+                            ng-disabled="submited && progress>=15 && restaurantForm.$valid"
+                            >
                       Save Restaurant
                     </button>
 
                     <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
 
                   </div>
+
+
+                  {{basicInfoPayload}}
                 </div>
 
               </div>
+
             </form>
 
 
@@ -918,6 +991,7 @@
                       <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
                     </div>
                   </div>
+
 
 
                 </div>

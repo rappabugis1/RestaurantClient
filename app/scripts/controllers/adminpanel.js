@@ -11,8 +11,8 @@ angular.module('clientApp')
   .controller('AdminPanelController', function ($scope, FilterFactoryServis, AdminCommonService) {
 
     $scope.activeTab=0;
-    //Get counters
 
+    //Get counters
     AdminCommonService.getAdministrationCounters(function (response) {
       $scope.counters=response;
       $scope.loading=false;
@@ -22,11 +22,12 @@ angular.module('clientApp')
       $scope.activeTab=index;
     };
 
-$scope.imageParent="parent";
-
   })
 
-  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis, $window,$log, fileReader, AdminLocationService, AdminCategoryService, FirestoreService)  {
+  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis,$log, $window, fileReader, AdminLocationService, AdminCategoryService, FirestoreService, RestaurantService)  {
+
+    var rest = this;
+
 
     $scope.maxSize = 5;
     $scope.searchText="";
@@ -244,32 +245,8 @@ $scope.imageParent="parent";
 
 
     //Image Upload
-
-
-
-
-
-    var rest = this;
     rest.imageLogoSrc="";
     rest.imageCoverSrc="";
-
-    $scope.uploadImages = function () {
-      rest.addingRestLoader = true;
-
-      FirestoreService.uploadImage(rest.imageLogoSrc, function (downloadUrl) {
-        $scope.imageLogoUrl=downloadUrl;
-        rest.addingRestLoader = false;
-
-      });
-
-      rest.addingRestLoader = true;
-
-      FirestoreService.uploadImage(rest.imageCoverSrc, function (downloadUrl) {
-        $scope.imageCoverUrl=downloadUrl;
-        rest.addingRestLoader=false;
-      });
-
-    };
 
     //Images
 
@@ -279,18 +256,84 @@ $scope.imageParent="parent";
 
     //Basic info
 
+    //Form validation
 
-    $scope.basicInfoPayload = {
-      longitude: $scope.marker.coordinates.longitude,
-      latitude: $scope.marker.coordinates.latitude,
-      restaurantName : $scope.restaurantName,
-      priceRange: $scope.priceRanges.indexOf($scope.priceRange),
-      location: "1",
-      description: $scope.resDescription,
-      imageFileName: $scope.imageLogoUrl,
-      coverFileName: $scope.imageCoverUrl,
-      categories: $scope.pickedCatPayload
+    //////BasicDetailsForm
+
+    $scope.changeLoc = function(){ rest.restLocInv=false };
+
+    $scope.changePrice = function() {rest.restPriceInv=false};
+
+    $scope.$watchCollection('pickedCategories',function () { rest.restCatInv=false; });
+
+
+    var validateBasicDetails= function () {
+
+      if($scope.pickedCatPayload.length===0)
+        rest.restCatInv=true;
+      
+      if($scope.priceRanges.indexOf(rest.priceRange)===-1)
+        rest.restPriceInv=true;
+      
+      if(!rest.city)
+        rest.restLocInv=true;
+      
+      if(!$scope.imageLogoUrl)
+        rest.logoInv=true;
+      
+      if(!$scope.imageCoverUrl)
+        rest.coverInv=true;
+      
     };
+
+    
+    $scope.addRestaurant = function (isValid) {
+      $scope.submited=true;
+
+      validateBasicDetails();
+
+      if(isValid && $scope.pickedCatPayload.length>0){
+
+        $scope.progress=15;
+        $scope.currentTask="Uploading images...";
+
+        FirestoreService.uploadImage(rest.imageLogoSrc, function (downloadUrl) {
+          $scope.imageLogoUrl=downloadUrl;
+
+          $scope.progress=30;
+
+          FirestoreService.uploadImage(rest.imageCoverSrc, function (downloadUrl) {
+            $scope.imageCoverUrl=downloadUrl;
+
+            $scope.progress=50;
+            $scope.currentTask="Saving restaurant...";
+
+            $scope.basicInfoPayload = {
+              longitude: $scope.marker.coordinates.longitude,
+              latitude: $scope.marker.coordinates.latitude,
+              restaurantName : rest.restaurantName,
+              priceRange: $scope.priceRanges.indexOf(rest.priceRange) +1,
+              location: rest.city.id,
+              description: rest.resDescription,
+              imageFileName: $scope.imageLogoUrl,
+              coverFileName: $scope.imageCoverUrl,
+              categories: $scope.pickedCatPayload,
+              defaultStay: $scope.defaultLength
+            };
+
+            RestaurantService.adminAddRestaurant($scope.basicInfoPayload, function (response) {
+              $scope.progress=60;
+              $scope.currentTask="Adding menu...";
+            });
+
+          });
+
+        });
+
+      }
+
+    }
+
 
   })
 
