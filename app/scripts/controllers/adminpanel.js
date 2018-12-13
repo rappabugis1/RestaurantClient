@@ -69,6 +69,12 @@ angular.module('clientApp')
     //Filter at the beginning
     $scope.filter();
 
+    $scope.deleteRestaurant = function(restaurant){
+      RestaurantService.deleteRestaurant({id:restaurant.id}, function () {
+        $scope.filter();
+      });
+    };
+
 
     //Price Range
     $scope.priceRanges = ['Low', 'Lower Medium', 'Medium', 'Upper Medium', 'High'];
@@ -462,6 +468,12 @@ angular.module('clientApp')
     //Filter at the beginning
     $scope.filter();
 
+    $scope.deleteLocation= function(location) {
+      AdminLocationService.deleteLocation({id : location.id}, function (response) {
+        $scope.filter();
+      });
+    };
+
     //Change category tab view watcher
 
     $scope.$watch('locationName', function () {
@@ -582,6 +594,12 @@ angular.module('clientApp')
     };
     //Filter at the beginning
     $scope.filter();
+
+    $scope.deleteCategory= function(category){
+      AdminCategoryService.deleteCategory({id: category.id}, function (reponse) {
+        $scope.filter();
+      });
+    };
 
     //Change category tab view watcher
 
@@ -794,6 +812,14 @@ angular.module('clientApp')
           });
         }
       }
+    };
+
+    //Delete user
+
+    $scope.deleteUser = function(user){
+      AdminUserService.deleteUser({id : user.id}, function (response) {
+        $scope.filter();
+      });
     };
 
     AdminLocationService.getLocationsForSelect(function (response) {

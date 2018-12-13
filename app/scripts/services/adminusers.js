@@ -20,6 +20,17 @@ angular.module('clientApp')
             if(error.status===400)
               callback(error);
           })
+      },
+
+      deleteUser: function (payload, callback) {
+        $http.post('/app/admin/adminDeleteUser', payload)
+          .then(function onSuccess(response) {
+            callback(response);
+          })
+          .catch(function onError(error) {
+            if(error.status===400)
+              callback(error);
+          })
       }
     };
   });

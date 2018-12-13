@@ -70,7 +70,7 @@
                   <td>{{row.restaurantName}}</td>
 
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteRestaurant(row)"></span>
                   </td>
                 </tr>
 
@@ -82,7 +82,7 @@
 
           </div>
 
-          <div  ng-show="view">
+          <div  ng-if="view">
             <form name="restaurantForm" class="admin-add-rest-form" ng-submit="addRestaurant(restaurantForm.$valid)" novalidate>
 
               <uib-tabset active="activeForm">
@@ -541,7 +541,7 @@
 
                 <div class="col-sm-offset-6 col-xs-12 col-sm-6">
                   <div class="col-xs-12 col-sm-6">
-                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                    <button class="btn admin-menu-add btn-block" type="reset" ng-click="cancel()">
                       Back
                     </button>
                   </div>
@@ -609,7 +609,7 @@
                   <td>{{row.name}}</td>
                   <td>{{row.country}}</td>
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteLocation(row)"></span>
                   </td>
                 </tr>
 
@@ -730,7 +730,7 @@
                   <td>{{row.name}}</td>
 
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteCategory(row)"></span>
                   </td>
                 </tr>
 
@@ -845,7 +845,7 @@
                   <td>{{row.user_data.lastName}}</td>
                   <td>{{row.email}}</td>
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon"></span>
+                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteUser(row)"></span>
                   </td>
                 </tr>
 

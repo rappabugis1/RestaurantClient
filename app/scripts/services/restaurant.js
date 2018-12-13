@@ -77,9 +77,15 @@ angular.module('clientApp')
       },
 
       restaurantReservationLengths : function (payload, callback) {
-        $http.post('app/admin/adminRestaurantReservationLengths', payload) .then(function (response) {
+        $http.post('/app/admin/adminRestaurantReservationLengths', payload) .then(function (response) {
           callback(response);
         })
+      },
+
+      deleteRestaurant : function (payload, callback) {
+        $http.post('/app/admin/adminDeleteRestaurant', payload) .then(function (reponse) {
+          callback(reponse);
+        });
       }
 
     };

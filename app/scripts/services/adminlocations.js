@@ -53,6 +53,12 @@ angular.module('clientApp')
             if(error.status===400)
               callback(error);
           })
+      },
+
+      deleteLocation : function (payload, callback) {
+        $http.post('/app/admin/deleteLocation', payload).then(function (reponse) {
+          callback(response);
+        });
       }
 
       //TODO delete

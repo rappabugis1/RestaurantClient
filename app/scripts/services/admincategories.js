@@ -51,6 +51,12 @@ angular.module('clientApp')
             if(error.status===400)
               callback(error);
           })
+      },
+
+      deleteCategory : function (payload,callback) {
+        $http.post('/app/admin/deleteCategory', payload).then(function (response) {
+          callback(response);
+        });
       }
 
       //TODO delete
