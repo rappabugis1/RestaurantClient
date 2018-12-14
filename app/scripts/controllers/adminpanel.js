@@ -115,9 +115,9 @@ angular.module('clientApp')
     $scope.addNewTables();
     $scope.addNewTables();
 
-    $scope.removeTables = function(index, type) {
+    $scope.removeTables = function(index) {
 
-      $scope.changeDisabled(type, false);
+      $scope.changeDisabled( $scope.newTables[index].tableType, false);
 
       $scope.newTables.splice(index,1);
 
@@ -260,6 +260,19 @@ angular.module('clientApp')
 
     //Reservation lengths
 
+    $scope.lengthsList=
+      [ {id: 'Select number of Guests', label: 'Select number of Guests' , numberGuests: 0,disabled : true},
+        { id: 'One person', label: 'One person', numberGuests: 1 },
+        { id: 'Two people', label: 'Two people', numberGuests: 2 },
+        { id: 'Three people', label: 'Three people', numberGuests: 3 },
+        { id: 'Four people', label: 'Four people', numberGuests: 4},
+        { id: 'Five people', label: 'Five people', numberGuests: 5},
+        { id: 'Six people', label: 'Six people', numberGuests: 6},
+        { id: 'Seven people', label: 'Seven people', numberGuests: 7},
+        { id: 'Eight people', label: 'Eight people', numberGuests: 8},
+        { id: 'Nine people', label: 'Nine people', numberGuests: 9},
+        { id: 'Ten people', label: 'Ten people', numberGuests: 10}];
+
     $scope.reservationLengthsPayload= {
       addQueue: [],
       editQueue: [],
@@ -270,7 +283,7 @@ angular.module('clientApp')
     $scope.reservationLengths =[];
 
     $scope.addLength = function () {
-      $scope.reservationLengths.push({guestNumber: "", workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
+      $scope.reservationLengths.push({label: $scope.lengthsList[0].label, guestNumber: $scope.lengthsList[0].numberGuests, workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
     };
 
     $scope.removeLength = function (index) {
@@ -279,7 +292,33 @@ angular.module('clientApp')
         $scope.reservationLengthsPayload.deleteQueue.push($scope.reservationLengths[index].id);
       }
 
+      $scope.changeDisabledLength($scope.reservationLengths[index].label, false);
+
       $scope.reservationLengths.splice(index, 1);
+    };
+
+    $scope.changeNumber=function(value){
+      $scope.lengthsList.forEach(function (len) {
+        if(len.label===value.label)
+          $scope.reservationLengths[$scope.reservationLengths.indexOf(value)].guestNumber=len.numberGuests;
+      });
+    };
+
+    $scope.lengthChanged= function(newtype, oldtype) {
+      $scope.changeDisabledLength(newtype, true);
+      $scope.changeDisabledLength(oldtype, false);
+    };
+
+    $scope.changeDisabledLength= function(type, toDisabled){
+
+      if(type && type!=='Select number of Guests'){
+        $scope.lengthsList.forEach(function (element, index) {
+          if(element.label===type)
+            $scope.lengthIndex=index;
+        });
+
+        $scope.lengthsList[$scope.lengthIndex].disabled=toDisabled;
+      }
     };
 
 

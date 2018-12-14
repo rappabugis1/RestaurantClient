@@ -56,7 +56,7 @@ angular.module('clientApp')
       },
 
       deleteLocation : function (payload, callback) {
-        $http.post('/app/admin/deleteLocation', payload).then(function (reponse) {
+        $http.post('/app/admin/deleteLocation', payload).then(function (response) {
           callback(response);
         });
       }

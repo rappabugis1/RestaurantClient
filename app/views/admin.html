@@ -70,7 +70,29 @@
                   <td>{{row.restaurantName}}</td>
 
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteRestaurant(row)"></span>
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteRestaurant(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
 
@@ -339,7 +361,9 @@
                           {{$index+1}}.
                         </div>
                         <div class="col-xs-12 col-sm-5" >
-                          <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList" ng-model="tables.tableType" ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)"
+                          <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList"
+                                  ng-model="tables.tableType"
+                                  ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)"
                                   class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
                                   name="table_{{$index}}"
                                   ng-class="{'error-form' :  submited && tablesForm['table_' + $index].$modelValue=='Select type of tables'}"
@@ -401,31 +425,28 @@
 
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                          <button class="btn admin-menu-add float-right" type="button" ng-click="addLength()">Add new group</button>
+                          <button class="btn admin-menu-add float-right" type="button" ng-click="addLength()" ng-disabled="reservationLengths.length===10">Add new group</button>
                         </div>
                       </div>
-
-                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="length in reservationLengths">
+                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="pickedLength in reservationLengths">
                         <div class="row">
                           <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
                             {{$index+1}}.
                           </div>
                           <div class="col-xs-12 col-sm-3" >
-                            <input name="guestNumber_{{$index}}"
-                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin "
-                                   type="number"
-                                   id="guestNumber"
-                                   placeholder="Number of Guests"
-                                   ng-model="length.guestNumber"
-                                   required="required"
-                                   ng-class="{'error-form' : submited && reservationsForm['guestNumber_' + $index].$error.required}"
-                                   min="1"
-                                   max="16"
-                                   step="1">
+                            <select ng-options="len.label as len.label disable when (len.disabled && (pickedLength.label==='Select number of Guests' || pickedLength.label!==len.label)) for len in lengthsList"
+                                    ng-model="pickedLength.label"
+                                    ng-change="lengthChanged(pickedLength.label, '{{pickedLength.label}}', pickedLength); changeNumber(pickedLength);"
+                                    class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                    name="guestNumber_{{$index}}"
+                                    ng-class="{'error-form' : submited && reservationsForm['guestNumber_' + $index].$modelValue=='Select number of Guests'}"
+                            >
+                            </select>
+
                           </div>
 
                           <div class="col-xs-12 col-sm-1">
-                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index)"></div>
+                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index )"></div>
                           </div>
                         </div>
 
@@ -440,7 +461,7 @@
                                    class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
                                    type="number"
                                    placeholder="Average meal length"
-                                   ng-model="length.workday.morning"
+                                   ng-model="pickedLength.workday.morning"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
                                    min="15"
@@ -453,7 +474,7 @@
                                    class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
                                    type="number"
                                    placeholder="Average meal length"
-                                   ng-model="length.workday.day"
+                                   ng-model="pickedLength.workday.day"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
 
@@ -467,7 +488,7 @@
                                    class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
                                    type="number"
                                    placeholder="Average meal length"
-                                   ng-model="length.workday.evening"
+                                   ng-model="pickedLength.workday.evening"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['eveningWork_' + $index].$error.required}"
 
@@ -486,7 +507,7 @@
                                    type="number"
                                    id="morningWeek"
                                    placeholder="Average meal length"
-                                   ng-model="length.weekend.morning"
+                                   ng-model="pickedLength.weekend.morning"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWeek_' + $index].$error.required}"
 
@@ -501,7 +522,7 @@
                                    type="number"
                                    id="dayWeek"
                                    placeholder="Average meal length"
-                                   ng-model="length.weekend.day"
+                                   ng-model="pickedLength.weekend.day"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['dayWeek_' + $index].$error.required}"
 
@@ -516,7 +537,7 @@
                                    type="number"
                                    id="eveningWeek"
                                    placeholder="Average meal length"
-                                   ng-model="length.weekend.evening"
+                                   ng-model="pickedLength.weekend.evening"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['eveningWeek_' + $index].$error.required}"
 
@@ -609,7 +630,31 @@
                   <td>{{row.name}}</td>
                   <td>{{row.country}}</td>
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteLocation(row)"></span>
+
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteLocation(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+
                   </td>
                 </tr>
 
@@ -730,7 +775,29 @@
                   <td>{{row.name}}</td>
 
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteCategory(row)"></span>
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteCategory(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
 
@@ -845,7 +912,29 @@
                   <td>{{row.user_data.lastName}}</td>
                   <td>{{row.email}}</td>
                   <td class="icon-col">
-                    <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span> <span class="glyphicon glyphicon-trash table-icon" ng-click="deleteUser(row)"></span>
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteUser(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
 
