@@ -104,7 +104,7 @@
 
           </div>
 
-          <div  ng-if="view">
+          <div  ng-show="view">
             <form name="restaurantForm" class="admin-add-rest-form" ng-submit="addRestaurant(restaurantForm.$valid)" novalidate>
 
               <uib-tabset active="activeForm">
@@ -126,7 +126,7 @@
                           <input required="required" type="file" ng-file-select="onFileSelect($files)" id="logoSrc" name="logoSrc" class="inputfile" ng-model="rest.imageLogoSrc">
 
                           <label for="logoSrc" class="uploadlogo" ng-show="!rest.imageLogoSrc"
-                                 ng-class="{'error-form' : rest.logoInv}">
+                                 ng-class="{'error-form' : rest.logoInv && submited }">
                             <img class="uploadcloud" src="../images/upload-cloud.png">
                             Upload Logo/Profile
                           </label>
@@ -141,8 +141,8 @@
 
                           <input required  type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="rest.imageCoverSrc">
                           <label for="coverSrc" class="uploadcover" ng-show="!rest.imageCoverSrc"
-                                 ng-class="{'error-form' : rest.coverInv}">
-                            <img class="uploadcloud " src="../images/upload-cloud.png" ng-src="{{rest.imageCoverSrc}}">
+                                 ng-class="{'error-form' : rest.coverInv && submited}">
+                            <img class="uploadcloud " src="../images/upload-cloud.png">
                             Upload Cover Photo
                           </label>
                           <label for="coverSrc" class="uploadcover" ng-show="rest.imageCoverSrc">
@@ -175,7 +175,7 @@
                                     ng-model="country"
                                     ng-options="c.country_name for c in locations"
                                     required="required"
-                                    ng-class="{'error-form' : rest.restLocInv}"
+                                    ng-class="{'error-form' : rest.restLocInv && submited}"
                             >
                               <option value="" disabled selected>Country</option>
                             </select>
@@ -186,7 +186,7 @@
                                     ng-model="rest.city"
                                     ng-options="d.name.valueOf() for d in country.city_names"
                                     required="required"
-                                    ng-class="{'error-form' : rest.restLocInv}"
+                                    ng-class="{'error-form' : rest.restLocInv && submited}"
                                     ng-change="changeLoc()"
                             >
                               <option value="" disabled selected>City</option>
@@ -199,7 +199,7 @@
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 ">
                           <div class="form-label">Categories</div>
-                          <div class="categories-add-restaurant-panel" ng-class="{'error-form' : rest.restCatInv}"
+                          <div class="categories-add-restaurant-panel" ng-class="{'error-form' : rest.restCatInv && submited}"
                           >
                             <ul class="list-inline text-left">
                               <li  ng-repeat="category in pickedCategories">
@@ -211,7 +211,7 @@
 
                           </div>
                           <div class="col-xs-12 col-sm-offset-9 col-sm-3 no-padding">
-                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv}">
+                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv && submited}">
                               <option value="" disabled selected>Categories</option>
                             </select>
                           </div>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                           <div class="form-label">Price Range</div>
-                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="rest.priceRange"  ng-options="price for price in priceRanges" ng-change="changePrice()" ng-class="{'error-form' : rest.restPriceInv}">
+                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="rest.priceRange"  ng-options="price for price in priceRanges" ng-change="changePrice()" ng-class="{'error-form' : rest.restPriceInv && submited}">
                             <option value="" disabled selected>Price Range</option>
 
                           </select>
@@ -281,13 +281,13 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-2">
-                          <button class="btn admin-menu-add" type="button" ng-click="addNewDish(radioModel)">Add new dish</button>
+                          <button class="btn admin-menu-add" type="button" ng-click="dishes.addNewDish(radioModel)">Add new dish</button>
                         </div>
 
                       </div>
 
 
-                      <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes | filter:radioModel:dish.menuType">
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes.dishesList | filter:radioModel:dish.menuType">
                         <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
                           {{$index+1}}.
                         </div>
@@ -335,7 +335,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-1">
-                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="removeDish(dishes.indexOf(dish))"></div>
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="dishes.removeDish(dishes.dishesList.indexOf(dish))"></div>
                         </div>
                       </div>
 
@@ -351,19 +351,18 @@
                   <div class="tab-pane-admin">
 
                     <ng-form name="tablesForm">
-
                       <div class="row admin-menu-dish-margin admin-menu-select " >
-                        <button class="btn admin-menu-add float-right" type="button" ng-click="addNewTables()" ng-disabled="newTables.length===10">Add new table</button>
+                        <button class="btn admin-menu-add float-right" type="button" ng-click="rest.tables.addNewTables()" ng-disabled="rest.tables.newTables.length===10">Add new table</button>
                       </div>
 
-                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tables in newTables">
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tablesRow in rest.tables.newTables">
                         <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
                           {{$index+1}}.
                         </div>
                         <div class="col-xs-12 col-sm-5" >
-                          <select ng-options="table.label as table.label disable when (table.disabled && (tables.tableType==='Select type of tables' || tables.tableType!==table.label)) for table in tablesList"
-                                  ng-model="tables.tableType"
-                                  ng-change="typeChanged(tables.tableType, '{{tables.tableType}}', tables)"
+                          <select ng-options="table.label as table.label disable when (table.disabled && (tablesRow.tableType==='Select type of tables' || tablesRow.tableType!==table.label)) for table in rest.tables.tablesList"
+                                  ng-model="tablesRow.tableType"
+                                  ng-change="rest.tables.typeChanged(tablesRow.tableType, '{{tablesRow.tableType}}', tablesRow)"
                                   class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
                                   name="table_{{$index}}"
                                   ng-class="{'error-form' :  submited && tablesForm['table_' + $index].$modelValue=='Select type of tables'}"
@@ -372,7 +371,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-2">
-                          <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tables.amount"
+                          <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tablesRow.amount"
                                  required="required"
                                  name="tableNumber_{{$index}}"
                                  ng-class="{'error-form' :  tablesForm['tableNumber_' + $index].$error.required && submited}"
@@ -380,7 +379,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-1">
-                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeTables(newTables.indexOf(tables))"></div>
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="rest.tables.removeTables(tables.newTables.indexOf(tablesRow))"></div>
                         </div>
                       </div>
 
@@ -407,7 +406,7 @@
                                  type="number"
                                  id="defaultStay"
                                  placeholder="Default Length"
-                                 ng-model="defaultLength"
+                                 ng-model="rest.defaultLength"
                                  required="required"
                                  ng-class="{'error-form' : submited && reservationsForm.defaultStay.$error.required}"
                                  min="15"
@@ -425,18 +424,18 @@
 
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                          <button class="btn admin-menu-add float-right" type="button" ng-click="addLength()" ng-disabled="reservationLengths.length===10">Add new group</button>
+                          <button class="btn admin-menu-add float-right" type="button" ng-click="reservations.addLength()" ng-disabled="reservations.pickedLengths.length===10">Add new group</button>
                         </div>
                       </div>
-                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="pickedLength in reservationLengths">
+                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="pickedLength in reservations.pickedLengths">
                         <div class="row">
                           <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
                             {{$index+1}}.
                           </div>
                           <div class="col-xs-12 col-sm-3" >
-                            <select ng-options="len.label as len.label disable when (len.disabled && (pickedLength.label==='Select number of Guests' || pickedLength.label!==len.label)) for len in lengthsList"
+                            <select ng-options="len.label as len.label disable when (len.disabled && (pickedLength.label==='Select number of Guests' || pickedLength.label!==len.label)) for len in reservations.lengths"
                                     ng-model="pickedLength.label"
-                                    ng-change="lengthChanged(pickedLength.label, '{{pickedLength.label}}', pickedLength); changeNumber(pickedLength);"
+                                    ng-change="reservations.lengthChanged(pickedLength.label, '{{pickedLength.label}}', pickedLength); reservations.changeNumber(pickedLength);"
                                     class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
                                     name="guestNumber_{{$index}}"
                                     ng-class="{'error-form' : submited && reservationsForm['guestNumber_' + $index].$modelValue=='Select number of Guests'}"
@@ -446,7 +445,7 @@
                           </div>
 
                           <div class="col-xs-12 col-sm-1">
-                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="removeLength($index )"></div>
+                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="reservations.removeLength($index )"></div>
                           </div>
                         </div>
 

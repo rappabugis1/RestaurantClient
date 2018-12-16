@@ -87,6 +87,19 @@ angular.module('clientApp')
           callback(reponse);
         });
       }
+      ,
+
+      getAdminDetails: function (payload, callback){
+        $http.post('/app/admin/adminGetDetails', payload)
+          .then (function onSuccess(response) {
+            callback(response);
+          })
+          .catch(function onError(response) {
+            if(response.status===400){
+              callback(response);
+            }
+          })
+      }
 
     };
   });

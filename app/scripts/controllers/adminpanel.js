@@ -24,10 +24,9 @@ angular.module('clientApp')
 
   })
 
-  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis,$log, $window, fileReader, AdminLocationService, AdminCategoryService, FirestoreService, RestaurantService)  {
+  .controller('AdminRestaurantManipulationController', function ($scope,$route, FilterFactoryServis,$log, $window, fileReader, AdminLocationService, AdminCategoryService, FirestoreService, RestaurantService)  {
 
     var rest = this;
-
 
     $scope.maxSize = 5;
     $scope.searchText="";
@@ -75,120 +74,7 @@ angular.module('clientApp')
       });
     };
 
-
-    //Price Range
-    $scope.priceRanges = ['Low', 'Lower Medium', 'Medium', 'Upper Medium', 'High'];
-
-    //Tables
-
-    $scope.tablesPayload = {
-      addQueue: [],
-      editQueue: [],
-      deleteQueue: [],
-      restaurantId: ""
-    };
-
-    $scope.newTables = [];
-
-
-    $scope.tablesList=
-      [ {id: 'Select type of tables', label: 'Select type of tables' , numberGuests: 1,disabled : true},
-        { id: 'Tables for one', label: 'Tables for one', numberGuests: 1 },
-        { id: 'Tables for two', label: 'Tables for two', numberGuests: 2 },
-        { id: 'Tables for three', label: 'Tables for three', numberGuests: 3},
-        { id: 'Tables for four', label: 'Tables for four', numberGuests: 4},
-        { id: 'Tables for five', label: 'Tables for five', numberGuests: 5},
-        { id: 'Tables for six', label: 'Tables for six', numberGuests: 6},
-        { id: 'Tables for seven', label: 'Tables for seven', numberGuests: 7},
-        { id: 'Tables for eight', label: 'Tables for eight', numberGuests: 8},
-        { id: 'Tables for nine', label: 'Tables for nine', numberGuests: 9},
-        { id: 'Tables for ten', label: 'Tables for ten', numberGuests: 10}];
-
-
-
-    $scope.addNewTables = function () {
-      $scope.newTables.push({tableType: $scope.tablesList[0].label, amount: ""});
-    };
-
-    //add three place holders tables
-    $scope.addNewTables();
-    $scope.addNewTables();
-    $scope.addNewTables();
-
-    $scope.removeTables = function(index) {
-
-      $scope.changeDisabled( $scope.newTables[index].tableType, false);
-
-      $scope.newTables.splice(index,1);
-
-    };
-
-    $scope.typeChanged= function(newtype, oldtype) {
-      $scope.changeDisabled(newtype, true);
-      $scope.changeDisabled(oldtype, false);
-    };
-
-    $scope.changeDisabled= function(type, toDisabled){
-
-      if(type && type!=='Select type of tables'){
-        $scope.tablesList.forEach(function (element, index) {
-          if(element.label===type)
-            $scope.typeIndex=index;
-        });
-
-        $scope.tablesList[$scope.typeIndex].disabled=toDisabled;
-      }
-    };
-
-    //Tables End
-
-
-    //Dishes
-
-    RestaurantService.getDishTypes(function (response) {
-      $scope.dishTypes= response.data;
-    });
-
-    $scope.dishesPayload = {
-      addQueue: [],
-      editQueue: [],
-      deleteQueue: [],
-      restaurantId: ""
-    };
-
-    $scope.dishes=[];
-
-    $scope.radioModel = 'Breakfast';
-
-    $scope.addNewDish = function (menuType) {
-      $scope.dishes.push({name: "", description: "", price: "", dishType: "", menuType: menuType})
-    };
-
-    $scope.removeDish = function(index) {
-
-      //If deleted dish has an id, put it in delete queue
-      if($scope.dishes[index].id)
-        $scope.dishesPayload.deleteQueue.push($scope.dishes[index].id);
-
-      $scope.dishes.splice(index,1);
-    };
-
-    $scope.editDish = function(index){
-      //if dish has id and not in queue, put it in edit queue
-      if($scope.dishes[index].id && $scope.dishesPayload.editQueue.indexOf($scope.dishes[index]))
-        $scope.dishesPayload.editQueue.push($scope.dishes[index]);
-    };
-
-    //Add three placeholder dishes
-    $scope.addNewDish('Breakfast');
-    $scope.addNewDish('Breakfast');
-    $scope.addNewDish('Breakfast');
-
-    //Dishes End
-
-
     $scope.view = false;
-
 
     // change view false shows table, true shows edit
     $scope.changeView= function(changeType, restaurant){
@@ -198,6 +84,61 @@ angular.module('clientApp')
 
       if(changeType==='Edit') {
         $scope.edit = true;
+
+        //Get restaurant data
+        RestaurantService.getAdminDetails({id: restaurant.id}, function (response) {
+
+          //update google maps
+          $scope.marker.coordinates.longitude = response.data.basicDetails.longitude;
+          $scope.marker.coordinates.latitude=response.data.basicDetails.latitude;
+          $scope.map.center.latitude=response.data.basicDetails.latitude;
+          $scope.map.center.longitude=response.data.basicDetails.longitude;
+
+          //update basic info
+          rest.restaurantName = response.data.basicDetails.restaurantName;
+          rest.priceRange = $scope.priceRanges[response.data.basicDetails.priceRange-1];
+          rest.resDescription =response.data.basicDetails.description;
+
+          $scope.locations.forEach(function (country) {
+            country.city_names.forEach(function(city){
+              if(city.name===response.data.location){
+                $scope.country=country;
+                rest.city=city;
+              }
+            })
+          });
+
+          response.data.categories.forEach(function(val){
+            $scope.pickedCategories.push(val.name);
+            $scope.pickedCatPayload.push(val.id);
+          });
+
+          rest.defaultLength =response.data.basicDetails.defaultStay;
+          rest.imageLogoSrc= response.data.basicDetails.imageFileName;
+          rest.imageCoverSrc=response.data.basicDetails.coverFileName;
+
+          //update dishes
+          $scope.dishes.dishesList= response.data.dishes;
+
+          //update tables
+          rest.tables.newTables=[];
+
+          response.data.tablesNumbers.forEach(function (element) {
+            var type =rest.tables.findTableType(element.tableType);
+
+            rest.tables.newTables.push({tableType: type, amount: element.amount, original:element.amount});
+            rest.tables.changeDisabled(type, true);
+
+          });
+
+          //update reservation lengths
+
+          response.data.lengths.forEach(function (len) {
+            $scope.reservations.addExistingLength(len);
+          });
+
+        });
+
       }
       else
         $scope.add=true;
@@ -205,10 +146,27 @@ angular.module('clientApp')
 
     $scope.cancel=function(){
       $scope.view=false;
+      rest.tables=new Tables();
+      $scope.dishes= new Dishes();
+      $scope.reservations=new Reservations();
+      rest.restaurantName = null;
+      rest.priceRange = null;
+      rest.resDescription =null;
+      $scope.country=null;
+      rest.city=null;
+      $scope.pickedCategories=[];
+      $scope.pickedCatPayload=[];
+
+      rest.defaultLength =null;
+      rest.imageLogoSrc= null;
+      rest.imageCoverSrc=null;
+      $scope.restaurantForm.$setPristine();
+      $scope.submited=false;
+
     };
 
-
-
+    //Price Range
+    $scope.priceRanges = ['Low', 'Lower Medium', 'Medium', 'Upper Medium', 'High'];
 
     //Locations
 
@@ -221,15 +179,17 @@ angular.module('clientApp')
 
     //Categories
 
-    $scope.pickedCatPayload=[];
-
-    $scope.pickedCategories= [];
-
     AdminCategoryService.getAllCategories(function (response) {
       if(response.status!==400){
         $scope.categories = response.data;
       }
     });
+
+    $scope.pickedCatPayload=[];
+
+    $scope.pickedCategories= [];
+
+
 
     $scope.pickCategory= function(category){
       if($scope.pickedCategories.indexOf(category.name)===-1) {
@@ -258,72 +218,7 @@ angular.module('clientApp')
         }
     };
 
-    //Reservation lengths
-
-    $scope.lengthsList=
-      [ {id: 'Select number of Guests', label: 'Select number of Guests' , numberGuests: 0,disabled : true},
-        { id: 'One person', label: 'One person', numberGuests: 1 },
-        { id: 'Two people', label: 'Two people', numberGuests: 2 },
-        { id: 'Three people', label: 'Three people', numberGuests: 3 },
-        { id: 'Four people', label: 'Four people', numberGuests: 4},
-        { id: 'Five people', label: 'Five people', numberGuests: 5},
-        { id: 'Six people', label: 'Six people', numberGuests: 6},
-        { id: 'Seven people', label: 'Seven people', numberGuests: 7},
-        { id: 'Eight people', label: 'Eight people', numberGuests: 8},
-        { id: 'Nine people', label: 'Nine people', numberGuests: 9},
-        { id: 'Ten people', label: 'Ten people', numberGuests: 10}];
-
-    $scope.reservationLengthsPayload= {
-      addQueue: [],
-      editQueue: [],
-      deleteQueue: [],
-      restaurantId: ""
-    };
-
-    $scope.reservationLengths =[];
-
-    $scope.addLength = function () {
-      $scope.reservationLengths.push({label: $scope.lengthsList[0].label, guestNumber: $scope.lengthsList[0].numberGuests, workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
-    };
-
-    $scope.removeLength = function (index) {
-      //Add id to delete que
-      if($scope.reservationLengths[index].id){
-        $scope.reservationLengthsPayload.deleteQueue.push($scope.reservationLengths[index].id);
-      }
-
-      $scope.changeDisabledLength($scope.reservationLengths[index].label, false);
-
-      $scope.reservationLengths.splice(index, 1);
-    };
-
-    $scope.changeNumber=function(value){
-      $scope.lengthsList.forEach(function (len) {
-        if(len.label===value.label)
-          $scope.reservationLengths[$scope.reservationLengths.indexOf(value)].guestNumber=len.numberGuests;
-      });
-    };
-
-    $scope.lengthChanged= function(newtype, oldtype) {
-      $scope.changeDisabledLength(newtype, true);
-      $scope.changeDisabledLength(oldtype, false);
-    };
-
-    $scope.changeDisabledLength= function(type, toDisabled){
-
-      if(type && type!=='Select number of Guests'){
-        $scope.lengthsList.forEach(function (element, index) {
-          if(element.label===type)
-            $scope.lengthIndex=index;
-        });
-
-        $scope.lengthsList[$scope.lengthIndex].disabled=toDisabled;
-      }
-    };
-
-
     //Images
-
 
     //imagesurl
     $scope.imageLogoUrl = "";
@@ -332,9 +227,208 @@ angular.module('clientApp')
     rest.imageLogoSrc="";
     rest.imageCoverSrc="";
 
-    $scope.$on("fileProgress", function(e, progress) {
-      $scope.progress = progress.loaded / progress.total;
+
+    //Tables
+
+    function Tables(){
+
+      this.tablesPayload = {
+        addQueue: [],
+        editQueue: [],
+        deleteQueue: [],
+        restaurantId: ""
+      };
+
+      this.newTables = [];
+
+      this.tablesList=
+        [ {id: 'Select type of tables', label: 'Select type of tables' , numberGuests: 0,disabled : true},
+          { id: 'Tables for one', label: 'Tables for one', numberGuests: 1 },
+          { id: 'Tables for two', label: 'Tables for two', numberGuests: 2 },
+          { id: 'Tables for three', label: 'Tables for three', numberGuests: 3},
+          { id: 'Tables for four', label: 'Tables for four', numberGuests: 4},
+          { id: 'Tables for five', label: 'Tables for five', numberGuests: 5},
+          { id: 'Tables for six', label: 'Tables for six', numberGuests: 6},
+          { id: 'Tables for seven', label: 'Tables for seven', numberGuests: 7},
+          { id: 'Tables for eight', label: 'Tables for eight', numberGuests: 8},
+          { id: 'Tables for nine', label: 'Tables for nine', numberGuests: 9},
+          { id: 'Tables for ten', label: 'Tables for ten', numberGuests: 10}];
+
+      this.addNewTables = function () {
+        this.newTables.push({tableType: this.tablesList[0].label, amount: ""});
+      };
+
+      this.removeTables = function(index) {
+
+        this.changeDisabled( this.newTables[index].tableType, false);
+        this.newTables.splice(index,1);
+
+      };
+
+      this.findTableType=function (number) {
+        var label;
+        this.tablesList.forEach(function (element) {
+          if(element.numberGuests===number)
+            label=element.label
+        });
+        return label;
+      };
+
+      this.typeChanged= function(newtype, oldtype) {
+        this.changeDisabled(newtype, true);
+        this.changeDisabled(oldtype, false);
+      };
+
+      this.changeDisabled= function(type, toDisabled){
+        this.typeIndex=0;
+
+        if(type && type!=='Select type of tables'){
+          this.tablesList.forEach(function (element, index) {
+            if(element.label===type)
+              this.typeIndex=index;
+          }, this);
+
+          this.tablesList[this.typeIndex].disabled=toDisabled;
+        }
+      };
+
+    }
+
+    rest.tables= new Tables();
+
+    //add three place holders tables
+    rest.tables.addNewTables();
+    rest.tables.addNewTables();
+    rest.tables.addNewTables();
+
+    //Tables End
+
+
+    //Dishes
+
+    function Dishes() {
+
+      this.dishesPayload = {
+        addQueue: [],
+        editQueue: [],
+        deleteQueue: [],
+        restaurantId: ""
+      };
+
+      this.dishesList=[];
+
+
+      this.addNewDish = function (menuType) {
+        this.dishesList.push({name: "", description: "", price: "", dishType: "", menuType: menuType})
+      };
+
+      this.removeDish = function(index) {
+
+        //If deleted dish has an id, put it in delete queue
+        if(this.dishesList[index].id)
+          this.dishesPayload.deleteQueue.push(this.dishesList[index].id);
+
+        this.dishesList.splice(index,1);
+      };
+
+      this.editDish = function(index){
+        //if dish has id and not in queue, put it in edit queue
+        if(this.dishesList[index].id && this.dishesPayload.editQueue.indexOf(this.dishesList[index]))
+          this.dishesPayload.editQueue.push(this.dishesList[index]);
+      };
+    }
+
+    $scope.dishes= new Dishes();
+
+    RestaurantService.getDishTypes(function (response) {
+      $scope.dishTypes= response.data;
     });
+
+    $scope.radioModel = 'Breakfast';
+
+    //Add three placeholder dishes
+    $scope.dishes.addNewDish('Breakfast');
+    $scope.dishes.addNewDish('Breakfast');
+    $scope.dishes.addNewDish('Breakfast');
+
+    //Dishes End
+
+    //Reservations
+
+    //constructor for reservations length object controller
+    function Reservations() {
+
+      this.lengths= [ {id: 'Select number of Guests', label: 'Select number of Guests' , numberGuests: 0,disabled : true},
+                      { id: 'One person', label: 'One person', numberGuests: 1 },
+                      { id: 'Two people', label: 'Two people', numberGuests: 2 },
+                      { id: 'Three people', label: 'Three people', numberGuests: 3 },
+                      { id: 'Four people', label: 'Four people', numberGuests: 4},
+                      { id: 'Five people', label: 'Five people', numberGuests: 5},
+                      { id: 'Six people', label: 'Six people', numberGuests: 6},
+                      { id: 'Seven people', label: 'Seven people', numberGuests: 7},
+                      { id: 'Eight people', label: 'Eight people', numberGuests: 8},
+                      { id: 'Nine people', label: 'Nine people', numberGuests: 9},
+                      { id: 'Ten people', label: 'Ten people', numberGuests: 10}];
+
+      this.pickedLengths = [];
+
+      this.reservationLengthsPayload= {
+        addQueue: [],
+        editQueue: [],
+        deleteQueue: [],
+        restaurantId: ""
+      };
+
+      this.addLength = function () {
+          this.pickedLengths.push({label: this.lengths[0].label, guestNumber: this.lengths[0].numberGuests, workday: {morning: "", day: "", evening: ""},  weekend: {morning: "", day: "", evening: ""}});
+        };
+
+      this.addExistingLength = function (length) {
+        this.pickedLengths.push({id:length.id, label: this.lengths[length.guestNumber].label, guestNumber: length.guestNumber, workday:{morning:length.stayByDays[0].morning, day:length.stayByDays[0].day, evening: length.stayByDays[0].evening}, weekend: {morning:length.stayByDays[1].morning, day:length.stayByDays[1].day, evening: length.stayByDays[1].evening}})
+        this.changeDisabledLength(this.lengths[length.guestNumber],true);
+      };
+
+      this.removeLength = function (index) {
+          //Add id to delete que
+          if(this.pickedLengths[index].id){
+            this.reservationLengthsPayload.deleteQueue.push(this.pickedLengths[index].id);
+          }
+
+          this.changeDisabledLength(this.pickedLengths[index].label, false);
+
+          this.pickedLengths.splice(index, 1);
+        };
+
+      this.changeNumber = function(value){
+
+          this.lengths.forEach(function (len) {
+            if(len.label===value.label)
+              this.pickedLengths[this.pickedLengths.indexOf(value)].guestNumber=len.numberGuests;
+          }, this);
+        };
+
+      this.lengthChanged =  function(newtype, oldtype) {
+          this.changeDisabledLength(newtype, true);
+          this.changeDisabledLength(oldtype, false);
+        };
+
+      this.changeDisabledLength =  function(type, toDisabled){
+          this.lengthIndex =0;
+
+          if(type && type!=='Select number of Guests'){
+            this.lengths.forEach(function (element, index) {
+              if(element.label===type)
+                this.lengthIndex=index;
+            }, this);
+
+            this.lengths[this.lengthIndex].disabled=toDisabled;
+          }
+        }
+      }
+
+    $scope.reservations = new Reservations();
+
+
 
     //Basic info
 
@@ -347,7 +441,6 @@ angular.module('clientApp')
     $scope.changePrice = function() {rest.restPriceInv=false};
 
     $scope.$watchCollection('pickedCategories',function () { rest.restCatInv=false; });
-
 
     var validateBasicDetails= function () {
 
@@ -402,7 +495,7 @@ angular.module('clientApp')
               imageFileName: $scope.imageLogoUrl,
               coverFileName: $scope.imageCoverUrl,
               categories: $scope.pickedCatPayload,
-              defaultStay: $scope.defaultLength
+              defaultStay: rest.defaultLength
             };
 
             //then => save rest
@@ -411,40 +504,40 @@ angular.module('clientApp')
               $scope.currentTask="Adding menu...";
 
               //Add NEW dishes to payload
-              $scope.dishes.forEach(function (value) {
-                $scope.dishesPayload.addQueue.push(value);
+              $scope.dishes.dishesList.forEach(function (value) {
+                $scope.dishes.dishesPayload.addQueue.push(value);
               });
 
-              $scope.dishesPayload.restaurantId=response.data.id;
+              $scope.dishes.dishesPayload.restaurantId=response.data.id;
 
               //then => save menu
-              RestaurantService.restaurantMenuItems($scope.dishesPayload, function () {
+              RestaurantService.restaurantMenuItems($scope.dishes.dishesPayload, function () {
 
                 $scope.progress=70;
                 $scope.currentTask="Adding tables...";
 
-                $scope.newTables.forEach(function (value) {
-                  $scope.tablesList.forEach(function (tableInfo) {
+                rest.tables.newTables.forEach(function (value) {
+                  rest.tables.tablesList.forEach(function (tableInfo) {
                     if(tableInfo.label===value.tableType)
-                      $scope.tablesPayload.addQueue.push({tableType: tableInfo.numberGuests, amount: value.amount});
+                      rest.tables.tablesPayload.addQueue.push({tableType: tableInfo.numberGuests, amount: value.amount});
                   });
                 });
 
-                $scope.tablesPayload.restaurantId=$scope.dishesPayload.restaurantId;
+                rest.tables.tablesPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
 
-                RestaurantService.restaurantTables($scope.tablesPayload, function () {
+                RestaurantService.restaurantTables(rest.tables.tablesPayload, function () {
 
                   $scope.progress=80;
                   $scope.currentTask="Adding reservation lengths...";
 
-                  $scope.reservationLengths.forEach(function (groupLength) {
+                  $scope.reservations.pickedLengths.forEach(function (groupLength) {
                     if(!groupLength.index)
-                      $scope.reservationLengthsPayload.addQueue.push(groupLength);
+                      $scope.reservations.reservationLengthsPayload.addQueue.push(groupLength);
                   });
 
-                  $scope.reservationLengthsPayload.restaurantId=$scope.dishesPayload.restaurantId;
+                  $scope.reservations.reservationLengthsPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
 
-                  RestaurantService.restaurantReservationLengths($scope.reservationLengthsPayload, function () {
+                  RestaurantService.restaurantReservationLengths($scope.reservations.reservationLengthsPayload, function () {
                     $scope.progress=100;
                     $scope.currentTask="Finalising...";
                     $scope.success="Restaurant saved successfully.";
@@ -461,7 +554,9 @@ angular.module('clientApp')
 
       }
 
-    }
+    };
+
+
 
 
   })
