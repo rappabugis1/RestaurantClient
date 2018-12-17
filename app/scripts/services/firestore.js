@@ -19,18 +19,23 @@ angular.module('clientApp')
       return new Blob([u8arr], {type:mime});
     };
 
-    var uploadImg = function (url, callback) {
+    var uploadImg = function (url, isChanged ,callback) {
 
-      var storageRef = firebase.storage().ref("restaurant_images/" + guid());
-      var storage = $firebaseStorage(storageRef);
+      if(isChanged){
+        var storageRef = firebase.storage().ref("restaurant_images/" + guid());
+        var storage = $firebaseStorage(storageRef);
 
-      var uploadProfileTask = storage.$put(dataUrltoBlob(url));
-      uploadProfileTask.$complete(function(snapshot) {
-        snapshot.ref.getDownloadURL()
-          .then(function(downUrl){
-          callback(downUrl);
-        })  ;
-      });
+        var uploadProfileTask = storage.$put(dataUrltoBlob(url));
+        uploadProfileTask.$complete(function(snapshot) {
+          snapshot.ref.getDownloadURL()
+            .then(function(downUrl){
+              callback(downUrl);
+            })  ;
+        });
+      } else {
+        callback();
+      }
+
     };
 
     function guid() {
@@ -40,9 +45,17 @@ angular.module('clientApp')
           .substring(1);
       }
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
+    };
+
+    var deleteImage=function (url) {
+      var storageRef = firebase.storage().ref(url);
+      var storage = $firebaseStorage(storageRef);
+
+      storage.$delete();
+    };
 
     return {
-      uploadImage : uploadImg
+      uploadImage : uploadImg,
+      deleteImage : deleteImage
     };
   });

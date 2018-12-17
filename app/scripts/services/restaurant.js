@@ -52,10 +52,17 @@ angular.module('clientApp')
           });
       },
 
-      adminAddRestaurant : function (payload, callback) {
-        $http.post('/app/admin/addRestaurant', payload) .then( function onSucces(response){
-          callback(response);
-        });
+      adminSaveRestaurant : function (payload, callback) {
+        if(payload.id){
+          $http.post('/app/admin/editRestaurant', payload) .then( function onSucces(response){
+            callback(response);
+          });
+        }else{
+          $http.post('/app/admin/addRestaurant', payload) .then( function onSucces(response){
+            callback(response);
+          });
+        }
+
       },
 
       restaurantMenuItems : function (payload, callback) {

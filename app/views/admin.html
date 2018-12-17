@@ -118,7 +118,6 @@
                     <ng-form name="basicDetailsForm">
 
                       <div class="row">
-
                         <div class="col-xs-12 col-sm-6 col-logo">
 
                           <div class="form-label">Add logo/profile</div>
@@ -298,24 +297,27 @@
                             placeholder="Name"
                             ng-model="dish.name"
                             required="required"
-                            name="dishName_{{$index}}"
-                            ng-class="{'error-form' :  menuForm['dishName_' + $index].$error.required && submited}"
+                            name="dishName_{{radioModel}}_{{$index}}"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                            ng-class="{'error-form' :  menuForm['dishName_'+radioModel+'_' + $index].$error.required && submited}"
                           >
 
                           <input
                             type="text"
                             class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
                             placeholder="Description"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
                             ng-model="dish.description">
                         </div>
 
                         <div class="col-xs-12 col-sm-2">
                           <select class="custom-select login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
-                                  name="dishType_{{$index}}"
+                                  name="dishType_{{radioModel}}_{{$index}}"
                                   ng-model="dish.dishType"
                                   required="required"
+                                  ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
                                   ng-options="dishType for dishType in dishTypes"
-                                  ng-class="{'error-form' :  menuForm['dishType_' + $index].$error.required && submited}"
+                                  ng-class="{'error-form' :  menuForm['dishType_'+radioModel+'_' + $index].$error.required && submited}"
 
                           >
                           </select>
@@ -329,8 +331,9 @@
                             min=1
                             placeholder="Price"
                             ng-model="dish.price"required="required"
-                            name="dishPrice_{{$index}}"
-                            ng-class="{'error-form' :  menuForm['dishPrice_' + $index].$error.required && submited}"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                            name="dishPrice_{{radioModel}}_{{$index}}"
+                            ng-class="{'error-form' :  menuForm['dishPrice_'+radioModel+'_' + $index].$error.required && submited}"
                           >
                         </div>
 
@@ -349,7 +352,6 @@
 
                 <uib-tab index="2" heading="Tables">
                   <div class="tab-pane-admin">
-
                     <ng-form name="tablesForm">
                       <div class="row admin-menu-dish-margin admin-menu-select " >
                         <button class="btn admin-menu-add float-right" type="button" ng-click="rest.tables.addNewTables()" ng-disabled="rest.tables.newTables.length===10">Add new table</button>
@@ -379,7 +381,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-1">
-                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="rest.tables.removeTables(tables.newTables.indexOf(tablesRow))"></div>
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="rest.tables.removeTables(rest.tables.newTables.indexOf(tablesRow))"></div>
                         </div>
                       </div>
 
@@ -445,7 +447,7 @@
                           </div>
 
                           <div class="col-xs-12 col-sm-1">
-                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="reservations.removeLength($index )"></div>
+                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="reservations.removeLength($index)"></div>
                           </div>
                         </div>
 
@@ -461,6 +463,7 @@
                                    type="number"
                                    placeholder="Average meal length"
                                    ng-model="pickedLength.workday.morning"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
                                    min="15"
@@ -474,9 +477,9 @@
                                    type="number"
                                    placeholder="Average meal length"
                                    ng-model="pickedLength.workday.day"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
-
                                    min="15"
                                    max="245"
                                    step="15">
@@ -488,9 +491,9 @@
                                    type="number"
                                    placeholder="Average meal length"
                                    ng-model="pickedLength.workday.evening"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['eveningWork_' + $index].$error.required}"
-
                                    min="15"
                                    max="245"
                                    step="15">
@@ -509,7 +512,7 @@
                                    ng-model="pickedLength.weekend.morning"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['morningWeek_' + $index].$error.required}"
-
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    min="15"
                                    max="245"
                                    step="15">
@@ -524,7 +527,7 @@
                                    ng-model="pickedLength.weekend.day"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['dayWeek_' + $index].$error.required}"
-
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    min="15"
                                    max="245"
                                    step="15">
@@ -539,7 +542,7 @@
                                    ng-model="pickedLength.weekend.evening"
                                    required="required"
                                    ng-class="{'error-form' : submited && reservationsForm['eveningWeek_' + $index].$error.required}"
-
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
                                    min="15"
                                    max="245"
                                    step="15">

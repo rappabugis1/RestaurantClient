@@ -24,7 +24,7 @@ angular.module('clientApp')
 
   })
 
-  .controller('AdminRestaurantManipulationController', function ($scope,$route, FilterFactoryServis,$log, $window, fileReader, AdminLocationService, AdminCategoryService, FirestoreService, RestaurantService)  {
+  .controller('AdminRestaurantManipulationController', function ($scope, FilterFactoryServis, $log, $window, fileReader, AdminLocationService, AdminCategoryService, FirestoreService, RestaurantService)  {
 
     var rest = this;
 
@@ -88,6 +88,8 @@ angular.module('clientApp')
         //Get restaurant data
         RestaurantService.getAdminDetails({id: restaurant.id}, function (response) {
 
+          $scope.idRestaurant= response.data.basicDetails.id;
+
           //update google maps
           $scope.marker.coordinates.longitude = response.data.basicDetails.longitude;
           $scope.marker.coordinates.latitude=response.data.basicDetails.latitude;
@@ -116,6 +118,10 @@ angular.module('clientApp')
           rest.defaultLength =response.data.basicDetails.defaultStay;
           rest.imageLogoSrc= response.data.basicDetails.imageFileName;
           rest.imageCoverSrc=response.data.basicDetails.coverFileName;
+          $scope.imageCoverUrl=response.data.basicDetails.coverFileName;
+          $scope.imageLogoUrl =response.data.basicDetails.imageFileName;
+          $scope.logoChanged=false;
+          $scope.coverChanged=false;
 
           //update dishes
           $scope.dishes.dishesList= response.data.dishes;
@@ -132,6 +138,7 @@ angular.module('clientApp')
           });
 
           //update reservation lengths
+          $scope.reservations.originalLengths=response.data.lengths;
 
           response.data.lengths.forEach(function (len) {
             $scope.reservations.addExistingLength(len);
@@ -156,13 +163,14 @@ angular.module('clientApp')
       rest.city=null;
       $scope.pickedCategories=[];
       $scope.pickedCatPayload=[];
-
       rest.defaultLength =null;
       rest.imageLogoSrc= null;
       rest.imageCoverSrc=null;
       $scope.restaurantForm.$setPristine();
       $scope.submited=false;
-
+      $scope.success=null;
+      $scope.logoChanged=false;
+      $scope.coverChanged=false;
     };
 
     //Price Range
@@ -186,10 +194,7 @@ angular.module('clientApp')
     });
 
     $scope.pickedCatPayload=[];
-
     $scope.pickedCategories= [];
-
-
 
     $scope.pickCategory= function(category){
       if($scope.pickedCategories.indexOf(category.name)===-1) {
@@ -203,7 +208,6 @@ angular.module('clientApp')
       $scope.pickedCatPayload.splice(index,1);
 
     };
-
 
     //Map
 
@@ -223,10 +227,34 @@ angular.module('clientApp')
     //imagesurl
     $scope.imageLogoUrl = "";
     $scope.imageCoverUrl = "";
+    rest.imageLogoSrc= null;
+    rest.imageCoverSrc=null;
 
-    rest.imageLogoSrc="";
-    rest.imageCoverSrc="";
+    $scope.$watch('rest.imageLogoSrc', function (newVal, oldVal) {
+      if(newVal){
+        if($scope.edit ) {
+          if( oldVal!==null)
+            $scope.logoChanged=true;
 
+        } else {
+          $scope.logoChanged=true;
+        }
+      }
+
+
+    });
+    $scope.$watch('rest.imageCoverSrc', function (newVal, oldVal) {
+      if(newVal){
+        if($scope.edit ) {
+          if( oldVal!==null)
+            $scope.coverChanged=true;
+
+        } else {
+          $scope.coverChanged=true;
+        }
+      }
+
+    });
 
     //Tables
 
@@ -260,6 +288,14 @@ angular.module('clientApp')
 
       this.removeTables = function(index) {
 
+        if(this.newTables[index].original){
+          this.tablesPayload.deleteQueue.push(this.newTables[index]);
+
+          if(this.tablesPayload.editQueue.indexOf(this.newTables[index])>=0)
+            this.tablesPayload.editQueue.splice(this.tablesPayload.editQueue.indexOf(this.newTables[index]), 1);
+        }
+
+
         this.changeDisabled( this.newTables[index].tableType, false);
         this.newTables.splice(index,1);
 
@@ -275,8 +311,24 @@ angular.module('clientApp')
       };
 
       this.typeChanged= function(newtype, oldtype) {
+        this.addIfRemoved(newtype);
         this.changeDisabled(newtype, true);
         this.changeDisabled(oldtype, false);
+      };
+
+      this.addIfRemoved= function(newType){
+        //If the table was already removed, just put it back
+        this.tablesPayload.deleteQueue.forEach(function (value) {
+          if(value.tableType===newType){
+            this.newTables.forEach(function (newTable) {
+              if(newTable.tableType===newType){
+                newTable.amount=value.original;
+                newTable.original=value.original;
+              }
+            });
+            this.tablesPayload.deleteQueue.splice(this.tablesPayload.deleteQueue.indexOf(value),1);
+          }
+        }, this);
       };
 
       this.changeDisabled= function(type, toDisabled){
@@ -295,6 +347,20 @@ angular.module('clientApp')
     }
 
     rest.tables= new Tables();
+
+    $scope.finishPayloadTables = function(){
+      rest.tables.newTables.forEach(function (value) {
+        rest.tables.tablesList.forEach(function(defaultLength){
+          if(defaultLength.label===value.tableType){
+            if(!value.original)
+              rest.tables.tablesPayload.addQueue.push({tableType:defaultLength.numberGuests, amount:value.amount});
+            if(value.original && value.original!==value.amount)
+              rest.tables.tablesPayload.editQueue.push({tableType:defaultLength.numberGuests, amount:value.amount});
+          }
+        });
+
+      });
+    };
 
     //add three place holders tables
     rest.tables.addNewTables();
@@ -325,18 +391,38 @@ angular.module('clientApp')
       this.removeDish = function(index) {
 
         //If deleted dish has an id, put it in delete queue
-        if(this.dishesList[index].id)
+        if(this.dishesList[index].id){
           this.dishesPayload.deleteQueue.push(this.dishesList[index].id);
+
+          if(this.dishesPayload.editQueue.indexOf(this.dishesList[index])>=0)
+            this.dishesPayload.editQueue.splice(this.dishesPayload.editQueue.indexOf(this.dishesList[index]), 1);
+        }
 
         this.dishesList.splice(index,1);
       };
 
       this.editDish = function(index){
         //if dish has id and not in queue, put it in edit queue
-        if(this.dishesList[index].id && this.dishesPayload.editQueue.indexOf(this.dishesList[index]))
-          this.dishesPayload.editQueue.push(this.dishesList[index]);
+        if(this.dishesList[index].id ){
+          if(this.dishesPayload.editQueue.indexOf(this.dishesList[index])>=0)
+            this.dishesPayload.editQueue[this.dishesPayload.editQueue.indexOf(this.dishesList[index])]=this.dishesList[index];
+
+          else{
+            this.dishesPayload.editQueue.push(this.dishesList[index]);
+
+          }
+        }
       };
     }
+
+    $scope.addMenu= function() {
+      //Add NEW dishes to payload
+      $scope.dishes.dishesList.forEach(function (value) {
+        if(!value.id)
+          $scope.dishes.dishesPayload.addQueue.push(value);
+      });
+
+    };
 
     $scope.dishes= new Dishes();
 
@@ -372,6 +458,8 @@ angular.module('clientApp')
 
       this.pickedLengths = [];
 
+      this.originalLengths=[];
+
       this.reservationLengthsPayload= {
         addQueue: [],
         editQueue: [],
@@ -384,14 +472,15 @@ angular.module('clientApp')
         };
 
       this.addExistingLength = function (length) {
-        this.pickedLengths.push({id:length.id, label: this.lengths[length.guestNumber].label, guestNumber: length.guestNumber, workday:{morning:length.stayByDays[0].morning, day:length.stayByDays[0].day, evening: length.stayByDays[0].evening}, weekend: {morning:length.stayByDays[1].morning, day:length.stayByDays[1].day, evening: length.stayByDays[1].evening}})
-        this.changeDisabledLength(this.lengths[length.guestNumber],true);
+        this.pickedLengths.push({id:length.id, label: this.lengths[length.guestNumber].label, guestNumber: length.guestNumber, workday:{id:length.stayByDays[0].id, morning:length.stayByDays[0].morning, day:length.stayByDays[0].day, evening: length.stayByDays[0].evening}, weekend: {id:length.stayByDays[1].id, morning:length.stayByDays[1].morning, day:length.stayByDays[1].day, evening: length.stayByDays[1].evening}})
+        this.changeDisabledLength(this.lengths[length.guestNumber].label,true);
       };
 
       this.removeLength = function (index) {
           //Add id to delete que
           if(this.pickedLengths[index].id){
             this.reservationLengthsPayload.deleteQueue.push(this.pickedLengths[index].id);
+            this.reservationLengthsPayload.editQueue.splice(this.reservationLengthsPayload.editQueue.indexOf(this.pickedLengths[index]),1);
           }
 
           this.changeDisabledLength(this.pickedLengths[index].label, false);
@@ -405,9 +494,64 @@ angular.module('clientApp')
             if(len.label===value.label)
               this.pickedLengths[this.pickedLengths.indexOf(value)].guestNumber=len.numberGuests;
           }, this);
-        };
 
-      this.lengthChanged =  function(newtype, oldtype) {
+          this.addIfRemoved(this.pickedLengths[this.pickedLengths.indexOf(value)]);
+      };
+
+      this.addIfRemoved=function(value){
+
+        var originalLength;
+
+        this.originalLengths.forEach(function(original){
+          if(original.guestNumber===value.guestNumber){
+            originalLength=original;
+          }
+        },this);
+
+        var deletedValue;
+
+        this.reservationLengthsPayload.deleteQueue.forEach(function(deletedLengthID){
+          if(deletedLengthID===originalLength.id){
+            value.id=originalLength.id;
+             value.label=this.lengths[originalLength.guestNumber].label;
+             value.guestNumber=originalLength.guestNumber;
+             value.workday.morning=originalLength.stayByDays[0].morning;
+             value.workday.day=originalLength.stayByDays[0].day;
+             value.workday.evening=originalLength.stayByDays[0].evening;
+             value.workday.id=originalLength.stayByDays[0].id;
+             value.weekend.morning=originalLength.stayByDays[1].morning;
+             value.weekend.day=originalLength.stayByDays[1].day;
+             value.weekend.evening=originalLength.stayByDays[1].evening;
+             value.weekend.id=originalLength.stayByDays[1].id;
+             deletedValue=deletedLengthID;
+          }
+
+        },this);
+
+        if(deletedValue)
+          this.reservationLengthsPayload.deleteQueue.splice(this.reservationLengthsPayload.deleteQueue.indexOf(deletedValue),1);
+
+      };
+
+      this.lengthsChanged=function(value){
+
+        if(value.id)
+          this.pickedLengths[this.pickedLengths.indexOf(value)].changed=true;
+      };
+
+      this.removeIdIfThereIs=function (index) {
+        if(this.pickedLengths[index].id){
+          this.reservationLengthsPayload.deleteQueue.push(this.pickedLengths[index].id);
+          this.reservationLengthsPayload.editQueue.splice(this.reservationLengthsPayload.editQueue.indexOf(this.pickedLengths[index]),1);
+        }
+        delete this.pickedLengths[index].id;
+        delete this.pickedLengths[index].workday.id;
+        delete this.pickedLengths[index].weekend.id;
+
+      };
+
+      this.lengthChanged =  function(newtype, oldtype, value) {
+          this.removeIdIfThereIs(this.pickedLengths.indexOf(value));
           this.changeDisabledLength(newtype, true);
           this.changeDisabledLength(oldtype, false);
         };
@@ -428,9 +572,18 @@ angular.module('clientApp')
 
     $scope.reservations = new Reservations();
 
+    $scope.finishReservationsPayload= function() {
+      //Add NEW dishes to payload
+      $scope.reservations.pickedLengths.forEach(function (value) {
+        if(!value.id)
+          $scope.reservations.reservationLengthsPayload.addQueue.push(value);
 
+        if(value.id && value.changed)
+          $scope.reservations.reservationLengthsPayload.editQueue.push(value);
 
-    //Basic info
+      });
+
+    };
 
     //Form validation
 
@@ -461,7 +614,6 @@ angular.module('clientApp')
       
     };
 
-    
     $scope.addRestaurant = function (isValid) {
       $scope.submited=true;
 
@@ -473,13 +625,15 @@ angular.module('clientApp')
         $scope.currentTask="Uploading images...";
 
         //upload logo
-        FirestoreService.uploadImage(rest.imageLogoSrc, function (downloadUrl) {
-          $scope.imageLogoUrl=downloadUrl;
+        FirestoreService.uploadImage(rest.imageLogoSrc, $scope.logoChanged, function (downloadUrl) {
+          if($scope.logoChanged)
+            $scope.imageLogoUrl=downloadUrl;
 
           $scope.progress=30;
 
           //then => upload cover
-          FirestoreService.uploadImage(rest.imageCoverSrc, function (downloadUrl) {
+          FirestoreService.uploadImage(rest.imageCoverSrc,$scope.coverChanged, function (downloadUrl) {
+            if($scope.coverChanged)
             $scope.imageCoverUrl=downloadUrl;
 
             $scope.progress=50;
@@ -498,15 +652,16 @@ angular.module('clientApp')
               defaultStay: rest.defaultLength
             };
 
+            if($scope.edit){
+              $scope.basicInfoPayload.id=$scope.idRestaurant;
+            }
+
             //then => save rest
-            RestaurantService.adminAddRestaurant($scope.basicInfoPayload, function (response) {
+            RestaurantService.adminSaveRestaurant($scope.basicInfoPayload, function (response) {
               $scope.progress=60;
               $scope.currentTask="Adding menu...";
 
-              //Add NEW dishes to payload
-              $scope.dishes.dishesList.forEach(function (value) {
-                $scope.dishes.dishesPayload.addQueue.push(value);
-              });
+              $scope.addMenu();
 
               $scope.dishes.dishesPayload.restaurantId=response.data.id;
 
@@ -516,12 +671,7 @@ angular.module('clientApp')
                 $scope.progress=70;
                 $scope.currentTask="Adding tables...";
 
-                rest.tables.newTables.forEach(function (value) {
-                  rest.tables.tablesList.forEach(function (tableInfo) {
-                    if(tableInfo.label===value.tableType)
-                      rest.tables.tablesPayload.addQueue.push({tableType: tableInfo.numberGuests, amount: value.amount});
-                  });
-                });
+                $scope.finishPayloadTables();
 
                 rest.tables.tablesPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
 
@@ -530,10 +680,7 @@ angular.module('clientApp')
                   $scope.progress=80;
                   $scope.currentTask="Adding reservation lengths...";
 
-                  $scope.reservations.pickedLengths.forEach(function (groupLength) {
-                    if(!groupLength.index)
-                      $scope.reservations.reservationLengthsPayload.addQueue.push(groupLength);
-                  });
+                  $scope.finishReservationsPayload();
 
                   $scope.reservations.reservationLengthsPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
 
@@ -555,9 +702,6 @@ angular.module('clientApp')
       }
 
     };
-
-
-
 
   })
 
