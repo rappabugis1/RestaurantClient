@@ -15,6 +15,17 @@
               Filter by <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li class="filter-item">
+                <ul class="list-unstyled">
+                  <li >
+                    <h5 class="filter-heading">RADIUS</h5>
+                  </li>
+                  <li>
+                    {{radiusHowMuch}}
+                    <input type="range" ng-model="radius" min="0" max="100" step="5" ng-change="rangeController()" ng-disabled="disableRange">
+                  </li>
+                </ul>
+              </li>
               <li role="menuitem" >
                 <ul class="list-inline filter-inline-drop">
                   <li class="filter-item">

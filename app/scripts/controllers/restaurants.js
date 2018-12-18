@@ -8,11 +8,48 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService) {
+  .controller('RestaurantsController', function (FilterFactoryServis, $scope, SessionStorageService, $location, $window, RestaurantService,GeometryService) {
 
     RestaurantService.getRestaurantLocations().then(function (response) {
       $scope.popularLocations = response.data;
     });
+
+    GeometryService.getCurrentPos().then(function () {
+      $scope.disableRange=false;
+    })
+      .catch(function () {
+        $scope.disableRange=true;
+
+      });
+    $scope.radiusHowMuch = "1 kilometer";
+
+    $scope.rangeGeo=0;
+    $scope.radius=100;
+    $scope.rangeController = function(){
+
+      if($scope.radius<=20){
+        $scope.radiusHowMuch = $scope.radius/5+1 + " kilometers";
+        $scope.rangeGeo=($scope.radius/5+1)*1000;
+      }
+
+      if($scope.radius>25){
+        $scope.rangeGeo=($scope.radius-20)*1000;
+        $scope.radiusHowMuch = $scope.radius-20 + " kilometers";
+      }
+
+      if($scope.radius===0){
+        $scope.radiusHowMuch = "Near you";
+        $scope.rangeGeo=1000;
+      }
+
+      if($scope.radius===100){
+        $scope.radiusHowMuch = "World-wide";
+        $scope.rangeGeo=0;
+      }
+
+
+    };
+    $scope.rangeController();
 
     $scope.filterLocations= function (name) {
       $scope.searchText=name;
@@ -91,18 +128,40 @@ angular.module('clientApp')
         categories: getSelectedOptions("categorymultipleright").concat(getSelectedOptions("categorymultipleleft"))
       };
 
-      FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
-        if(response.numberOfPages!==0){
-          $scope.numPages = response.numberOfPages*9;
-          $scope.restaurants = response.restaurants;
-          $scope.noResults=false;
-        } else {
-          $scope.noResults=true;
-        }
+      if($scope.rangeGeo!==0){
+        GeometryService.getCurrentPos().then(function(position){
+          $scope.searchPayload.geometry= {radius: $scope.rangeGeo, latitude: position.coords.latitude, longitude: position.coords.longitude};
 
-        $window.scrollTo(0,0);
-        $scope.loading = false;
-      });
+          FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
+            if(response.numberOfPages!==0){
+              $scope.numPages = response.numberOfPages*9;
+              $scope.restaurants = response.restaurants;
+              $scope.noResults=false;
+            } else {
+              $scope.noResults=true;
+            }
+
+            $window.scrollTo(0,0);
+            $scope.loading = false;
+          });
+
+        })
+      }else {
+        FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
+          if(response.numberOfPages!==0){
+            $scope.numPages = response.numberOfPages*9;
+            $scope.restaurants = response.restaurants;
+            $scope.noResults=false;
+          } else {
+            $scope.noResults=true;
+          }
+
+          $window.scrollTo(0,0);
+          $scope.loading = false;
+        });
+      }
+
+
     };
 
     //when coming to restaurants page trigger function once
