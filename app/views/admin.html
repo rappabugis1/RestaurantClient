@@ -558,8 +558,12 @@
                 </uib-tab>
 
               </uib-tabset>
+              <div class="alert-warning alert admin-warning" ng-repeat="error in rest.errorTables">
+                Could not delete <strong>{{error.amount}}</strong> tables for <strong>{{error.type}}</strong> because there are active reservations on those tables.
+              </div>
 
               <div class="admin-rest-form">
+
                 <uib-progressbar class="progress-striped active" max="100" value="progress" type="danger" ng-show="progress && progress!==100">{{currentTask}}</uib-progressbar>
 
                 <div class="col-sm-offset-6 col-xs-12 col-sm-6">
@@ -582,6 +586,7 @@
                     <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
 
                   </div>
+
 
                 </div>
 
@@ -1031,6 +1036,8 @@
                     </div>
                   </div>
 
+                  <h5 ng-show="edit">Change Password</h5>
+                  <input ng-show="edit" type="checkbox" class="radio" ng-model="editPassword" ng-change="password=null; confirmPassword=null;">
                   <h5>Password</h5>
 
                   <div class="form-group formg"
@@ -1041,9 +1048,10 @@
                            id="password"
                            placeholder="Password"
                            ng-model="password"
-                           required="required"
-                           minlength=5>
-                    <p ng-show=" registerForm.password.$touched && !registerForm.password.$pristine && !registerForm.password.$valid" class="help-block">Password needs to be at least 5 characters long!</p>
+                           ng-required="!edit || editPassword"
+                           minlength=5
+                           ng-disabled="edit && !editPassword">
+                    <p ng-show="editPassword && registerForm.password.$touched && !registerForm.password.$pristine && !registerForm.password.$valid" class="help-block">Password needs to be at least 5 characters long!</p>
 
                   </div>
 
@@ -1057,8 +1065,10 @@
                            id="confirmPassword"
                            placeholder="Confirm Password"
                            ng-model="confirmPassword"
-                           required="required"
-                           minlength=5>
+                           ng-required="!edit || editPassword"
+                           minlength=5
+                           ng-disabled="edit && !editPassword">
+
 
                     <p ng-show=" registerForm.confirmPassword.$touched  && confirmPassword!=password" class="help-block">Passwords do not match.</p>
                   </div>

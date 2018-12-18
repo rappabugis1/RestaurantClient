@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RestaurantController', function ($http, $scope, SessionStorageService, RestaurantService, $uibModalStack, $location, anchorSmoothScroll) {
+  .controller('RestaurantController', function ($http, $scope, $route, SessionStorageService, RestaurantService, $uibModalStack, $location, anchorSmoothScroll) {
     SessionStorageService.delete("reservationStartTime");
 
 
@@ -48,8 +48,11 @@ angular.module('clientApp')
       return ratings;
     };
 
+    $scope.map = {center: { latitude: 9, longitude: 18 }, zoom: 8 };
+    $scope.marker = {coordinates: {latitude: 9, longitude: 9}};
 
     RestaurantService.getRestaurantDetails(JSON.parse(SessionStorageService.get("restaurantId")).id).then(function (response) {
+
       $scope.restaurant = response.data;
       $scope.map = { center: { latitude: $scope.restaurant.latitude, longitude: $scope.restaurant.longitude }, zoom: 8 };
       $scope.marker = {coordinates: {latitude: $scope.restaurant.latitude, longitude: $scope.restaurant.longitude}};
@@ -167,7 +170,7 @@ angular.module('clientApp')
       }
     };
 
-    $menu.getMenu('Dinner');
+    $menu.getMenu('Breakfast');
 
   })
   .service('anchorSmoothScroll', function(){

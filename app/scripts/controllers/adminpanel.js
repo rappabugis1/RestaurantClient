@@ -171,6 +171,7 @@ angular.module('clientApp')
       $scope.success=null;
       $scope.logoChanged=false;
       $scope.coverChanged=false;
+      rest.errorTables=[];
     };
 
     //Price Range
@@ -295,7 +296,6 @@ angular.module('clientApp')
             this.tablesPayload.editQueue.splice(this.tablesPayload.editQueue.indexOf(this.newTables[index]), 1);
         }
 
-
         this.changeDisabled( this.newTables[index].tableType, false);
         this.newTables.splice(index,1);
 
@@ -349,13 +349,23 @@ angular.module('clientApp')
     rest.tables= new Tables();
 
     $scope.finishPayloadTables = function(){
+      rest.tables.tablesPayload.deleteQueue.forEach(function(deleted){
+        rest.tables.tablesList.forEach(function(defaultLength) {
+          if(defaultLength.label===deleted.tableType) {
+              deleted.tableType=defaultLength.numberGuests;
+            }
+          });
+        });
+
       rest.tables.newTables.forEach(function (value) {
         rest.tables.tablesList.forEach(function(defaultLength){
           if(defaultLength.label===value.tableType){
             if(!value.original)
               rest.tables.tablesPayload.addQueue.push({tableType:defaultLength.numberGuests, amount:value.amount});
-            if(value.original && value.original!==value.amount)
-              rest.tables.tablesPayload.editQueue.push({tableType:defaultLength.numberGuests, amount:value.amount});
+            if(value.original && value.original<value.amount)
+              rest.tables.tablesPayload.addQueue.push({tableType:defaultLength.numberGuests, amount:value.amount-value.original});
+            if(value.original && value.original>value.amount)
+              rest.tables.tablesPayload.deleteQueue.push({tableType:defaultLength.numberGuests, amount:value.original-value.amount});
           }
         });
 
@@ -614,6 +624,9 @@ angular.module('clientApp')
       
     };
 
+    rest.errorTables=[];
+
+
     $scope.addRestaurant = function (isValid) {
       $scope.submited=true;
 
@@ -668,16 +681,7 @@ angular.module('clientApp')
               //then => save menu
               RestaurantService.restaurantMenuItems($scope.dishes.dishesPayload, function () {
 
-                $scope.progress=70;
-                $scope.currentTask="Adding tables...";
-
-                $scope.finishPayloadTables();
-
-                rest.tables.tablesPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
-
-                RestaurantService.restaurantTables(rest.tables.tablesPayload, function () {
-
-                  $scope.progress=80;
+                  $scope.progress=70;
                   $scope.currentTask="Adding reservation lengths...";
 
                   $scope.finishReservationsPayload();
@@ -685,9 +689,25 @@ angular.module('clientApp')
                   $scope.reservations.reservationLengthsPayload.restaurantId=$scope.dishes.dishesPayload.restaurantId;
 
                   RestaurantService.restaurantReservationLengths($scope.reservations.reservationLengthsPayload, function () {
-                    $scope.progress=100;
-                    $scope.currentTask="Finalising...";
-                    $scope.success="Restaurant saved successfully.";
+
+                    $scope.progress = 80;
+                    $scope.currentTask = "Adding tables...";
+
+                    $scope.finishPayloadTables();
+
+
+                    rest.tables.tablesPayload.restaurantId = $scope.dishes.dishesPayload.restaurantId;
+
+                    RestaurantService.restaurantTables(rest.tables.tablesPayload, function (deletedTables) {
+                      $scope.progress = 100;
+                      $scope.currentTask = "Finalising...";
+                      $scope.success = "Restaurant saved successfully.";
+
+                      deletedTables.data.forEach(function (error) {
+                        if (error.amount > 0)
+                          rest.errorTables.push({type: error.type, amount: error.amount})
+                      });
+
                   });
                 });
 
@@ -1016,7 +1036,6 @@ angular.module('clientApp')
 
       if(changeType==='Edit') {
 
-        //TODO LOCATION
         $scope.edit = true;
         $scope.currentUser=user;
         $scope.email = user.email;
@@ -1024,6 +1043,16 @@ angular.module('clientApp')
         $scope.lastName=user.user_data.lastName;
         $scope.phone = user.user_data.phone;
         $scope.id=user.id;
+
+        $scope.locations.forEach(function (country) {
+          country.city_names.forEach(function(city){
+            if(city.id===user.user_data.location){
+              $scope.country=country;
+              $scope.city=city;
+            }
+          })
+        });
+
       }
       else
         $scope.add=true;
@@ -1032,7 +1061,10 @@ angular.module('clientApp')
     $scope.cancel=function(){
       $scope.filter();
       $scope.view=false;
-
+      $scope.error=false;
+      $scope.editPassword =false;
+      $scope.country=null;
+      $scope.city=null;
     };
 
     $scope.$watch('email',function() {
@@ -1052,8 +1084,10 @@ angular.module('clientApp')
           phone: $scope.phone,
           country: $scope.country.country_name,
           city: $scope.city.name,
-          password: $scope.password
-        };
+          password:$scope.password
+      };
+
+
 
         $scope.confirmPassword = null;
         $scope.password = null;
@@ -1070,6 +1104,8 @@ angular.module('clientApp')
               $scope.phone=null;
               $scope.success="Registration successful!";
               $scope.filter();
+              $scope.country=null;
+              $scope.city=null;
 
             }
             else {
@@ -1083,6 +1119,8 @@ angular.module('clientApp')
             $scope.loading=false;
             if (result.status!==400) {
               $scope.success="User updated successfully successful!"
+              $scope.country=null;
+              $scope.city=null;
             }
             else {
               $scope.error = result.data;
