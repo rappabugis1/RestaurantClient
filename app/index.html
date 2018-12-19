@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="styles/reservation.css">
     <link rel="stylesheet" href="styles/restaurant.css">
     <link rel="stylesheet" href="styles/restaurants.css">
+    <link rel="stylesheet" href="styles/admin.css">
+
     <!-- endbuild -->
 
   </head>
@@ -69,6 +71,14 @@
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/markerclustererplus/src/markerclusterer.js"></script>
+    <script src="bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+    <script src="bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+    <script src="bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+    <script src="bower_components/js-rich-marker/src/richmarker.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <!-- endbower -->
 
     <!-- endbuild -->
@@ -89,6 +99,20 @@
     <script src="scripts/controllers/restaurants.js"></script>
     <script src="scripts/services/filter.js"></script>
     <script src="scripts/controllers/myreservations.js"></script>
+    <script src="scripts/controllers/adminpanel.js"></script>
+    <script src="scripts/services/admincommon.js"></script>
+    <script src="scripts/services/adminlocations.js"></script>
+    <script src="scripts/services/admincategories.js"></script>
+    <script src="scripts/services/adminusers.js"></script>
+    <script src="scripts/services/firestore.js"></script>
     <!-- endbuild -->
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+
   </body>
 </html>

@@ -90,7 +90,7 @@ angular.module('clientApp')
 
       //Put payload info
       $scope.reservationCheckPayload = {
-        persons: Number($scope.selectedNumber.toString().substring(0,1)),
+        persons: $scope.selectedNumber,
         reservationDate: $scope.selectedDate.toLocaleDateString("en-GB"),
         reservationHour: $scope.selectedTime.getHours()+":"+ $scope.selectedTime.getMinutes(),
         idRestaurant: JSON.parse(SessionStorageService.get("restaurantId")).id,

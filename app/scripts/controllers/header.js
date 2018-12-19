@@ -27,6 +27,7 @@ angular.module('clientApp')
 
     $scope.Logout = function(){
       AuthenticationService.Logout();
+      $location.path('/');
     };
 
     $scope.isActive = function (activeView) {

@@ -92,8 +92,8 @@ angular.module('clientApp')
       };
 
       FilterFactoryServis.getFilterResult($scope.searchPayload, function (response) {
-        if(response.numberOfRestaurantPages!==0){
-          $scope.numPages = response.numberOfRestaurantPages*9;
+        if(response.numberOfPages!==0){
+          $scope.numPages = response.numberOfPages*9;
           $scope.restaurants = response.restaurants;
           $scope.noResults=false;
         } else {

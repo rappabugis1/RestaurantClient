@@ -20,7 +20,7 @@
         <li ng-class="{ active: isActive('/restaurants')}"><a href="#/restaurants">Restaurants</a></li>
         <li ng-if="!isLoged()" ng-class="{ active: isActive('/login')}"><a href="#/login">Login</a></li>
         <li ng-if="isLoged()" ng-class="{ active: isActive('/myreservations')}"><a href="#/myreservations">My reservations</a></li>
-        <li ng-if="isLoged() && isAdmin()" ng-class="{ active: isActive('/adminpanel')}"><a href="#/">Admin</a></li>
+        <li ng-if="isLoged() && isAdmin()" ng-class="{ active: isActive('/adminpanel')}"><a href="#/admin">Admin</a></li>
         <li ng-if="isLoged()" >
 
           <div class="btn-group logout-dropdown-div" uib-dropdown  auto-close="outsideClick" is-open="isOpen">

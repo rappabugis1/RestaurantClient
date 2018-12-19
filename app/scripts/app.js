@@ -17,9 +17,32 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngStorage',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'uiGmapgoogle-maps',
+    'firebase'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
+
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAy1-kceVQSwDE2b8zTxJhkQSJ2UAXKFek',
+      v: '3.20',
+      libraries: 'weather,geometry,visualization'
+    });
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDwXLLEIbSlRegHgiUVFy85G-Plk3sBhO4",
+      authDomain: "abhrestaurant.firebaseapp.com",
+      databaseURL: "https://abhrestaurant.firebaseio.com",
+      projectId: "abhrestaurant",
+      storageBucket: "abhrestaurant.appspot.com",
+      messagingSenderId: "44801156935"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/home.html',
@@ -62,6 +85,11 @@ angular
         controller: 'MyReservationsController'
       })
 
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller : 'AdminPanelController'
+      })
+
       .otherwise({
         redirectTo: '/'
       });
@@ -80,10 +108,27 @@ angular
     $rootScope.$on('$locationChangeStart', function () {
       var publicPages = ['/login', '/', '', '/register', '/restaurant', '/reservation', '/restaurants'];
       var restrictedPage = publicPages.indexOf($location.path()) === -1;
-      if (restrictedPage && !$localStorage.currentUser  ) {
+      if ((restrictedPage && !$localStorage.currentUser)) {
         $location.path('/login');
       }
+
+      if($location.path()==='/admin' && !isAdmin()){
+        $location.path('/login');
+      }
+
     });
+
+    var isAdmin = function () {
+      if($localStorage.currentUser){
+        var token = $localStorage.currentUser.token;
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        var json= JSON.parse(atob(base64));
+
+        return json.user_type.toString()==="admin";
+      }
+      return false;
+    };
 
     $rootScope.$on('$routeChangeSuccess', function () {
       $window.scrollTo(0,0);

@@ -8,14 +8,14 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('RegisterController', function ($scope, $http, $location, AuthenticationService) {
+  .controller('RegisterController', function ($scope, $http, $location, AuthenticationService, AdminLocationService) {
 
-
-    $http.get("jsonexp/locations.json").then(
-      function (response) {
+    AdminLocationService.getLocationsForSelect(function (response) {
+      if(response.status!==400){
         $scope.locations = response.data;
+
       }
-    );
+    });
 
     $scope.$watchGroup(['email'] ,function () {
       $scope.error=null;
@@ -30,7 +30,7 @@ angular.module('clientApp')
           lastName: $scope.lastName,
           phone: $scope.phone,
           country: $scope.country.country_name,
-          city: $scope.city,
+          city: $scope.city.name,
           password: $scope.password
         };
 
@@ -42,7 +42,8 @@ angular.module('clientApp')
           $scope.loading=false;
 
           if (result.status!==400) {
-              $location.path('/login');
+            $scope.registerForm.$setPristine(true);
+            $location.path('/login');
             }
             else {
               $scope.error = result.data;

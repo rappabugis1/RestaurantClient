@@ -183,7 +183,7 @@
             <div class="col-xs-12 col-sm-6 form-group ">
               <select class="login-form-control reservation-form-control input-lg "
                       ng-model="city"
-                      ng-options="d.valueOf() for d in country.city_names"
+                      ng-options="d.name.valueOf() for d in country.city_names"
                       required="required">
                 <option value="" disabled selected>City</option>
               </select>

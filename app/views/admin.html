@@ -1,0 +1,1116 @@
+<body>
+
+  <div class="container text-center container-admin">
+
+    <uib-tabset class="mainAdminTabs" active="activeTab">
+
+      <uib-tab index="0" heading="Dashboard">
+        {{active}}
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="admin-dash-card">
+              <img src="../images/ajax-loader.gif" ng-show="loading" />
+              <h2>{{counters.restaurantsNumber}}</h2>
+              <h5>Restaurants</h5>
+              <button class="btn btn-block btn-home " ng-click="changeActive(1)">Manage Restaurants</button>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="admin-dash-card">
+              <img src="../images/ajax-loader.gif" ng-show="loading" />
+              <h2>{{counters.locationsNumber}}</h2>
+              <h5>Locations</h5>
+              <button class="btn btn-block btn-home " ng-click="changeActive(2)">Manage Locations</button>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="admin-dash-card">
+              <img src="../images/ajax-loader.gif" ng-show="loading" />
+              <h2>{{counters.usersNumber}}</h2>
+              <h5>Users</h5>
+              <button class="btn btn-block btn-home " ng-click="changeActive(4)">Manage Users</button>
+            </div>
+          </div>
+
+        </div>
+
+      </uib-tab>
+
+      <uib-tab index="1" heading="Restaurants">
+
+        <div ng-controller="AdminRestaurantManipulationController as rest">
+
+          <div ng-show="!view" >
+            <div class="card-admin-tabs">
+
+              <ul class="list-inline text-left admin-tabs">
+                <li   >
+                  <h5  class="admin-tab-name">Restaurants :</h5>
+                </li>
+
+                <li class="a-admin float-right"  >
+                  <button class="btn btn-block admin-add-button" ng-click="changeView('Add')">Add Restaurant</button>
+                </li>
+                <li class="a-admin float-right" >
+                  <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
+                </li>
+              </ul>
+            </div>
+
+            <div class=" container-table"  >
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in filterResults">
+                  <td>{{row.restaurantName}}</td>
+
+                  <td class="icon-col">
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteRestaurant(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ></ul>
+
+          </div>
+
+          <div  ng-show="view">
+            <form name="restaurantForm" class="admin-add-rest-form" ng-submit="addRestaurant(restaurantForm.$valid)" novalidate>
+
+              <uib-tabset active="activeForm">
+
+                <!--Basic details-->
+
+                <uib-tab index="0" heading="Basic details">
+
+                  <div class="tab-pane-admin">
+
+                    <ng-form name="basicDetailsForm">
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-logo">
+
+                          <div class="form-label">Add logo/profile</div>
+
+                          <input required="required" type="file" ng-file-select="onFileSelect($files)" id="logoSrc" name="logoSrc" class="inputfile" ng-model="rest.imageLogoSrc">
+
+                          <label for="logoSrc" class="uploadlogo" ng-show="!rest.imageLogoSrc"
+                                 ng-class="{'error-form' : rest.logoInv && submited }">
+                            <img class="uploadcloud" src="../images/upload-cloud.png">
+                            Upload Logo/Profile
+                          </label>
+                          <label for="logoSrc" class="uploadlogo" ng-show="rest.imageLogoSrc">
+                            <img class="uploadedImage" ng-src="{{rest.imageLogoSrc}}">
+                          </label>
+
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Add cover</div>
+
+                          <input required  type="file" ng-file-select="onFileSelect($files)" id="coverSrc" class="inputfile" ng-model="rest.imageCoverSrc">
+                          <label for="coverSrc" class="uploadcover" ng-show="!rest.imageCoverSrc"
+                                 ng-class="{'error-form' : rest.coverInv && submited}">
+                            <img class="uploadcloud " src="../images/upload-cloud.png">
+                            Upload Cover Photo
+                          </label>
+                          <label for="coverSrc" class="uploadcover" ng-show="rest.imageCoverSrc">
+                            <img class="uploadedImage" ng-src="{{rest.imageCoverSrc}}">
+                          </label>
+
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Name</div>
+
+                          <input name="restaurantName"
+                                 class="login-form-control input-lg input-admin-forms input-admin-forms "
+                                 type="text"
+                                 id="restaurantName"
+                                 placeholder="Restaurant name"
+                                 ng-model="rest.restaurantName"
+                                 required="required"
+                                 ng-class="{'error-form' :  basicDetailsForm.restaurantName.$error.required && submited}"
+                          >
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="col-xs-12 col-sm-6  col-inside">
+                            <div class="form-label">Country</div>
+                            <select class="custom-select login-form-control input-lg input-admin-forms"
+                                    ng-model="country"
+                                    ng-options="c.country_name for c in locations"
+                                    required="required"
+                                    ng-class="{'error-form' : rest.restLocInv && submited}"
+                            >
+                              <option value="" disabled selected>Country</option>
+                            </select>
+                          </div>
+                          <div class="col-xs-12 col-sm-6 col-inside">
+                            <div class="form-label">Location</div>
+                            <select class=" login-form-control input-lg input-admin-forms"
+                                    ng-model="rest.city"
+                                    ng-options="d.name.valueOf() for d in country.city_names"
+                                    required="required"
+                                    ng-class="{'error-form' : rest.restLocInv && submited}"
+                                    ng-change="changeLoc()"
+                            >
+                              <option value="" disabled selected>City</option>
+                            </select>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 ">
+                          <div class="form-label">Categories</div>
+                          <div class="categories-add-restaurant-panel" ng-class="{'error-form' : rest.restCatInv && submited}"
+                          >
+                            <ul class="list-inline text-left">
+                              <li  ng-repeat="category in pickedCategories">
+                                <button class="btn btn-added-category" ng-click="deleteCategory($index)">
+                                  {{category}}  <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                              </li>
+                            </ul>
+
+                          </div>
+                          <div class="col-xs-12 col-sm-offset-9 col-sm-3 no-padding">
+                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv && submited}">
+                              <option value="" disabled selected>Categories</option>
+                            </select>
+                          </div>
+
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Description</div>
+                          <textarea name="resDescription" rows="5"
+                                    class="login-form-control input-lg "
+                                    type="text"
+                                    id="resDescription"
+                                    placeholder="Enter a description"
+                                    ng-model="rest.resDescription"
+                                    required="required"
+                                    ng-class="{'error-form' :  basicDetailsForm.resDescription.$error.required && submited}"
+                          ></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Coordinates (Place a marker)</div>
+
+                          <div class="admin-map">
+                            <ui-gmap-google-map center='map.center' zoom='map.zoom' events='marker.events'>
+                              <ui-gmap-marker
+                                idKey="2"
+                                coords= 'marker.coordinates'>
+                              </ui-gmap-marker>
+                            </ui-gmap-google-map>
+                          </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Price Range</div>
+                          <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="rest.priceRange"  ng-options="price for price in priceRanges" ng-change="changePrice()" ng-class="{'error-form' : rest.restPriceInv && submited}">
+                            <option value="" disabled selected>Price Range</option>
+
+                          </select>
+
+                        </div>
+                      </div>
+
+                    </ng-form>
+
+                  </div>
+
+                </uib-tab>
+
+                <!--Menu-->
+
+                <uib-tab index="1" heading="Menu">
+
+                  <div class="tab-pane-admin">
+
+                    <ng-form name = "menuForm">
+
+                      <div class="row admin-menu-dish-margin admin-menu-select " >
+
+                        <div class="col-xs-12 col-sm-10 admin-menu-row">
+                          <div class="btn-group">
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Breakfast'">Breakfast</label>
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Lunch'">Lunch</label>
+                            <label class="btn btn-menu" ng-model="radioModel" uib-btn-radio="'Dinner'">Dinner</label>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <button class="btn admin-menu-add" type="button" ng-click="dishes.addNewDish(radioModel)">Add new dish</button>
+                        </div>
+
+                      </div>
+
+
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="dish in dishes.dishesList | filter:radioModel:dish.menuType">
+                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                          {{$index+1}}.
+                        </div>
+                        <div class="col-xs-12 col-sm-5">
+                          <input
+                            type="text"
+                            class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                            placeholder="Name"
+                            ng-model="dish.name"
+                            required="required"
+                            name="dishName_{{radioModel}}_{{$index}}"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                            ng-class="{'error-form' :  menuForm['dishName_'+radioModel+'_' + $index].$error.required && submited}"
+                          >
+
+                          <input
+                            type="text"
+                            class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                            placeholder="Description"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                            ng-model="dish.description">
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <select class="custom-select login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                  name="dishType_{{radioModel}}_{{$index}}"
+                                  ng-model="dish.dishType"
+                                  required="required"
+                                  ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                                  ng-options="dishType for dishType in dishTypes"
+                                  ng-class="{'error-form' :  menuForm['dishType_'+radioModel+'_' + $index].$error.required && submited}"
+
+                          >
+                          </select>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-2">
+                          <input
+                            type="number"
+                            class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                            min=1
+                            placeholder="Price"
+                            ng-model="dish.price"required="required"
+                            ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
+                            name="dishPrice_{{radioModel}}_{{$index}}"
+                            ng-class="{'error-form' :  menuForm['dishPrice_'+radioModel+'_' + $index].$error.required && submited}"
+                          >
+                        </div>
+
+                        <div class="col-xs-12 col-sm-1">
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash" ng-click="dishes.removeDish(dishes.dishesList.indexOf(dish))"></div>
+                        </div>
+                      </div>
+
+                    </ng-form>
+
+                  </div>
+
+                </uib-tab>
+
+                <!--Tables-->
+
+                <uib-tab index="2" heading="Tables">
+                  <div class="tab-pane-admin">
+                    <ng-form name="tablesForm">
+                      <div class="row admin-menu-dish-margin admin-menu-select " >
+                        <button class="btn admin-menu-add float-right" type="button" ng-click="rest.tables.addNewTables()" ng-disabled="rest.tables.newTables.length===10">Add new table</button>
+                      </div>
+
+                      <div class="row admin-menu-row admin-dish-row" ng-repeat="tablesRow in rest.tables.newTables">
+                        <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                          {{$index+1}}.
+                        </div>
+                        <div class="col-xs-12 col-sm-5" >
+                          <select ng-options="table.label as table.label disable when (table.disabled && (tablesRow.tableType==='Select type of tables' || tablesRow.tableType!==table.label)) for table in rest.tables.tablesList"
+                                  ng-model="tablesRow.tableType"
+                                  ng-change="rest.tables.typeChanged(tablesRow.tableType, '{{tablesRow.tableType}}', tablesRow)"
+                                  class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                  name="table_{{$index}}"
+                                  ng-class="{'error-form' :  submited && tablesForm['table_' + $index].$modelValue=='Select type of tables'}"
+                          >
+                          </select>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2">
+                          <input type="number" min=1 max="25" class="login-form-control input-lg input-admin-forms admin-menu-dish-margin" placeholder="Amount" ng-model="tablesRow.amount"
+                                 required="required"
+                                 name="tableNumber_{{$index}}"
+                                 ng-class="{'error-form' :  tablesForm['tableNumber_' + $index].$error.required && submited}"
+                          >
+                        </div>
+
+                        <div class="col-xs-12 col-sm-1">
+                          <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="rest.tables.removeTables(rest.tables.newTables.indexOf(tablesRow))"></div>
+                        </div>
+                      </div>
+
+                    </ng-form>
+
+                  </div>
+
+                </uib-tab>
+
+                <!--Reservations-->
+
+                <uib-tab index="3" heading="Reservations">
+                  <div class="tab-pane-admin">
+
+                    <ng-form name = "reservationsForm">
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 hr-admin">
+                          <div class="form-label">Choose default length of reservation </div>
+                          <p class="form-label-exp">This will be the length for each group of people (in minutes, step 15 minutes) if not chosen otherwise</p>
+
+                          <input name="defaultStay"
+                                 class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                 type="number"
+                                 id="defaultStay"
+                                 placeholder="Default Length"
+                                 ng-model="rest.defaultLength"
+                                 required="required"
+                                 ng-class="{'error-form' : submited && reservationsForm.defaultStay.$error.required}"
+                                 min="15"
+                                 max="720"
+                                 step="15">
+                        </div>
+                      </div>
+
+
+                      <hr>
+
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="form-label">Or choose length for a specific group (in minutes)</div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <button class="btn admin-menu-add float-right" type="button" ng-click="reservations.addLength()" ng-disabled="reservations.pickedLengths.length===10">Add new group</button>
+                        </div>
+                      </div>
+                      <div class="row admin-menu-row admin-dish-row reservation-lenght-row" ng-repeat="pickedLength in reservations.pickedLengths">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-1  admin-menu-dish-margin">
+                            {{$index+1}}.
+                          </div>
+                          <div class="col-xs-12 col-sm-3" >
+                            <select ng-options="len.label as len.label disable when (len.disabled && (pickedLength.label==='Select number of Guests' || pickedLength.label!==len.label)) for len in reservations.lengths"
+                                    ng-model="pickedLength.label"
+                                    ng-change="reservations.lengthChanged(pickedLength.label, '{{pickedLength.label}}', pickedLength); reservations.changeNumber(pickedLength);"
+                                    class="login-form-control input-lg input-text-dish input-admin-forms admin-menu-dish-margin"
+                                    name="guestNumber_{{$index}}"
+                                    ng-class="{'error-form' : submited && reservationsForm['guestNumber_' + $index].$modelValue=='Select number of Guests'}"
+                            >
+                            </select>
+
+                          </div>
+
+                          <div class="col-xs-12 col-sm-1">
+                            <div class="glyphicon glyphicon-trash admin-menu-dish-margin admin-menu-trash"  ng-click="reservations.removeLength($index)"></div>
+                          </div>
+                        </div>
+
+
+                        <div class="row admin-length-days">
+                          <div class="col-xs-12 col-sm-4">
+                            <p class="form-label-exp length">Monday - Friday</p>
+
+                            <p class="day-p">In the Morning</p>
+
+                            <input name="morningWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.workday.morning"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Noon till Evening</p>
+
+                            <input name="dayWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.workday.day"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWork_' + $index].$error.required}"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Evening</p>
+
+                            <input name="eveningWork_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.workday.evening"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['eveningWork_' + $index].$error.required}"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                          </div>
+                          <div class="col-xs-12 col-sm-offset-2 col-sm-4">
+                            <p class="form-label-exp length">Saturday, Sunday</p>
+
+                            <p class="day-p">In the Morning</p>
+
+                            <input name="morningWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="morningWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.weekend.morning"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['morningWeek_' + $index].$error.required}"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Noon till Evening</p>
+
+                            <input name="dayWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="dayWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.weekend.day"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['dayWeek_' + $index].$error.required}"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+
+                            <p class="day-p">Evening</p>
+
+                            <input name="eveningWeek_{{$index}}"
+                                   class="login-form-control input-lg input-admin-forms admin-menu-dish-margin"
+                                   type="number"
+                                   id="eveningWeek"
+                                   placeholder="Average meal length"
+                                   ng-model="pickedLength.weekend.evening"
+                                   required="required"
+                                   ng-class="{'error-form' : submited && reservationsForm['eveningWeek_' + $index].$error.required}"
+                                   ng-change="reservations.lengthsChanged(pickedLength)"
+                                   min="15"
+                                   max="245"
+                                   step="15">
+                          </div>
+                        </div>
+                      </div>
+
+                    </ng-form>
+
+
+                  </div>
+
+                </uib-tab>
+
+              </uib-tabset>
+              <div class="alert-warning alert admin-warning" ng-repeat="error in rest.errorTables">
+                Could not delete <strong>{{error.amount}}</strong> tables for <strong>{{error.type}}</strong> because there are active reservations on those tables.
+              </div>
+
+              <div class="admin-rest-form">
+
+                <uib-progressbar class="progress-striped active" max="100" value="progress" type="danger" ng-show="progress && progress!==100">{{currentTask}}</uib-progressbar>
+
+                <div class="col-sm-offset-6 col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="reset" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="submited && progress>=15 && restaurantForm.$valid"
+                            >
+                      Save Restaurant
+                    </button>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </form>
+
+
+          </div>
+
+        </div>
+
+
+
+      </uib-tab>
+
+      <uib-tab index="2" heading="Locations" >
+
+        <div ng-controller="AdminLocationManipulationController">
+
+          <div ng-show="!view" >
+            <div class="card-admin-tabs">
+              <ul class="list-inline text-left admin-tabs">
+                <li   >
+                  <h5  class="admin-tab-name">Locations :</h5>
+                </li>
+
+                <li class="a-admin float-right" >
+                  <button class="btn btn-block admin-add-button" ng-click="changeView('Add')">Add Location</button>
+                </li>
+                <li class="a-admin float-right">
+                  <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
+                </li>
+              </ul>
+            </div>
+
+            <div class=" container-table"  >
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th class="col-xs-5">Name</th>
+                  <th class="col-xs-5">Country</th>
+                  <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in filterResults">
+                  <td>{{row.name}}</td>
+                  <td>{{row.country}}</td>
+                  <td class="icon-col">
+
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteLocation(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ></ul>
+
+          </div>
+
+          <div class="container card-admin-tabs " ng-show="view">
+
+            <!--add-->
+            <form name="LocationAddForm" class="admin-add-user" ng-show="add===true" ng-submit="changeLocation('Add')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="locationName" class="login-form-control input-lg input-admin-forms" placeholder="New Location Name" required>
+                    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="countryName" class="login-form-control input-lg input-admin-forms" placeholder="Existing or New Country Name" required>
+                  </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="LocationAddForm.$invalid">
+                      Create Location
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!--edit-->
+            <form name="LocationEditForm" class="admin-add-user" ng-show="edit===true" ng-submit="changeLocation('Edit')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="locationName" class="login-form-control input-lg input-admin-forms" placeholder="New Location Name" required>
+                    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                    <div ng-if="success" class="alert alert-success">{{success}}</div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <input type="text" maxlength="240" ng-model="countryName" class="login-form-control input-lg input-admin-forms" placeholder="Existing or New Country Name" required>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="LocationEditForm.$invalid">
+                      Save Location
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </uib-tab>
+
+      <uib-tab index="3" heading="Categories" >
+
+        <div ng-controller="AdminCategoryManipulationController as $cat">
+
+          <div ng-show="!view" >
+            <div class="card-admin-tabs">
+
+              <ul class="list-inline text-left admin-tabs">
+                <li   >
+                  <h5  class="admin-tab-name">Categories :</h5>
+                </li>
+
+                <li class="a-admin float-right"  >
+                  <button class="btn btn-block admin-add-button" ng-click="changeView('Add')">Add Category</button>
+                </li>
+                <li class="a-admin float-right" >
+                  <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
+                </li>
+              </ul>
+            </div>
+
+            <div class=" container-table"  >
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in filterResults">
+                  <td>{{row.name}}</td>
+
+                  <td class="icon-col">
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteCategory(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ></ul>
+
+          </div>
+
+          <div class="container card-admin-tabs " ng-show="view">
+
+            <!--add-->
+            <form name="CategoryForm" class="admin-add-user" ng-show="add===true" ng-submit="changeCategory('Add')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+
+                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" placeholder="New Category Name" required>
+                  <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                  <div ng-if="success" class="alert alert-success">{{success}}</div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="CategoryForm.$invalid">
+                      Create Category
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!--edit-->
+            <form name="CategoryForm" class="admin-add-user" ng-show="edit===true" ng-submit="changeCategory('Edit')" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+
+                  <input type="text" maxlength="240" ng-model="categoryName" class="login-form-control input-lg input-admin-forms" placeholder="Edit Category Name" required>
+                  <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                  <div ng-if="success" class="alert alert-success">{{success}}</div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="CategoryForm.$invalid">
+                      Save Category
+                    </button>
+
+                    <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </uib-tab>
+
+      <uib-tab index="4" heading="Users">
+
+        <div ng-controller="AdminUserManipulationController">
+
+          <div ng-show="!view" >
+            <div class="card-admin-tabs">
+
+              <ul class="list-inline text-left admin-tabs">
+                <li   >
+                  <h5  class="admin-tab-name">Users :</h5>
+                </li>
+
+                <li class="a-admin float-right"  >
+                  <button class="btn btn-block admin-add-button" ng-click="changeView('Add')">Add User</button>
+                </li>
+                <li class="a-admin float-right" >
+                  <input type="text" class="admin-search" ng-model="searchText" ng-change="filter()" maxlength=40 placeholder="Search" >
+                </li>
+              </ul>
+            </div>
+
+            <div class=" container-table"  >
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>Email</th>
+                  <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  ng-repeat="row in filterResults">
+                  <td>{{row.user_data.firstName}}</td>
+                  <td>{{row.user_data.lastName}}</td>
+                  <td>{{row.email}}</td>
+                  <td class="icon-col">
+                    <div class="btn-group logout-dropdown-div admin-delete" uib-dropdown  auto-close="outsideClick" is-open="isOpen">
+                      <span class="glyphicon glyphicon-pencil table-icon" ng-click="changeView('Edit', row)"></span>
+
+                      <a uib-dropdown-toggle ng-disabled="disabled" class="glyphicon glyphicon-trash table-icon"></a>
+
+                      <ul class="dropdown-menu logout-dropdown" uib-dropdown-menu role="menu" aria-labelledby="single-button" >
+                        <li>
+                          <h4>
+                            Are you sure you want to delete?
+                          </h4>
+                        </li>
+                        <li>
+                          <ul class="list list-inline">
+                            <li>
+                              <button class="logout-yes-button btn-block btn-home btn" ng-click="deleteUser(row); isOpen = false;">Yes</button>
+                            </li>
+                            <li>
+                              <button class="logout-no-button btn-block btn-home btn" ng-click="isOpen = false">No</button>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <ul uib-pagination total-items="numPages" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="filter()" ></ul>
+
+          </div>
+
+          <div class="container card-admin-tabs "  ng-show="view">
+            <form  name="registerForm" class="admin-add-user" ng-submit="addSubmit(registerForm.$valid)" novalidate>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <h5>First Name</h5>
+                  <div class="form-group formg">
+                    <input name="firstName"
+                           class="login-form-control input-lg input-admin-forms"
+                           type="text"
+                           id="firstName"
+                           placeholder="First Name"
+                           ng-model="firstName"
+                           required="required">
+                  </div>
+
+                  <h5>Last Name</h5>
+
+                  <div class="form-group formg">
+                    <input name="lastName"
+                           class="login-form-control input-lg input-admin-forms"
+                           type="text"
+                           id="lastName"
+                           placeholder="Last Name"
+                           ng-model="lastName"
+                           required="required"
+                    >
+                  </div>
+
+                  <h5>Email</h5>
+
+                  <div class="form-group formg"
+                       ng-class="{'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine}">
+                    <input name="email"
+                           class="login-form-control input-lg input-admin-forms "
+                           type="email"
+                           id="email"
+                           placeholder="Email"
+                           ng-model="email"
+                           required="required">
+                    <p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                  </div>
+
+                  <h5>Phone</h5>
+
+                  <div class="form-group formg"
+                       ng-class="{'has-error' : registerForm.phone.$touched && !registerForm.phone.$pristine && !registerForm.phone.$valid  }">
+                    <input name="phone"
+                           class="login-form-control input-lg input-admin-forms "
+                           type="text" id="phone"
+                           placeholder="Phone Number"
+                           ng-model="phone"
+                           ng-minlength="9"
+                           required="required">
+
+                    <p ng-show="registerForm.phone.$touched && !registerForm.phone.$pristine && !registerForm.phone.$valid" class="help-block">Phone number must be at least 9 cases long.</p>
+                  </div>
+
+
+
+                  <div class="row no-gutters">
+                    <div class="col-sm-6  formg">
+                      <h5>Country</h5>
+
+                      <select class="custom-select login-form-control input-lg input-admin-forms"
+                              ng-model="country"
+                              ng-options="c.country_name for c in locations"
+                              required="required">
+                        <option value="" disabled selected>Country</option>
+                      </select>
+                    </div>
+
+                    <div class="col-sm-6 formg ">
+                      <h5>City</h5>
+
+                      <select class=" login-form-control input-lg input-admin-forms"
+                              ng-model="city"
+                              ng-options="d.name.valueOf() for d in country.city_names"
+                              required="required">
+                        <option value="" disabled selected>City</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <h5 ng-show="edit">Change Password</h5>
+                  <input ng-show="edit" type="checkbox" class="radio" ng-model="editPassword" ng-change="password=null; confirmPassword=null;">
+                  <h5>Password</h5>
+
+                  <div class="form-group formg"
+                       ng-class="{'has-error' : registerForm.password.$touched && !registerForm.password.$pristine && !registerForm.password.$valid }">
+                    <input name="password"
+                           class="login-form-control input-lg input-admin-forms "
+                           type="password"
+                           id="password"
+                           placeholder="Password"
+                           ng-model="password"
+                           ng-required="!edit || editPassword"
+                           minlength=5
+                           ng-disabled="edit && !editPassword">
+                    <p ng-show="editPassword && registerForm.password.$touched && !registerForm.password.$pristine && !registerForm.password.$valid" class="help-block">Password needs to be at least 5 characters long!</p>
+
+                  </div>
+
+                  <h5>Confirm Password</h5>
+
+                  <div class="form-group formg bottom"
+                       ng-class="{'has-error' : registerForm.confirmPassword.$touched   && confirmPassword!=password || !registerForm.confirmPassword.$pristine && !registerForm.confirmPassword.$valid }">
+                    <input name="confirmPassword"
+                           class="login-form-control input-lg input-admin-forms"
+                           type="password"
+                           id="confirmPassword"
+                           placeholder="Confirm Password"
+                           ng-model="confirmPassword"
+                           ng-required="!edit || editPassword"
+                           minlength=5
+                           ng-disabled="edit && !editPassword">
+
+
+                    <p ng-show=" registerForm.confirmPassword.$touched  && confirmPassword!=password" class="help-block">Passwords do not match.</p>
+                  </div>
+
+
+                  <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                  <div ng-if="success" class="alert alert-success">{{success}}</div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 button-admin-add-user">
+
+                  <div class="col-xs-12 col-sm-6">
+                    <button class="btn admin-menu-add btn-block" type="button" ng-click="cancel()">
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <button type="submit"
+                            class="btn btn-primary btn-block no-border btn-lg input-admin-forms btn-submit"
+                            ng-disabled="registerForm.$invalid">
+                      Save User
+                    </button>
+                    <div>
+                      <img class="center-block loading" src="../images/ajax-loader.gif" ng-show="loading" />
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+
+      </uib-tab>
+
+    </uib-tabset >
+
+
+  </div>
+</body>
