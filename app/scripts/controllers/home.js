@@ -9,7 +9,19 @@
  */
 angular.module('clientApp')
 
-  .controller('HomeController', function ($scope, $http, SessionStorageService, $location, RestaurantService){
+  .controller('HomeController', function ($scope, $http, SessionStorageService, $location, RestaurantService, GeometryService){
+
+    $scope.closeRests=54;
+    GeometryService.getNumberForHome(function (number) {
+      if(number!==-1){
+        $scope.closeRests= number.data;
+        $scope.noGeoLoc=false;
+      }
+      else{
+        $scope.noGeoLoc=true;
+      }
+
+    });
 
     $scope.dishes = [
       {
