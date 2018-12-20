@@ -12,7 +12,7 @@ angular.module('clientApp')
 
     return {
       getAdministrationCounters: function (callback) {
-        $http.get('/app/admin/getAdministrationCounters')
+        $http.get('https://ridvansrestaurantserver.herokuapp.com/app/admin/getAdministrationCounters')
           .then(function onSuccess(response) {
             callback(response.data);
           })

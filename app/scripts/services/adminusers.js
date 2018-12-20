@@ -12,7 +12,7 @@ angular.module('clientApp')
 
     return {
       editUser: function (payload, callback) {
-        $http.post('/app/admin/editUser', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/editUser', payload)
           .then(function onSuccess(response) {
             callback(response.data);
           })
@@ -23,7 +23,7 @@ angular.module('clientApp')
       },
 
       deleteUser: function (payload, callback) {
-        $http.post('/app/admin/adminDeleteUser', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/adminDeleteUser', payload)
           .then(function onSuccess(response) {
             callback(response);
           })

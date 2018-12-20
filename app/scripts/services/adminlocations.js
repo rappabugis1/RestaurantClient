@@ -12,7 +12,7 @@ angular.module('clientApp')
 
     return {
       addLocation: function (payload, callback) {
-        $http.post('/app/admin/addLocation', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/addLocation', payload)
           .then(function onSuccess(response) {
             callback(response.data);
           })
@@ -23,7 +23,7 @@ angular.module('clientApp')
       },
 
       editLocation: function (payload, callback) {
-        $http.post('/app/admin/editLocation', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/editLocation', payload)
           .then(function onSuccess(response) {
             callback(response.data);
           })
@@ -34,7 +34,7 @@ angular.module('clientApp')
       },
 
       getLocationDetails: function (payload, callback) {
-        $http.post('/app/admin/getLocationDetails', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/getLocationDetails', payload)
           .then(function onSuccess(response) {
             callback(response.data);
           })
@@ -45,7 +45,7 @@ angular.module('clientApp')
       },
 
       getLocationsForSelect : function (callback) {
-        $http.get('/app/getLocationsForSelect')
+        $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getLocationsForSelect')
           .then(function onSuccess(response) {
             callback(response);
           })
@@ -56,7 +56,7 @@ angular.module('clientApp')
       },
 
       deleteLocation : function (payload, callback) {
-        $http.post('/app/admin/deleteLocation', payload).then(function (response) {
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/deleteLocation', payload).then(function (response) {
           callback(response);
         });
       }

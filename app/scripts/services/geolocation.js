@@ -33,7 +33,7 @@ angular.module('clientApp')
       getNumberForHome: function (callback) {
 
         getCurrentPosition().then(function (response) {
-          $http.post('/app/getCloseRestNumber', {longitude: response.coords.longitude, latitude: response.coords.latitude, radius: 15000})
+          $http.post('https://ridvansrestaurantserver.herokuapp.com/app/getCloseRestNumber', {longitude: response.coords.longitude, latitude: response.coords.latitude, radius: 15000})
             .then(function (response) {
               callback(response);
             });

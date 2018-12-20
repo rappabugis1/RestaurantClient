@@ -12,7 +12,7 @@ angular.module('clientApp')
 
     return {
       addCategory: function (payload, callback) {
-        $http.post('/app/admin/addCategory', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/addCategory', payload)
           .then(function onSuccess(response) {
             callback(response);
           })
@@ -22,7 +22,7 @@ angular.module('clientApp')
       },
 
       editCategory: function (payload, callback) {
-        $http.post('/app/admin/editCategory', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/editCategory', payload)
           .then(function onSuccess(response) {
             callback(response);
           })
@@ -33,7 +33,7 @@ angular.module('clientApp')
       },
 
       getCategoryDetails: function (payload, callback) {
-        $http.post('/app/admin/getCategoryDetails', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/getCategoryDetails', payload)
           .then(function onSuccess(response) {
             callback(response);
           })
@@ -43,7 +43,7 @@ angular.module('clientApp')
           })
       },
       getAllCategories: function (callback) {
-        $http.get('/app/getAllCategories')
+        $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getAllCategories')
           .then(function onSuccess(response) {
             callback(response);
           })
@@ -54,7 +54,7 @@ angular.module('clientApp')
       },
 
       deleteCategory : function (payload,callback) {
-        $http.post('/app/admin/deleteCategory', payload).then(function (response) {
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/deleteCategory', payload).then(function (response) {
           callback(response);
         });
       }

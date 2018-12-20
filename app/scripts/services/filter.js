@@ -12,7 +12,7 @@ angular.module('clientApp')
 
     return {
       getFilterResult: function (payload, callback) {
-        $http.post('/app/getRestaurantsByFilter', payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/getRestaurantsByFilter', payload)
       .then(function onSucces(response) {
 
           //If succesfull return data
@@ -26,7 +26,7 @@ angular.module('clientApp')
       },
 
       getAllCategories:function (callback) {
-        $http.get('/app/getAllCategories')
+        $http.get('https://ridvansrestaurantserver.herokuapp.com/app/getAllCategories')
           .then(function onSucces(response) {
 
             //If succesfull return data
@@ -40,7 +40,7 @@ angular.module('clientApp')
       },
 
       getAdminFilter: function (filterType, payload, callback) {
-        $http.post('/app/admin/getFiltered'+filterType , payload)
+        $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/getFiltered'+filterType , payload)
           .then(function onSuccess(response) {
             callback(response);
           })
