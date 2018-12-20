@@ -58,7 +58,7 @@ angular.module('clientApp')
             callback(response);
           });
         }else{
-          $http.post('/app/admin/addRestaurant', payload) .then( function onSucces(response){
+          $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/addRestaurant', payload) .then( function onSucces(response){
             callback(response);
           });
         }
