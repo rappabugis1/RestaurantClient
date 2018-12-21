@@ -202,6 +202,7 @@ angular.module('clientApp')
         $scope.pickedCategories.push(category.name);
         $scope.pickedCatPayload.push(category.id);
       }
+
     };
 
     $scope.deleteCategory = function (index) {
@@ -632,7 +633,7 @@ angular.module('clientApp')
 
       validateBasicDetails();
 
-      if(isValid && $scope.pickedCatPayload.length>0 && validateDishes()){
+      if(isValid && $scope.pickedCatPayload.length>0){
 
         $scope.progress=15;
         $scope.currentTask="Uploading images...";

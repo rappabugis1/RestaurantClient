@@ -210,7 +210,7 @@
 
                           </div>
                           <div class="col-xs-12 col-sm-offset-9 col-sm-3 no-padding">
-                            <select class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv && submited}">
+                            <select name="selectCat" class="admin-add-categories-select login-form-control input-lg input-admin-forms  " ng-model="pickedCategory" ng-options="category.name for category in categories track by category.name" ng-change="pickCategory(pickedCategory); " ng-class="{'error-form' : rest.restCatInv && submited}">
                               <option value="" disabled selected>Categories</option>
                             </select>
                           </div>
@@ -581,6 +581,7 @@
                       Save Restaurant
                     </button>
                     <div ng-if="success" class="alert alert-success">{{success}}</div>
+                    <div ng-if="!restaurantForm.$valid && submited" class="alert alert-danger">Form has invalid fields!</div>
 
 
                     <!--<img class="center-block loading" src="../images/ajax-loader.gif" ng-show="!loading" /> -->
