@@ -395,7 +395,7 @@ angular.module('clientApp')
 
 
       this.addNewDish = function (menuType) {
-        this.dishesList.push({name: "", description: "", price: "", dishType: "", menuType: menuType})
+        this.dishesList.push({name: "", description: "", price: "", dishType: "Type", menuType: menuType})
       };
 
       this.removeDish = function(index) {
@@ -632,7 +632,7 @@ angular.module('clientApp')
 
       validateBasicDetails();
 
-      if(isValid && $scope.pickedCatPayload.length>0){
+      if(isValid && $scope.pickedCatPayload.length>0 && validateDishes()){
 
         $scope.progress=15;
         $scope.currentTask="Uploading images...";

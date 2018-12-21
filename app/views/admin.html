@@ -316,8 +316,8 @@
                                   ng-model="dish.dishType"
                                   required="required"
                                   ng-change="dishes.editDish(dishes.dishesList.indexOf(dish))"
-                                  ng-options="dishType for dishType in dishTypes"
-                                  ng-class="{'error-form' :  menuForm['dishType_'+radioModel+'_' + $index].$error.required && submited}"
+                                  ng-options="dishType disable when dishType==='Type' for dishType in dishTypes"
+                                  ng-class="{'error-form' :  dish.dishType==='Type' && submited}"
 
                           >
                           </select>
