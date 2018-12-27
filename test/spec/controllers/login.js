@@ -13,7 +13,6 @@ describe('Controller: LoginCtrl', function () {
     scope = $rootScope.$new();
     LoginCtrl = $controller('LoginController', {
       $scope: scope
-      // place here mocked dependencies
     });
   }));
 

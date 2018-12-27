@@ -54,6 +54,7 @@ angular.module('clientApp')
 
       adminSaveRestaurant : function (payload, callback) {
         if(payload.id){
+
           $http.post('https://ridvansrestaurantserver.herokuapp.com/app/admin/editRestaurant', payload) .then( function onSucces(response){
             callback(response);
           });

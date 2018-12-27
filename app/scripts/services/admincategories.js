@@ -59,6 +59,5 @@ angular.module('clientApp')
         });
       }
 
-      //TODO delete
     };
   });
