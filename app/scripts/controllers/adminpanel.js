@@ -84,9 +84,9 @@ angular.module('clientApp')
 
       if(changeType==='Edit') {
         $scope.edit = true;
-
         //Get restaurant data
         RestaurantService.getAdminDetails({id: restaurant.id}, function (response) {
+
 
           $scope.idRestaurant= response.data.basicDetails.id;
 
@@ -96,19 +96,12 @@ angular.module('clientApp')
           $scope.map.center.latitude=response.data.basicDetails.latitude;
           $scope.map.center.longitude=response.data.basicDetails.longitude;
 
+
           //update basic info
           rest.restaurantName = response.data.basicDetails.restaurantName;
           rest.priceRange = $scope.priceRanges[response.data.basicDetails.priceRange-1];
           rest.resDescription =response.data.basicDetails.description;
 
-          $scope.locations.forEach(function (country) {
-            country.city_names.forEach(function(city){
-              if(city.name===response.data.location){
-                $scope.country=country;
-                rest.city=city;
-              }
-            })
-          });
 
           response.data.categories.forEach(function(val){
             $scope.pickedCategories.push(val.name);
@@ -144,7 +137,18 @@ angular.module('clientApp')
             $scope.reservations.addExistingLength(len);
           });
 
+          $scope.locations.forEach(function (country) {
+            country.city_names.forEach(function(city){
+              if(city.name===response.data.location){
+                $scope.country=country;
+                rest.city=city;
+              }
+            });
+          });
+
         });
+
+
 
       }
       else
